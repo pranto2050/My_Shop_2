@@ -1,0 +1,256 @@
+.section {
+  background: var(--parchment-2);
+  padding: var(--section-py) 0;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.section.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+.layout {
+  display: flex;
+  gap: clamp(40px, 8vw, 100px);
+  align-items: center;
+}
+
+/* Left Column */
+.infoCol {
+  flex: 1;
+  max-width: 500px;
+}
+
+.label {
+  display: block;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 16px;
+  color: var(--honey);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.heading {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  color: var(--walnut-deep);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.divider {
+  width: 60px;
+  height: 3px;
+  background: var(--honey);
+  margin-bottom: 40px;
+  border-radius: 2px;
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.iconWrapper {
+  width: 48px;
+  height: 48px;
+  background: var(--linen);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.infoItem:hover .iconWrapper {
+  background: var(--walnut);
+  border-color: var(--walnut-deep);
+}
+
+.icon {
+  font-size: 20px;
+  color: var(--honey);
+  transition: color 0.3s ease;
+}
+
+.infoItem:hover .icon {
+  color: var(--parchment);
+}
+
+.infoText h4 {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--walnut-deep);
+  margin-bottom: 4px;
+}
+
+.infoText p {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 15px;
+  color: var(--bark-mid);
+  line-height: 1.6;
+}
+
+.waButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--whatsapp);
+  color: white;
+  padding: 16px 36px;
+  border-radius: var(--radius-pill);
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.waButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
+  filter: brightness(1.05);
+}
+
+.waIcon {
+  font-size: 24px;
+}
+
+/* Right Column - Map */
+.mapCol {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.mapCard {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 500px;
+  background: var(--walnut);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.mapCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 10px);
+  opacity: 0.5;
+}
+
+.mapContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  background: var(--parchment);
+  padding: 40px 32px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  width: 80%;
+  max-width: 320px;
+}
+
+.mapIconBig {
+  font-size: 48px;
+  color: var(--sienna);
+  margin-bottom: 16px;
+  animation: floatY 3s ease-in-out infinite;
+}
+
+.mapContent h3 {
+  font-family: 'Rozha One', serif;
+  font-size: 24px;
+  color: var(--walnut-deep);
+  margin-bottom: 8px;
+}
+
+.mapContent p {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 14px;
+  color: var(--bark-mid);
+  margin-bottom: 24px;
+}
+
+.mapLink {
+  display: inline-block;
+  padding: 10px 24px;
+  background: var(--honey);
+  color: var(--bark);
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.mapLink:hover {
+  background: var(--honey-light);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+  .layout {
+    flex-direction: column;
+  }
+  .infoCol {
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .divider {
+    margin: 0 auto 40px;
+  }
+  .infoItem {
+    text-align: left;
+  }
+  .mapCol {
+    width: 100%;
+  }
+  .mapCard {
+    aspect-ratio: 16/9;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .mapCard {
+    aspect-ratio: 4/3;
+  }
+  .mapContent {
+    padding: 32px 20px;
+    width: 90%;
+  }
+}

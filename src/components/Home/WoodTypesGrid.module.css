@@ -1,0 +1,123 @@
+.section {
+  background: var(--walnut-deep);
+  padding: var(--section-py) 0;
+  clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
+  position: relative;
+  z-index: 10;
+  margin: 40px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.section.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heading {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(2.5rem, 4vw, 3.8rem);
+  color: var(--parchment);
+  margin-bottom: var(--gap);
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
+  width: 100%;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--honey);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.iconWrapper {
+  margin-bottom: 20px;
+}
+
+.icon {
+  font-size: 48px;
+  color: var(--honey);
+}
+
+.name {
+  font-family: 'Rozha One', serif;
+  font-size: 22px;
+  color: var(--parchment);
+  margin-bottom: 12px;
+}
+
+.desc {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 14px;
+  color: var(--parchment-2);
+  opacity: 0.8;
+  line-height: 1.6;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+.badge {
+  font-family: 'Bebas Neue', cursive;
+  background: var(--honey);
+  color: var(--bark);
+  padding: 4px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%);
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .card {
+    padding: 24px 16px;
+  }
+  .icon {
+    font-size: 36px;
+  }
+  .name {
+    font-size: 18px;
+  }
+  .desc {
+    font-size: 12px;
+  }
+}

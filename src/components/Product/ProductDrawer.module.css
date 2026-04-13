@@ -1,0 +1,428 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(59, 31, 12, 0.55);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  animation: overlayIn 0.4s ease forwards;
+}
+
+.fadeOut {
+  animation: overlayOut 0.4s ease forwards;
+}
+
+.drawer {
+  width: min(580px, 96vw);
+  height: 100vh;
+  background: var(--parchment);
+  box-shadow: -8px 0 40px rgba(91, 49, 24, 0.2);
+  display: flex;
+  flex-direction: column;
+  animation: drawerIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.slideOut {
+  animation: drawerOut 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlayOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes drawerIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes drawerOut {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+/* HEADER */
+.header {
+  height: 60px;
+  background: var(--parchment-2);
+  border-bottom: 2px solid var(--honey);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.productId {
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+  color: var(--walnut-deep);
+  background: rgba(212, 136, 42, 0.15);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  color: var(--honey);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.iconBtn:hover {
+  color: var(--walnut-deep);
+}
+
+.headerCenter {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--walnut-deep);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--walnut);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.closeBtn:hover {
+  color: var(--honey);
+  transform: rotate(90deg);
+}
+
+/* CONTENT AREA */
+.contentArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+/* IMAGE SECTION */
+.imageSection {
+  margin-bottom: 24px;
+}
+
+.mainImageWrapper {
+  width: 100%;
+  aspect-ratio: 4/3;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.mainImage {
+  object-fit: cover;
+}
+
+.thumbnailRow {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.thumbnailWrapper {
+  width: 80px;
+  height: 68px;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.thumbnailWrapper.activeThumb {
+  border-color: var(--honey);
+  box-shadow: 0 4px 12px rgba(212, 136, 42, 0.3);
+}
+
+.thumbnail {
+  object-fit: cover;
+}
+
+/* DETAILS SECTION */
+.detailsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.productName {
+  font-family: 'Rozha One', serif;
+  font-size: 28px;
+  color: var(--walnut-deep);
+  line-height: 1.2;
+}
+
+.ratingRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  font-size: 14px;
+}
+
+.reviewCount {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 14px;
+  color: var(--bark-soft);
+}
+
+.priceBlock {
+  border-left: 4px solid var(--honey);
+  padding-left: 18px;
+  margin: 8px 0;
+}
+
+.currentPrice {
+  font-family: 'Rozha One', serif;
+  font-size: 38px;
+  color: var(--walnut);
+  line-height: 1;
+}
+
+.oldPriceRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.oldPrice {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 16px;
+  color: var(--bark-soft);
+  text-decoration: line-through;
+}
+
+.discountBadge {
+  font-family: 'Bebas Neue', cursive;
+  background: var(--sienna);
+  color: var(--parchment);
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+
+.divider {
+  height: 1px;
+  background: var(--linen-dark);
+  width: 100%;
+}
+
+.specsGrid {
+  display: flex;
+  flex-direction: column;
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  padding: 12px 16px;
+  align-items: center;
+}
+
+.specRow:nth-child(odd) {
+  background: var(--parchment);
+}
+
+.specRow:nth-child(even) {
+  background: var(--parchment-2);
+  border-radius: 6px;
+}
+
+.specLabel {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 13px;
+  color: var(--bark-soft);
+}
+
+.specValue {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 14px;
+  color: var(--bark);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inStock {
+  color: var(--moss);
+}
+
+.stockIcon {
+  font-size: 14px;
+}
+
+.description {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 14px;
+  color: var(--bark-mid);
+  line-height: 1.8;
+}
+
+.quantitySection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.quantityLabel {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 15px;
+  color: var(--walnut-deep);
+  font-weight: 600;
+}
+
+.quantityControls {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--walnut);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.qtyBtn {
+  background: transparent;
+  border: none;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--walnut);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.qtyBtn:hover:not(:disabled) {
+  background: rgba(212, 136, 42, 0.1);
+  color: var(--honey);
+}
+
+.qtyBtn:disabled {
+  color: var(--linen-dark);
+  cursor: not-allowed;
+}
+
+.qtyValue {
+  font-family: 'Fira Code', monospace;
+  font-size: 16px;
+  color: var(--walnut-deep);
+  width: 40px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* BOTTOM ACTION BAR */
+.bottomBar {
+  background: var(--parchment-2);
+  border-top: 2px solid var(--honey);
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.waOrderBtn {
+  width: 100%;
+  height: 52px;
+  background: var(--whatsapp);
+  color: white;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+}
+
+.waOrderBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
+  filter: brightness(1.05);
+}
+
+.waOrderIcon {
+  font-size: 20px;
+}
+
+.copyInfoLink {
+  background: none;
+  border: none;
+  color: var(--bark-mid);
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 8px;
+}
+
+.copyInfoLink:hover {
+  color: var(--honey);
+}
+
+@media (max-width: 600px) {
+  .drawer {
+    width: 100vw;
+  }
+  .productName {
+    font-size: 24px;
+  }
+  .currentPrice {
+    font-size: 32px;
+  }
+  .contentArea {
+    padding: 16px;
+  }
+}

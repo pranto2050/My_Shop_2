@@ -1,0 +1,305 @@
+.hero {
+  height: 100vh;
+  min-height: 620px;
+  background-color: var(--parchment-2);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.hero.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.outerGrid {
+  display: flex;
+  height: 100%;
+}
+
+.leftStrip {
+  width: 8%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--linen-dark);
+}
+
+.verticalText {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-bebas);
+  font-size: 16px;
+  color: var(--honey);
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+}
+
+.verticalLine {
+  width: 1px;
+  height: 60px;
+  background-color: var(--honey);
+  opacity: 0.5;
+}
+
+.mainArea {
+  width: 92%;
+  display: flex;
+}
+
+@media (max-width: 1024px) {
+  .leftStrip { display: none; }
+  .mainArea { width: 100%; flex-direction: column; }
+}
+
+.contentColumn {
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 5%;
+  position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 1024px) {
+  .contentColumn { width: 100%; height: 50%; padding: 40px var(--container-px); }
+}
+
+.sectionLabel {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: var(--font-bebas);
+  font-size: 13px;
+  color: var(--honey);
+  letter-spacing: 0.1em;
+  margin-bottom: 30px;
+}
+
+.line {
+  width: 40px;
+  height: 1px;
+  background-color: var(--honey);
+}
+
+.headingBlock {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.h1 { font-family: var(--font-rozha); font-size: 68px; color: var(--walnut-deep); line-height: 1.1; }
+.h2 { 
+  font-family: var(--font-rozha); 
+  font-size: 80px; 
+  background: linear-gradient(135deg, var(--walnut), var(--honey));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+.h3 { font-family: var(--font-rozha); font-size: 68px; color: var(--walnut-deep); font-style: italic; line-height: 1.1; }
+
+.handwrittenUnderline {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 200px;
+}
+
+.description {
+  font-family: var(--font-noto);
+  font-size: 16px;
+  color: var(--bark-mid);
+  line-height: 1.9;
+  max-width: 420px;
+  margin-bottom: 40px;
+}
+
+.priceBlock {
+  border-left: 5px solid var(--honey);
+  padding-left: 20px;
+  margin-bottom: 40px;
+}
+
+.priceLabel { font-family: var(--font-bebas); font-size: 14px; color: var(--bark-soft); }
+.priceValue { font-family: var(--font-rozha); font-size: 52px; color: var(--walnut); line-height: 1; margin: 5px 0; }
+.priceSuffix { font-family: var(--font-noto); font-size: 14px; color: var(--bark-soft); }
+
+.ctaRow {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, var(--walnut), var(--honey));
+  color: var(--parchment);
+  padding: 0 30px;
+  height: 54px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-noto);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-md);
+}
+
+.primaryBtn:hover {
+  background: linear-gradient(135deg, var(--honey), var(--walnut));
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.outlineBtn {
+  border: 2px solid var(--walnut);
+  color: var(--walnut);
+  padding: 0 30px;
+  height: 54px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-noto);
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+.outlineBtn:hover {
+  background-color: var(--linen);
+}
+
+.trustRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-fira);
+  font-size: 13px;
+  color: var(--bark-soft);
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  background-color: var(--honey);
+  border-radius: 50%;
+}
+
+.sliderControls {
+  margin-top: 40px;
+}
+
+.segments {
+  display: flex;
+  gap: 10px;
+}
+
+.segment {
+  width: 30px;
+  height: 4px;
+  background-color: var(--linen-dark);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.activeSegment {
+  width: 50px;
+  background-color: var(--honey);
+}
+
+.imageColumn {
+  width: 55%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .imageColumn { width: 100%; height: 50%; }
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 0 80px;
+  overflow: hidden;
+  animation: floatY 5s ease-in-out infinite;
+}
+
+.heroImage {
+  object-fit: cover;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.cardA {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  width: 200px;
+  background-color: var(--parchment);
+  padding: 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  outline: 2px solid var(--honey);
+  outline-offset: 4px;
+  animation: fadeUp 1s 0.5s both;
+  z-index: 20;
+}
+
+.cardAContent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cardAName { font-family: var(--font-noto); font-weight: 700; font-size: 14px; color: var(--bark); }
+.cardAPrice { font-family: var(--font-rozha); font-size: 20px; color: var(--walnut); }
+.cardAWA {
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  width: 40px;
+  height: 40px;
+  background-color: var(--whatsapp);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardB {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  width: 70px;
+  height: 70px;
+  background-color: var(--walnut);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--parchment);
+  z-index: 20;
+}
+
+.ratingValue { font-family: var(--font-rozha); font-size: 22px; }
+.stars { font-size: 8px; color: var(--honey); }
+
+.decorativeCircle {
+  position: absolute;
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%);
+  width: 200px;
+  height: 200px;
+  border: 2px dashed rgba(212, 136, 42, 0.3);
+  border-radius: 50%;
+  z-index: 5;
+}

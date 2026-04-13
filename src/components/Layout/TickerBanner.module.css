@@ -1,0 +1,28 @@
+.tickerWrapper {
+  height: 38px;
+  background-color: var(--walnut);
+  color: var(--parchment);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1000;
+}
+
+.tickerContent {
+  display: flex;
+  white-space: nowrap;
+  animation: tickerMove 30s linear infinite;
+  gap: 40px;
+}
+
+.tickerContent span {
+  font-family: var(--font-noto);
+  font-size: 14px;
+  padding: 0 20px;
+}
+
+@keyframes tickerMove {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
