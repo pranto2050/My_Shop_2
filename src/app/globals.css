@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   /* NEW COLOR PALETTE (Warm Grain Editorial) */
   --walnut:       #7C4B2A;   /* rich walnut — primary brand */

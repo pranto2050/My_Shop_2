@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { ToastProvider } from '../context/ToastContext';
 import { AdminProvider } from '../context/AdminContext';
 import WorkshopLoader from '../components/Loader/WorkshopLoader';
@@ -14,19 +15,28 @@ import ToastStack from '../components/UI/ToastStack';
 export default function RootClientLayout({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
+  const pathname = usePathname();
+  const isAdminRoute = pathname?.startsWith('/admin');
 
   useEffect(() => {
+    if (isAdminRoute) {
+      setIsLoading(false);
+      return undefined;
+    }
+
     const timer = setTimeout(() => {
       setIsExiting(true);
       setTimeout(() => setIsLoading(false), 650);
     }, 4200);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isAdminRoute]);
 
   return (
     <ToastProvider>
       <AdminProvider>
-        {isLoading ? (
+        {isAdminRoute ? (
+          children
+        ) : isLoading ? (
           <WorkshopLoader isExiting={isExiting} />
         ) : (
           <>
