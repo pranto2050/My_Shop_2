@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ToastProvider } from '../context/ToastContext';
 import { AdminProvider } from '../context/AdminContext';
 import WorkshopLoader from '../components/Loader/WorkshopLoader';
@@ -26,14 +26,19 @@ export default function RootClientLayout({ children }) {
   return (
     <ToastProvider>
       <AdminProvider>
-        {isLoading && <WorkshopLoader isExiting={isExiting} />}
-        <TickerBanner />
-        <SiteHeader />
-        <main>{children}</main>
-        <SiteFooter />
-        <FloatingWA />
-        <ScrollTop />
-        <ToastStack />
+        {isLoading ? (
+          <WorkshopLoader isExiting={isExiting} />
+        ) : (
+          <>
+            <TickerBanner />
+            <SiteHeader />
+            <main>{children}</main>
+            <SiteFooter />
+            <FloatingWA />
+            <ScrollTop />
+            <ToastStack />
+          </>
+        )}
       </AdminProvider>
     </ToastProvider>
   );
