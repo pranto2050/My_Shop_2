@@ -1,12 +1,14 @@
 'use client'
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
 import { categories } from '../../../data/categories';
 import styles from './SmartSearchBlock.module.css';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 
 const SmartSearchBlock = () => {
+  const router = useRouter();
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('');
   const [minPrice, setMinPrice] = useState('');
@@ -16,8 +18,15 @@ const SmartSearchBlock = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Search logic here
-    console.log({ query, category, minPrice, maxPrice });
+    const params = new URLSearchParams();
+
+    if (query.trim()) params.set('q', query.trim());
+    if (category) params.set('category', category);
+    if (minPrice) params.set('min', minPrice);
+    if (maxPrice) params.set('max', maxPrice);
+
+    const queryString = params.toString();
+    router.push(queryString ? `/search?${queryString}` : '/search');
   };
 
   return (
