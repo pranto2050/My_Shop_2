@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useAdmin } from './context/AdminContext'
-import { FaFileExport, FaCopy, FaDownload, FaCheck, FaInfoCircle, FaBox, FaLayerGroup, FaCamera, FaPalette } from 'react-icons/fa6'
+import { FaFileExport, FaCopy, FaDownload, FaCheck, FaCircleInfo, FaBox, FaLayerGroup, FaCamera, FaPalette } from 'react-icons/fa6'
 import styles from './ExportPanel.module.css'
 
 export default function ExportPanel() {
@@ -100,7 +100,7 @@ export default function ExportPanel() {
 
       <div className={styles.instructions}>
         <div className={styles.instrHeader}>
-          <FaInfoCircle />
+          <FaCircleInfo />
           <h2>কিভাবে ডেটা আপডেট করবেন?</h2>
         </div>
         <ol className={styles.instrList}>

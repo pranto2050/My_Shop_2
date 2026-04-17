@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useAdmin } from './context/AdminContext'
-import { FaPlus, FaSearch, FaFilter, FaPencil, FaTrash, FaChevronLeft, FaChevronRight } from 'react-icons/fa6'
+import { FaPlus, FaMagnifyingGlass, FaFilter, FaPencil, FaTrash, FaChevronLeft, FaChevronRight } from 'react-icons/fa6'
 import ConfirmDialog from '../UI/ConfirmDialog'
 import styles from './ProductsPanel.module.css'
 
@@ -79,7 +79,7 @@ export default function ProductsPanel() {
         </div>
         <div className={styles.headerActions}>
           <div className={styles.searchBox}>
-            <FaSearch />
+            <FaMagnifyingGlass />
             <input 
               type="text" 
               placeholder="পণ্য খুঁজুন..." 
