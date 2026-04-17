@@ -1,0 +1,1486 @@
+Design and build a complete, stunning Admin Panel for "মা ফার্নিচার" 
+furniture shop. This is a standalone Next.js admin dashboard with 
+world-class UI design. Every pixel must feel premium, intentional, 
+and warm — wood-toned, never dark or cold.
+
+═══════════════════════════════════════════════════════════════════════
+BUSINESS INFO
+═══════════════════════════════════════════════════════════════════════
+
+Shop Name  : মা ফার্নিচার (Ma Furniture)
+Address    : কুষ্টিয়া, দৌলতপুর, সাতারপাড়া বাজার
+Phone      : +8801729728818
+WhatsApp   : +8801979728818
+Admin Pass : mafurniture2024
+
+═══════════════════════════════════════════════════════════════════════
+TECH STACK
+═══════════════════════════════════════════════════════════════════════
+
+Framework   : Next.js 14 (App Router)
+Language    : JavaScript (no TypeScript)
+Styling     : CSS Modules + Global CSS (NO Tailwind, NO Bootstrap)
+State       : React useState / useEffect / useContext / useReducer
+Icons       : react-icons (fa6, gi, tb, md sets)
+Fonts       : next/font/google:
+              "Rozha One"        → headings, numbers
+              "Noto Sans Bengali" → all Bangla text, body
+              "Bebas Neue"       → labels, badges, caps
+              "Fira Code"        → IDs, numbers, code values
+Data        : JS arrays in /data/ (no database, no API)
+Charts      : Pure CSS (no chart libraries)
+
+═══════════════════════════════════════════════════════════════════════
+DESIGN CONCEPT — "WARM WORKSHOP DASHBOARD"
+═══════════════════════════════════════════════════════════════════════
+
+Theme: A master craftsman's workshop logbook meets a modern SaaS 
+dashboard. Warm parchment backgrounds, rich walnut browns, honey 
+gold accents, wood grain textures on every surface. Feels like 
+you're managing a premium handcrafted furniture business.
+
+NEVER USE: Black, dark grey, navy, cold blues, or purple.
+NEVER USE: Generic grey dashboard aesthetics.
+MUST FEEL: Warm, premium, crafted, trustworthy, Bengali artisan.
+
+COLOR PALETTE:
+  --walnut:        #7C4B2A   /* primary walnut */
+  --walnut-deep:   #5A3118   /* deep walnut — sidebar bg */
+  --walnut-mid:    #8B5E3C   /* medium walnut */
+  --walnut-soft:   #9E6644   /* soft walnut */
+  --honey:         #D4882A   /* honey gold — primary accent */
+  --honey-light:   #EDB96A   /* pale honey */
+  --honey-pale:    #F7DFA0   /* very pale honey */
+  --sienna:        #B5541E   /* burnt sienna — danger/delete */
+  --sienna-pale:   #F5DDD5   /* pale sienna bg */
+  --moss:          #4A7C59   /* forest green — success/stock */
+  --moss-pale:     #D5EAD9   /* pale moss bg */
+  --amber:         #C8780A   /* deep amber — warning */
+  --amber-pale:    #FDF0D5   /* pale amber bg */
+  --parchment:     #FDF6E8   /* main bg — warmest white */
+  --parchment-2:   #F7EBCF   /* panel bg */
+  --parchment-3:   #F0DEB8   /* card surface */
+  --linen:         #EAD9BC   /* subtle surface */
+  --linen-dark:    #D9C5A0   /* borders, dividers */
+  --bark:          #3B1F0C   /* darkest — primary text */
+  --bark-mid:      #6B3D22   /* secondary text */
+  --bark-soft:     #9E7455   /* muted text */
+  --sidebar-text:  #F5E6D0   /* sidebar nav text */
+  --border:        rgba(124,75,42,0.15)
+  --border-focus:  rgba(212,136,42,0.50)
+  --shadow-sm:     0 2px 10px rgba(91,49,24,0.10)
+  --shadow-md:     0 6px 24px rgba(91,49,24,0.14)
+  --shadow-lg:     0 16px 50px rgba(91,49,24,0.18)
+  --shadow-card:   0 3px 18px rgba(91,49,24,0.11)
+
+WOOD GRAIN TEXTURE (CSS, apply on surfaces):
+  background-image:
+    repeating-linear-gradient(92deg,
+      transparent 0px, transparent 4px,
+      rgba(124,75,42,0.025) 4px, rgba(124,75,42,0.025) 8px),
+    repeating-linear-gradient(180deg,
+      transparent 0px, transparent 22px,
+      rgba(124,75,42,0.018) 22px, rgba(124,75,42,0.018) 24px);
+
+TYPOGRAPHY:
+  Page titles     : Rozha One 32–40px var(--walnut-deep)
+  Section titles  : Rozha One 22–26px var(--walnut)
+  Nav labels      : Noto Sans Bengali 14px var(--sidebar-text)
+  Body text       : Noto Sans Bengali 14px var(--bark-mid)
+  Table headers   : Bebas Neue 13px var(--bark-soft) letter-spacing 0.15em
+  Data values     : Noto Sans Bengali 14px var(--bark)
+  Numbers/stats   : Rozha One 48px var(--walnut)
+  IDs/codes       : Fira Code 12px var(--honey)
+  Badges/labels   : Bebas Neue 11–13px
+
+CSS ANIMATIONS (@keyframes in globals):
+  fadeUp    : opacity 0→1, translateY 24px→0, 0.4s ease
+  fadeIn    : opacity 0→1, 0.3s ease
+  scaleIn   : scale 0.92→1 + opacity 0→1, 0.3s ease
+  slideRight: translateX(-20px)→0 + opacity, 0.35s ease
+  slideLeft : translateX(20px)→0 + opacity, 0.35s ease
+  slideDown : translateY(-12px)→0 + opacity, 0.3s ease
+  shake     : translateX ±6px × 3, 0.4s ease
+  toastIn   : translateX(110%)→0, 0.35s cubic-bezier(0.34,1.56,0.64,1)
+  toastOut  : translateX(0)→110%, 0.3s ease
+  shimmer   : background-position -200%→200%, 1.5s linear infinite
+  pulse     : scale 1→1.04→1, 2s ease-in-out infinite
+  spinSlow  : rotate 0→360deg, 8s linear infinite
+  countUp   : (JS triggered, CSS transition on number)
+  progressBar: width 0→var(--target), 1.2s ease-out
+
+::selection { background: var(--honey); color: var(--parchment); }
+::-webkit-scrollbar { width: 7px; background: var(--parchment-2); }
+::-webkit-scrollbar-thumb { background: var(--walnut-soft); border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--honey); outline-offset: 3px; }
+
+═══════════════════════════════════════════════════════════════════════
+PROJECT STRUCTURE
+═══════════════════════════════════════════════════════════════════════
+
+ma-furniture-admin/
+├── package.json
+├── next.config.js
+├── data/
+│   ├── categories.js
+│   ├── products.js
+│   ├── gallery.js
+│   └── designs.js
+└── src/
+    ├── app/
+    │   ├── globals.css
+    │   ├── layout.js
+    │   └── admin/
+    │       ├── page.js              ← password gate
+    │       ├── page.module.css
+    │       └── dashboard/
+    │           └── page.js          ← main admin shell
+    ├── components/
+    │   └── admin/
+    │       ├── shell/
+    │       │   ├── AdminShell.js
+    │       │   ├── AdminShell.module.css
+    │       │   ├── TopBar.js
+    │       │   ├── TopBar.module.css
+    │       │   ├── Sidebar.js
+    │       │   └── Sidebar.module.css
+    │       ├── panels/
+    │       │   ├── DashboardPanel.js
+    │       │   ├── DashboardPanel.module.css
+    │       │   ├── ProductsPanel.js
+    │       │   ├── ProductsPanel.module.css
+    │       │   ├── ProductForm.js
+    │       │   ├── ProductForm.module.css
+    │       │   ├── CategoriesPanel.js
+    │       │   ├── CategoriesPanel.module.css
+    │       │   ├── PhotoGalleryPanel.js
+    │       │   ├── PhotoGalleryPanel.module.css
+    │       │   ├── DesignGalleryPanel.js
+    │       │   ├── DesignGalleryPanel.module.css
+    │       │   └── ExportPanel.js
+    │       └── ui/
+    │           ├── StatCard.js
+    │           ├── StatCard.module.css
+    │           ├── DataTable.js
+    │           ├── DataTable.module.css
+    │           ├── FormField.js
+    │           ├── FormField.module.css
+    │           ├── ToggleSwitch.js
+    │           ├── ToggleSwitch.module.css
+    │           ├── ToastStack.js
+    │           ├── ToastStack.module.css
+    │           ├── ConfirmDialog.js
+    │           ├── ConfirmDialog.module.css
+    │           ├── Pagination.js
+    │           ├── Pagination.module.css
+    │           ├── SearchBar.js
+    │           └── Badge.js
+    ├── context/
+    │   ├── AdminContext.js
+    │   └── ToastContext.js
+    └── hooks/
+        ├── useAdmin.js
+        └── useToast.js
+
+═══════════════════════════════════════════════════════════════════════
+DATA FILES
+═══════════════════════════════════════════════════════════════════════
+
+── /data/categories.js ──
+export const categories = [
+  { id:"cat_001", name:"চেয়ার",       nameEn:"Chair",
+    icon:"FaChair",          color:"#7C4B2A" },
+  { id:"cat_002", name:"টেবিল",       nameEn:"Table",
+    icon:"FaTable",          color:"#A0714F" },
+  { id:"cat_003", name:"দরজা",        nameEn:"Door",
+    icon:"FaDoorOpen",       color:"#7B3F2C" },
+  { id:"cat_004", name:"জানালা",      nameEn:"Window",
+    icon:"FaWindowMaximize", color:"#6B4226" },
+  { id:"cat_005", name:"সোফা",        nameEn:"Sofa",
+    icon:"FaCouch",          color:"#C8974E" },
+  { id:"cat_006", name:"বেড",         nameEn:"Bed",
+    icon:"FaBed",            color:"#8B5E3C" },
+  { id:"cat_007", name:"ওয়ার্ডরোব",  nameEn:"Wardrobe",
+    icon:"FaBoxArchive",     color:"#A0714F" },
+  { id:"cat_008", name:"শেলফ",        nameEn:"Shelf",
+    icon:"FaLayerGroup",     color:"#7B3F2C" },
+  { id:"cat_009", name:"ড্রেসিং",     nameEn:"Dressing Table",
+    icon:"FaMirror",         color:"#C8974E" },
+  { id:"cat_010", name:"ডাইনিং সেট", nameEn:"Dining Set",
+    icon:"FaUtensils",       color:"#6B4226" }
+];
+
+── /data/products.js ──
+Each product object:
+{
+  id: "PRD-001",
+  name: "রয়্যাল ডাইনিং চেয়ার",
+  nameEn: "Royal Dining Chair",
+  categoryId: "cat_001",
+  price: 4500,
+  originalPrice: 5500,
+  image: "https://placehold.co/400x320/7C4B2A/FDF6E8?text=PRD-001",
+  images: [
+    "https://placehold.co/600x480/7C4B2A/FDF6E8?text=Front",
+    "https://placehold.co/600x480/9E6644/FDF6E8?text=Side",
+    "https://placehold.co/600x480/D4882A/FDF6E8?text=Back"
+  ],
+  description: "উচ্চমানের সেগুন কাঠে তৈরি, দীর্ঘস্থায়ী ও আরামদায়ক।",
+  material: "সেগুন কাঠ",
+  finish: "পলিশড ওয়ালনাট",
+  dimensions: "50×50×90 সেমি",
+  color: "বাদামী",
+  weight: "8 কেজি",
+  warranty: "১ বছর",
+  inStock: true,
+  isFeatured: true,
+  isTopSelling: true,
+  isNew: false,
+  rating: 4.6,
+  reviewCount: 28,
+  tags: ["dining","chair","সেগুন"],
+  addedDate: "2024-01-15"
+}
+Generate 7 products per category = 70 total products.
+
+── /data/gallery.js ──
+export const galleryImages = [ 30+ items ]
+Each: { id:"GAL-001", title:"শোরুম ভিউ", category:"showroom",
+        image:"https://placehold.co/600x450/7C4B2A/FDF6E8?text=GAL-001",
+        date:"2024-01-10", description:"..." }
+Categories: showroom | workshop | delivery | events | team
+
+── /data/designs.js ──
+export const designs = [ 50+ items ]
+Each: { id:"DES-001", name:"রয়্যাল ক্লাসিক বেড", nameEn:"Royal Classic Bed",
+        categoryId:"cat_006", categoryName:"বেড",
+        image:"https://placehold.co/600x480/9E6644/FDF6E8?text=DES-001",
+        material:"সেগুন কাঠ", style:"ক্লাসিক", description:"...",
+        tags:["classic","bed"], isPopular:true, addedDate:"2024-01-10" }
+Styles: ক্লাসিক | মডার্ন | মিনিমাল | রয়্যাল | কান্ট্রি | কনটেম্পোরারি
+
+═══════════════════════════════════════════════════════════════════════
+PASSWORD GATE — /src/app/admin/page.js
+═══════════════════════════════════════════════════════════════════════
+
+'use client'
+
+Full-page: background var(--parchment-2) + wood grain texture
+Centered vertically + horizontally
+
+GATE CARD (520px wide, var(--parchment) bg):
+
+TOP DECORATIVE BAND (full card width, 10px height):
+  Striped pattern representing wood samples:
+  repeating-linear-gradient(90deg,
+    var(--walnut) 0, var(--walnut) 22px,
+    var(--honey) 22px, var(--honey) 44px,
+    var(--walnut-soft) 44px, var(--walnut-soft) 66px,
+    var(--honey-light) 66px, var(--honey-light) 88px)
+
+CARD BODY (padding 48px):
+
+  LOGO SECTION (centered):
+    SVG house/furniture icon (72px):
+      Draw a simple house outline with a tree beside it
+      Colors: var(--walnut) for house, var(--honey) for roof
+    "মা ফার্নিচার" Rozha One 34px var(--walnut-deep) (centered)
+    "অ্যাডমিন প্যানেল" Bebas Neue 15px var(--honey) letter-spacing 0.5em
+    Horizontal rule: 60px wide, 2px, honey, centered, margin-top 16px
+
+  WELCOME TEXT:
+    "স্বাগতম 👋" Noto Sans Bengali 16px var(--bark-mid) centered
+    "আপনার অ্যাডমিন প্যানেলে প্রবেশ করতে পাসওয়ার্ড দিন।"
+    Noto Sans Bengali 13px var(--bark-soft) centered
+
+  PASSWORD FIELD:
+    Label: "🔐 পাসওয়ার্ড" Noto Sans Bengali 13px walnut-mid, bold
+    Input wrapper (position relative):
+      Input:
+        Width: 100%, height: 54px
+        bg: var(--parchment-2)
+        border: 2px solid var(--linen-dark)
+        border-radius: 10px
+        padding: 0 52px 0 18px
+        Noto Sans Bengali 16px var(--bark)
+        Focus: border-color var(--honey)
+               box-shadow: 0 0 0 4px rgba(212,136,42,0.15)
+               transition: 0.2s
+      Eye toggle button (absolute right 14px):
+        FaEye / FaEyeSlash icons, 18px, var(--bark-soft)
+        Hover: var(--walnut)
+    
+    Error message (below input, hidden until error):
+      "❌ ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।"
+      Noto Sans Bengali 13px var(--sienna)
+      animation: fadeIn + shake on input
+    
+    Hint text: "ডিফল্ট পাসওয়ার্ড: mafurniture2024"
+      Fira Code 11px var(--bark-soft) opacity 0.7
+
+  LOGIN BUTTON:
+    Width: 100%, height: 54px, border-radius: 10px
+    Background: linear-gradient(135deg, var(--walnut) 0%, var(--honey) 100%)
+    Text: "প্রবেশ করুন" Noto Sans Bengali 16px var(--parchment) bold
+    Right arrow icon (→)
+    Hover:
+      background: linear-gradient(135deg, var(--honey) 0%, var(--walnut) 100%)
+      translateY(-2px)
+      box-shadow: var(--shadow-md)
+    Active: translateY(0), scale(0.99)
+    
+    Loading state (onClick after 300ms):
+      Spinner icon (spinning animation) + "যাচাই হচ্ছে..."
+      disabled + opacity 0.8
+
+  INPUT SHAKE ANIMATION:
+    Wrong password → @keyframes shake:
+      0%,100%{transform:translateX(0)}
+      20%{transform:translateX(-7px)}
+      40%{transform:translateX(7px)}
+      60%{transform:translateX(-5px)}
+      80%{transform:translateX(5px)}
+    Applied to entire input wrapper
+
+BACKGROUND DECORATION:
+  4 large faded wood log SVG shapes (50% opacity, 5% overall)
+  Positioned: top-left, top-right, bottom-left, bottom-right
+  Slow rotation animation: spinSlow 20s linear infinite each
+
+═══════════════════════════════════════════════════════════════════════
+ADMIN SHELL LAYOUT — AdminShell.js
+═══════════════════════════════════════════════════════════════════════
+
+THREE-ZONE FIXED LAYOUT:
+  ┌──────────────────────────────────────────┐
+  │              TOP BAR (64px)              │
+  ├────────────────┬─────────────────────────┤
+  │                │                         │
+  │   SIDEBAR      │     MAIN CONTENT        │
+  │   (260px)      │     (flex-grow)         │
+  │                │                         │
+  └────────────────┴─────────────────────────┘
+
+All three zones: position fixed / flex layout
+MAIN CONTENT: overflow-y scroll with custom scrollbar
+
+STATE (AdminContext.js):
+  activePanel: 'dashboard' (default)
+  products: [...from data]
+  categories: [...from data]
+  gallery: [...from data]
+  designs: [...from data]
+  editingProduct: null
+  editingDesign: null
+  editingGallery: null
+  searchQuery: ''
+  filterCategory: 'all'
+  currentPage: 1
+  itemsPerPage: 20
+  toasts: []
+
+═══════════════════════════════════════════════════════════════════════
+TOP BAR — TopBar.js
+═══════════════════════════════════════════════════════════════════════
+
+Height: 64px
+Background: var(--parchment)
+Border-bottom: 2px solid var(--linen-dark)
+Box-shadow: var(--shadow-sm)
+Position: fixed top:0, left:0, right:0, z-index: 800
+
+THREE ZONES (flex, space-between):
+
+LEFT ZONE:
+  Hamburger button (mobile only, < 1024px):
+    3 animated bars → X when sidebar open
+    Color: var(--walnut)
+  
+  Breadcrumb navigation:
+    "মা ফার্নিচার" (Bebas Neue 14px walnut, letter-spacing)
+    Separator: "›" (honey)
+    "অ্যাডমিন" (Noto Sans Bengali 14px walnut-mid)
+    Separator: "›"
+    [Current Panel Name] (Noto Sans Bengali 14px bold walnut-deep)
+
+CENTER ZONE:
+  Live clock display:
+    Fira Code 15px var(--walnut)
+    Updates every second via useEffect
+    Format: "শুক্রবার, ১৭ এপ্রিল ২০২৬ | ১৪:৩২:০৫"
+    Honey separator between date and time
+
+RIGHT ZONE (flex row, gap 12px):
+
+  NOTIFICATION BELL:
+    FaBell icon, 20px, walnut
+    Badge: small circle "3" (honey bg, parchment text, 16px)
+    Hover: walnut-deep, slight scale
+    Click: dropdown panel (see below)
+
+  SEARCH BUTTON:
+    FaMagnifyingGlass, 20px, walnut
+    Click: opens global search overlay (see below)
+
+  DIVIDER: 1px linen-dark, height 24px
+
+  ADMIN PROFILE PILL:
+    Avatar: 34px circle, walnut bg, parchment "A" (Rozha One)
+    Text: "Admin" (Noto Sans Bengali 13px bark-mid)
+    Chevron down icon
+    Click: dropdown with profile options
+
+  LOGOUT BUTTON:
+    Pill shape: 36px height
+    Border: 1.5px solid var(--sienna)
+    Text: "লগআউট" Noto Sans Bengali 13px sienna
+    Icon: FaRightFromBracket
+    Hover: bg sienna-pale
+    Click: clear auth state → redirect to /admin
+
+NOTIFICATION DROPDOWN (absolute, right-aligned):
+  Width: 320px, bg: var(--parchment), border: honey
+  Border-radius: 12px, box-shadow: var(--shadow-lg)
+  Header: "সর্বশেষ কার্যক্রম" Rozha One 16px
+  3 notification items:
+    Icon (walnut circle) + message (Noto Sans Bengali) + time (Fira Code bark-soft)
+    Hover: bg parchment-2
+  Footer: "সব দেখুন" link (honey)
+
+GLOBAL SEARCH OVERLAY (full screen):
+  Background: rgba(59,31,12,0.7) blur(4px)
+  Centered search box: 600px wide
+    Large input (56px height, Rozha One 22px, walnut border 2px honey)
+    Placeholder: "পণ্য, ডিজাইন বা আইডি খুঁজুন..."
+    LIVE RESULTS below (max 6 items):
+      Product/Design/Gallery items matching query
+      Each: thumbnail + name + ID + category
+      Hover: parchment-2 bg
+      Click: navigate to that panel + open edit
+  ESC to close
+
+═══════════════════════════════════════════════════════════════════════
+SIDEBAR — Sidebar.js
+═══════════════════════════════════════════════════════════════════════
+
+Width: 260px (desktop) / 0px hidden (mobile, slides in as overlay)
+Position: fixed left:0, top:64px, bottom:0
+Background: var(--walnut-deep)
+Border-right: 1px solid rgba(212,136,42,0.2)
+Overflow-y: auto
+z-index: 700
+
+SHOP INFO CARD (top of sidebar):
+  Margin: 16px, padding: 16px
+  Background: rgba(255,255,255,0.06)
+  Border: 1px solid rgba(212,136,42,0.2)
+  Border-radius: 12px
+  
+  Row: Avatar (40px walnut-mid circle, "মা" parchment Rozha One)
+  Text: "মা ফার্নিচার" Noto Sans Bengali 14px var(--sidebar-text) bold
+  Sub: "সাতারপাড়া, দৌলতপুর" Noto Sans Bengali 11px bark-soft
+  Online dot: 8px green circle + "সক্রিয়" Fira Code 10px moss
+
+NAVIGATION LABEL:
+  "প্রধান মেনু" Bebas Neue 11px bark-soft letter-spacing 0.3em
+  Padding: 16px 20px 8px
+  (section separator pattern)
+
+NAVIGATION ITEMS:
+
+Each nav item structure:
+  Height: 48px, padding: 0 20px
+  Flex row: [icon 20px] + [label] + [badge? right-aligned]
+  Border-radius: 10px, margin: 2px 10px
+  Transition: all 0.2s ease
+
+STATES:
+  Default:  bg transparent, text var(--sidebar-text) opacity 0.8
+  Hover:    bg rgba(255,255,255,0.08), text var(--sidebar-text) full opacity
+  Active:   bg rgba(212,136,42,0.2)
+            border-left: 4px solid var(--honey)
+            text: var(--honey) bold
+            icon: var(--honey)
+
+ITEMS (icon from react-icons + Bangla label + optional badge):
+
+  Section 1 — প্রধান
+  ─────────────────────────────────────
+  📊 [MdDashboard]    ড্যাশবোর্ড
+  
+  Section 2 — পণ্য ব্যবস্থাপনা
+  ─────────────────────────────────────
+  📦 [FaBoxOpen]      পণ্য তালিকা        [badge: total count]
+  ➕ [FaPlus]         নতুন পণ্য যোগ
+  🗂️ [FaFolder]      ক্যাটাগরি           [badge: 10]
+  
+  Section 3 — গ্যালারি
+  ─────────────────────────────────────
+  📸 [FaImages]       ফটো গ্যালারি       [badge: photo count]
+  🎨 [FaPalette]      ডিজাইন গ্যালারি    [badge: design count]
+  
+  Section 4 — সিস্টেম
+  ─────────────────────────────────────
+  💾 [FaDownload]     ডেটা Export
+  🚪 [FaRightFromBracket] লগআউট
+
+SECTION LABELS between groups:
+  "পণ্য ব্যবস্থাপনা" Bebas Neue 10px bark-soft letter-spacing 0.3em
+  Padding: 16px 20px 4px, opacity 0.6
+
+BADGES on items:
+  Small pill: Fira Code 10px, honey bg, walnut text
+  Shows live count from context state
+
+SIDEBAR FOOTER (pinned bottom):
+  Border-top: 1px solid rgba(255,255,255,0.08)
+  Padding: 16px 20px
+  
+  Shop contact block:
+    FaPhone 12px honey + "+8801729728818" Fira Code 11px sidebar-text
+    FaWhatsapp 12px moss + "+8801979728818" Fira Code 11px
+  
+  Version: "v1.0.0  |  মা ফার্নিচার" Fira Code 10px bark-soft, centered
+
+MOBILE SIDEBAR BEHAVIOR:
+  < 1024px: sidebar hidden by default
+  Hamburger click → sidebar slides in (translateX -260px → 0, 0.35s)
+  Semi-transparent overlay behind: rgba(59,31,12,0.5)
+  Click overlay → closes sidebar
+
+═══════════════════════════════════════════════════════════════════════
+DASHBOARD PANEL — DashboardPanel.js
+═══════════════════════════════════════════════════════════════════════
+
+PANEL HEADER:
+  Left: "ড্যাশবোর্ড" Rozha One 36px var(--walnut-deep)
+  Sub: "সুপ্রভাত! আজকের সারসংক্ষেপ" Noto Sans Bengali 14px bark-soft
+  Right: current date Fira Code 13px honey
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STAT CARDS ROW — StatCard.js (4 cards)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Grid: 4 cols (desktop), 2 cols (tablet), 1 col (mobile)
+
+Each StatCard has this UNIQUE DESIGN:
+
+  Card container:
+    bg: var(--parchment-2) + wood grain
+    border-radius: 16px
+    border: 1px solid var(--border)
+    box-shadow: var(--shadow-card)
+    padding: 24px
+    position relative, overflow hidden
+    
+    Decorative large number watermark (position absolute, top-right):
+      Card number (01, 02, 03, 04) Rozha One 100px
+      Opacity: 0.04, var(--walnut)
+
+  TOP ROW (space-between):
+    Left: Icon in rounded square (48×48px):
+      Card 1: FaBoxOpen   — bg: rgba(124,75,42,0.12), icon: var(--walnut)
+      Card 2: FaFolder    — bg: rgba(212,136,42,0.12), icon: var(--honey)
+      Card 3: FaPalette   — bg: rgba(181,84,30,0.12),  icon: var(--sienna)
+      Card 4: FaImages    — bg: rgba(74,124,89,0.12),  icon: var(--moss)
+    
+    Right: trend badge (small pill):
+      "+৫ এই মাসে" — moss bg if positive, sienna if negative
+      Fira Code 11px
+
+  MAIN NUMBER:
+    Rozha One 52px var(--walnut-deep)
+    Count-up animation when panel first renders:
+      useEffect → increment from 0 to target over 1.2s
+      CSS transition on a state number
+  
+  LABEL:
+    Noto Sans Bengali 14px var(--bark-soft)
+  
+  PROGRESS BAR (bottom of card):
+    Shows proportion of total or completion
+    Track: var(--linen-dark) 5px height, border-radius 10px
+    Fill: card-specific color, animates from 0% to target% on mount
+    Percentage label: Fira Code 11px right-aligned above bar
+
+STAT CARDS DATA:
+  Card 1: 📦 মোট পণ্য      | [count]  | walnut accent
+  Card 2: 🗂️ ক্যাটাগরি    | 10       | honey accent
+  Card 3: 🎨 ডিজাইন সংগ্রহ | [count]  | sienna accent
+  Card 4: 📸 গ্যালারি ছবি  | [count]  | moss accent
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+QUICK ACTIONS STRIP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Title: "দ্রুত কার্যক্রম" Rozha One 20px walnut
+
+4 action buttons (pill style, horizontal scroll on mobile):
+  "➕ নতুন পণ্য যোগ করুন" — walnut bg parchment text
+  "🎨 নতুন ডিজাইন যোগ" — honey bg walnut text
+  "📸 ছবি আপলোড" — moss bg parchment text
+  "💾 ডেটা Export করুন" — sienna bg parchment text
+
+Each button: Noto Sans Bengali 14px, pill 40px height
+Hover: translateY(-2px) + shadow-sm + brightness(1.08)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+TWO-COLUMN CONTENT ROW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Left (60%): RECENT PRODUCTS TABLE
+Right (40%): CATEGORY DISTRIBUTION CHART
+
+RECENT PRODUCTS TABLE:
+  Title: "সম্প্রতি যোগ করা পণ্য" + "সব দেখুন →" link (honey right)
+  
+  Card-row design (NOT traditional bordered table):
+  Each row:
+    bg: var(--parchment), border-radius: 10px
+    margin-bottom: 8px, padding: 12px 16px
+    box-shadow: var(--shadow-sm)
+    Hover: bg parchment-2, translateX(4px), border-left 3px honey
+    Transition: 0.2s ease
+    
+    COLUMNS (flex row):
+    [IMG 46×40px rounded-8px] [ID+Name block] [Category pill] [Price] [Stock] [Actions]
+    
+    IMG: object-cover, border-radius 8px, border 1px border-color
+    
+    ID+Name block:
+      ID: Fira Code 11px honey — "#PRD-001"
+      Name: Noto Sans Bengali 13px walnut-deep 1-line ellipsis
+    
+    Category pill:
+      Bebas Neue 11px, letter-spacing 0.1em
+      bg: rgba(category.color, 0.15), color: category.color
+      Border-radius: 20px, padding: 3px 10px
+    
+    Price: Rozha One 16px walnut "৳৪,৫০০"
+    
+    Stock:
+      In Stock: moss-pale bg, moss text, FaCheck icon "পাওয়া যাচ্ছে"
+      Out: sienna-pale bg, sienna text, FaXmark icon "স্টকে নেই"
+      Pill shape, Noto Sans Bengali 11px
+    
+    Actions:
+      FaPencil — 32px circle, honey border, honey icon
+      Click: navigate to ProductForm with this product
+  
+  Show last 8 products
+
+CATEGORY CHART (CSS only, no chart library):
+  Title: "ক্যাটাগরি অনুযায়ী পণ্য" + total count
+  
+  HORIZONTAL BAR CHART:
+  For each category:
+    Row: [Category icon 20px] [Name Noto 13px] [Bar] [Count]
+    
+    Bar:
+      Track: full width, 8px height, var(--linen), border-radius 10px
+      Fill: category color, animates 0→percentage on mount
+      @keyframes barGrow: width 0→target, 1s ease-out, staggered delays
+    
+    Count: Fira Code 12px walnut right-aligned
+    
+    Hover: bar fill brightens, row bg parchment-2
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BOTTOM ACTIVITY LOG
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Title: "সাম্প্রতিক কার্যক্রম"
+Vertical timeline (left border line: 2px dashed honey):
+  Each item:
+    Left: circle dot on timeline (honey filled, 10px)
+    Right: action text + time
+    
+    Action text: Noto Sans Bengali 13px bark-mid
+    Examples:
+      "পণ্য 'রয়্যাল চেয়ার' (PRD-001) যোগ করা হয়েছে"
+      "ক্যাটাগরি 'সোফা' আপডেট করা হয়েছে"
+      "৫টি নতুন ডিজাইন যোগ করা হয়েছে"
+    Time: Fira Code 11px bark-soft "২ মিনিট আগে"
+
+═══════════════════════════════════════════════════════════════════════
+PRODUCTS PANEL — ProductsPanel.js
+═══════════════════════════════════════════════════════════════════════
+
+PANEL HEADER:
+  Left: "পণ্য তালিকা" Rozha One 32px + badge showing total count
+  Right: "➕ নতুন পণ্য যোগ করুন" button
+    walnut→honey gradient, parchment, pill 44px
+    FaPlus icon + text
+    Hover: reverse gradient + shadow-md
+
+TOOLBAR ROW (below header):
+  LEFT: SearchBar component
+    Input 280px: FaSearch icon inside, Noto Sans Bengali placeholder
+    "পণ্য খুঁজুন..." (name or ID)
+    Real-time filter on typing (debounce 200ms)
+    Focus: honey border glow
+  
+  CENTER: FILTER PILLS (horizontal scroll):
+    "সব পণ্য" [count]
+    Each category name [count]
+    "স্টকে আছে" | "ফিচার্ড" | "সেরা বিক্রিত" | "নতুন"
+    
+    Pill style: Noto Sans Bengali 13px
+    Inactive: linen bg, walnut border, bark-mid text
+    Active: walnut bg, parchment text
+    Hover: parchment-2 bg, border-hover
+  
+  RIGHT: Sort dropdown
+    "সাজানো: নতুন আগে ▾" (Noto Sans Bengali 13px)
+    Honey focus border, custom styled
+
+RESULT INFO BAR:
+  "[N]টি পণ্য পাওয়া গেছে" Noto Sans Bengali 13px bark-soft
+  If filtered: "ফিল্টার: [active filter] ✕" dismissible
+
+PRODUCT TABLE (DataTable.js):
+
+COLUMN HEADERS:
+  bg: var(--parchment-3) + wood grain
+  Border-radius: 10px (top corners only on first/last)
+  Bebas Neue 12px var(--bark-soft) letter-spacing 0.15em
+  Columns: ছবি | পণ্য ID | নাম | ক্যাটাগরি | মূল্য | স্টক | বিশেষ | কার্যক্রম
+
+EACH ROW (card-style, not bordered table):
+  bg: var(--parchment), border-radius: 10px
+  margin-bottom: 6px, padding: 14px 16px
+  box-shadow: var(--shadow-sm)
+  border-left: 3px solid transparent
+  Transition: all 0.2s ease
+  
+  Hover state:
+    bg: var(--parchment-2)
+    border-left: 3px solid var(--honey)
+    translateX(3px)
+    shadow-md
+
+  ROW CONTENTS:
+
+  THUMBNAIL:
+    56×48px, border-radius: 8px, object-cover
+    border: 1.5px solid var(--border)
+    Hover: scale(1.05)
+
+  PRODUCT ID:
+    "#PRD-001" Fira Code 12px
+    bg: rgba(212,136,42,0.12), color: var(--honey)
+    border-radius: 6px, padding: 3px 8px
+    Click to copy: FaCopy icon appears on hover, toast on copy
+
+  NAME (flex column):
+    Bangla name: Noto Sans Bengali 14px var(--walnut-deep) bold
+    English name: Noto Sans Bengali 12px var(--bark-soft) italic
+
+  CATEGORY:
+    Pill badge:
+    bg: rgba(category.color, 0.12), color: category.color
+    Bebas Neue 11px, border: 1px solid rgba(category.color, 0.3)
+
+  PRICE (flex column):
+    Current: Rozha One 17px var(--walnut)
+    Original (if discount): Noto Sans Bengali 12px line-through bark-soft
+    Discount: Bebas Neue 11px sienna "১৮% ছাড়"
+
+  STOCK TOGGLE (ToggleSwitch.js):
+    Compact: 36×20px toggle
+    ON (inStock): var(--moss) track, white thumb
+    OFF: var(--linen-dark) track
+    Label beside: "পাওয়া যাচ্ছে" / "নেই"
+    Noto Sans Bengali 12px
+    onChange: updates product in context state + success toast
+
+  বিশেষ TOGGLES (3 mini toggles in a row):
+    F = Featured (honey when on)
+    T = Top (sienna when on)  
+    N = New (moss when on)
+    Each: 28×16px, label letter on toggle thumb
+    Tooltip on hover: full name
+
+  ACTIONS:
+    Edit button: FaPencil 32px circle, honey border, honey icon
+      Hover: honey bg, walnut icon
+      Click: setActivePanel('add-product') + setEditingProduct(product)
+    
+    Delete button: FaTrashCan 32px circle, sienna border, sienna icon
+      Hover: sienna bg, parchment icon
+      Click: opens ConfirmDialog
+
+PAGINATION (Pagination.js):
+  Centered below table
+  Style: "[← আগে] [1] [2] [3] [4] [5] [...] [12] [পরে →]"
+  Current page: walnut bg parchment, Rozha One
+  Other pages: parchment bg walnut border, Noto Sans Bengali
+  Prev/Next: pill buttons, disabled state when at edge
+  "পৃষ্ঠা প্রতি:" dropdown (10 | 20 | 50)
+
+═══════════════════════════════════════════════════════════════════════
+PRODUCT FORM — ProductForm.js
+═══════════════════════════════════════════════════════════════════════
+
+Renders in main content area (replaces table view)
+OR as a slide-in panel from right on mobile
+
+FORM HEADER:
+  Back button: FaArrowLeft + "ফিরে যান" honey, pill, 38px
+    Click: setActivePanel('products'), setEditingProduct(null)
+  Title: "নতুন পণ্য যোগ করুন" / "পণ্য সম্পাদনা করুন" Rozha One 30px walnut-deep
+  Product ID display (if editing): "#PRD-001" Fira Code 16px honey pill
+
+FORM LAYOUT: CSS Grid 3 columns (1 column on mobile)
+
+━━━━ SECTION A: পরিচিতি (Identity) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section header:
+  Left border: 4px solid var(--honey)
+  Padding-left: 16px
+  "পরিচিতি তথ্য" Rozha One 20px walnut
+  Underline decoration (honey line 40px)
+
+FormField components (each has label + input + error):
+
+পণ্য ID * (Fira Code input):
+  Placeholder: "PRD-071" (auto-generated)
+  Right side of input: 
+    Auto-generate button: ⟳ icon (honey, 32px circle)
+      Click: generates next sequential ID
+    Copy button: FaCopy icon
+
+পণ্য নাম (বাংলা) * :
+  Noto Sans Bengali 15px, large input (52px height)
+  Character count: right side "০/১০০" Fira Code 11px
+
+English Name * :
+  Bebas Neue styled input
+  Character count
+
+ক্যাটাগরি * :
+  Custom select (NOT browser default):
+  Displays as: custom dropdown with category icon + color dot + name
+  Selected state: shows icon + name in input area
+  Dropdown: each option has icon + name + product count
+  Honey border on focus
+
+━━━━ SECTION B: মূল্য (Pricing) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section header (same ruled style, sienna accent)
+
+3-column grid:
+  বিক্রয় মূল্য * :
+    "৳" prefix in input
+    Rozha One styled number display
+    Noto Sans Bengali label
+  
+  আসল মূল্য :
+    Same style
+    Required only if different from selling price
+  
+  ছাড়ের হার (auto-calculated, readonly):
+    Shows "১৮% ছাড়" as colored badge
+    Auto-updates as user types both prices
+    bg: sienna-pale, sienna text if discount exists
+    bg: moss-pale, "কোন ছাড় নেই" if equal
+
+━━━━ SECTION C: ছবি (Images) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section header (walnut accent)
+
+Layout: each image field has input + live preview side by side
+
+মূল ছবি URL * :
+  Input (full width minus preview)
+  Live preview box (100×80px, border-radius 8px):
+    If URL valid + loads: shows image
+    If invalid: walnut bg + FaImage icon + "ছবি পাওয়া যায়নি"
+    Loading: shimmer animation
+    Border: 1.5px solid (honey if valid, sienna if error)
+
+অতিরিক্ত ছবি ১ URL:
+অতিরিক্ত ছবি ২ URL:
+  Same style, smaller preview (80×64px)
+
+━━━━ SECTION D: পণ্যের বিবরণ (Details) ━━━━━━━━━━━━━━━━━━━━━━━
+
+Section header (honey accent)
+
+3-column grid:
+  উপাদান | ফিনিশ | রঙ
+  মাপ (with "সেমি" suffix unit label)
+  ওজন (with "কেজি" suffix)
+  ওয়ারেন্টি
+
+Each FormField:
+  Label: Noto Sans Bengali 13px bark-mid, bold
+  Input:
+    bg: var(--parchment-2)
+    border: 1.5px solid var(--linen-dark)
+    border-radius: 8px, height: 46px, padding: 0 16px
+    Focus: border-color honey + box-shadow 0 0 0 3px rgba(212,136,42,0.12)
+    Noto Sans Bengali 14px bark
+  
+  Suffix units (ওজন, মাপ):
+    Right-side of input: "কেজি" / "সেমি" Bebas Neue bark-soft
+    bg: linen, border-left: 1px linen-dark, border-radius 0 8px 8px 0
+
+━━━━ SECTION E: বিস্তারিত বিবরণ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+বিবরণ * (full width, col-span-3):
+  Textarea, 5 rows min, auto-grows
+  Noto Sans Bengali 14px bark-mid
+  Honey focus, character count "০/৫০০"
+
+ট্যাগ (full width):
+  Input: "ট্যাগ লিখুন + Enter চাপুন..."
+  As user types + hits Enter/comma: tag appears as pill
+  
+  Tag pills:
+    honey bg, walnut text, Noto Sans Bengali 12px
+    ✕ remove button on each
+    Max 10 tags
+  
+  Existing tags shown as removable pills below input
+
+━━━━ SECTION F: অবস্থা (Status) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Section header (moss accent)
+Full-width, col-span-3
+
+4 toggle cards in a row (2×2 on mobile):
+Each toggle card:
+  bg: var(--parchment-2), border: 1.5px solid var(--border)
+  border-radius: 12px, padding: 16px 20px
+  
+  ACTIVE STATE: 
+    border-color changes to toggle's color
+    bg: rgba(toggle-color, 0.06)
+  
+  Left: icon (30px, colored)
+  Right: ToggleSwitch component
+
+  Card 1 — স্টকে আছে:
+    FaCircleCheck icon (moss)
+    Toggle ON: moss track
+    Label: "পণ্যটি বর্তমানে পাওয়া যাচ্ছে"
+    Noto Sans Bengali 13px bark-mid
+  
+  Card 2 — ফিচার্ড পণ্য:
+    FaStar icon (honey)
+    Toggle ON: honey track
+    Label: "হোমপেজে বিশেষভাবে প্রদর্শিত"
+  
+  Card 3 — সেরা বিক্রিত:
+    FaFire icon (sienna)
+    Toggle ON: sienna track
+    Label: "'সর্বাধিক বিক্রিত' বিভাগে দেখাবে"
+  
+  Card 4 — নতুন পণ্য:
+    FaSparkles icon (amber)
+    Toggle ON: amber track
+    Label: "'নতুন' ব্যাজ দেখাবে পণ্য কার্ডে"
+
+TOGGLE SWITCH DESIGN (ToggleSwitch.js):
+  Track: 52×28px, border-radius: 14px
+  OFF: var(--linen-dark) bg
+  ON: var(--color-prop) bg (passed as prop)
+  Thumb: white circle 22px, box-shadow: var(--shadow-sm)
+  Transition: background 0.25s, transform 0.25s
+  OFF position: transform translateX(2px)
+  ON position: transform translateX(26px)
+  
+  On/Off text beside thumb (inside track):
+    "না" / "হ্যাঁ" Bebas Neue 9px (fades in/out)
+
+━━━━ FORM FOOTER (sticky bottom bar) ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Position: sticky bottom:0
+bg: var(--parchment-2)
+border-top: 2px solid var(--linen-dark)
+padding: 16px 32px
+
+Left side:
+  "* চিহ্নিত তথ্যগুলো অবশ্যই দিতে হবে" Noto Sans Bengali 13px bark-soft
+  Error count if any: "⚠️ ৩টি ত্রুটি আছে" sienna
+
+Right side (flex, gap 12px):
+  "বাতিল করুন" button:
+    Border: 1.5px honey, text: walnut, pill 44px
+    Hover: honey-pale bg
+    Click: reset form + setActivePanel('products')
+  
+  "পণ্য সংরক্ষণ করুন →" button:
+    bg: linear-gradient(135deg, var(--walnut) 0%, var(--honey) 100%)
+    parchment text, pill 48px, Noto Sans Bengali 15px
+    FaFloppyDisk icon left
+    Hover: reverse gradient + shadow-md + translateY(-2px)
+    
+    Saving state (300ms after click):
+      "সংরক্ষণ হচ্ছে..." + spinner animation
+      disabled, opacity 0.85
+    
+    Success state (1s):
+      "✅ সংরক্ষিত হয়েছে!" moss bg
+      Then: redirect to products list, success toast
+
+FORM VALIDATION (real-time + on submit):
+  Required fields on blur:
+    Border: 1.5px solid var(--sienna)
+    Background: rgba(181,84,30,0.04)
+    Error message below: Noto Sans Bengali 12px sienna
+      "এই তথ্যটি আবশ্যক"
+  
+  Price validation:
+    "মূল্য অবশ্যই ০ এর বেশি হতে হবে"
+  
+  On submit with errors:
+    @keyframes shake on each invalid field
+    Scroll to first invalid field
+    Error count shows in footer
+
+═══════════════════════════════════════════════════════════════════════
+CATEGORIES PANEL — CategoriesPanel.js
+═══════════════════════════════════════════════════════════════════════
+
+PANEL HEADER: "ক্যাটাগরি ব্যবস্থাপনা" + add button
+
+TWO-COLUMN LAYOUT (60/40):
+
+LEFT — CATEGORY LIST:
+  Card-row style, each category:
+    Row: [Icon circle 40px] [name+count] [color swatch] [actions]
+    
+    Icon circle: category.color bg, white icon
+    Name: Noto Sans Bengali 15px walnut-deep
+    Count badge: Fira Code 11px honey pill
+    Color swatch: 20×20px circle, category color, with tooltip "রঙ পরিবর্তন"
+    
+    Actions:
+      ✏️ Edit: opens right panel form pre-filled
+      🗑️ Delete: ConfirmDialog (warns about products in category)
+    
+    Hover: translateX(4px) + honey left-border
+    Active/editing: highlighted with honey border all around
+
+RIGHT — ADD/EDIT FORM:
+  Card: parchment-2 bg, honey border-top 4px, border-radius 12px
+  Title: "নতুন ক্যাটাগরি" / "ক্যাটাগরি সম্পাদনা"
+  
+  Fields:
+    ক্যাটাগরি ID (auto: cat_011, Fira Code, readonly)
+    বাংলা নাম * (Noto Sans Bengali input)
+    English Name * (Bebas Neue input)
+    
+    আইকন ক্লাস (react-icons class name input):
+      Preview: shows the icon in 32px beside input
+      Helper text: "যেমন: FaChair, FaBed, FaCouch"
+      Fira Code input
+    
+    ক্যাটাগরি রঙ:
+      Color swatches grid (preset 12 warm colors from palette)
+      Selected: checkmark overlay
+      Custom color input (text + visual swatch)
+    
+    বিবরণ (textarea, 3 rows)
+  
+  Submit button: honey gradient, full width, "ক্যাটাগরি সংরক্ষণ করুন"
+
+═══════════════════════════════════════════════════════════════════════
+PHOTO GALLERY PANEL — PhotoGalleryPanel.js
+═══════════════════════════════════════════════════════════════════════
+
+PANEL HEADER: "ফটো গ্যালারি" + "➕ নতুন ছবি যোগ করুন" button
+
+FILTER TABS:
+  সব | শোরুম | ওয়ার্কশপ | ডেলিভারি | ইভেন্ট | টিম
+  Active: walnut bg parchment | Inactive: linen border walnut
+
+ADD PHOTO FORM (collapsible, expands on button click):
+  Slide-down animation (slideDown)
+  bg: parchment-2, honey border, border-radius 12px, padding 20px
+  
+  3-column grid:
+    ID (auto: GAL-031, readonly Fira Code)
+    শিরোনাম * (Noto Sans Bengali)
+    ক্যাটাগরি * (select)
+  
+  ছবির URL * + live preview (80×60px thumbnail)
+  বিবরণ (textarea 2 rows)
+  
+  Buttons: "যোগ করুন" (honey) + "বাতিল" (outline)
+
+GALLERY GRID:
+  3 cols (desktop), 2 cols (tablet), 1 col (mobile)
+  Gap: 16px
+  
+  Each photo card:
+    border-radius: 12px, overflow hidden
+    box-shadow: var(--shadow-card)
+    
+    Image: aspect-ratio 4/3, object-cover
+    Hover overlay (walnut 0.75 opacity, transition 0.3s):
+      Top-right: delete button (FaTrash, sienna circle 32px)
+      Top-left: edit button (FaPencil, honey circle 32px)
+      Center: FaMagnifyingGlassPlus (parchment, 28px, pulse)
+      Bottom: title + category pill slide up
+    
+    Below image:
+      Title: Noto Sans Bengali 13px walnut-deep
+      Category pill + date: Fira Code 11px bark-soft
+
+  LIGHTBOX (on image click):
+    Full overlay
+    Large image
+    Left/right navigation
+    Title + details below
+
+═══════════════════════════════════════════════════════════════════════
+DESIGN GALLERY PANEL — DesignGalleryPanel.js
+═══════════════════════════════════════════════════════════════════════
+
+PANEL HEADER: "ডিজাইন গ্যালারি" + add button
+
+FILTER ROW:
+  Row 1: category filter tabs
+  Row 2: style filter pills (ক্লাসিক | মডার্ন | মিনিমাল | রয়্যাল | কান্ট্রি | কনটেম্পোরারি)
+  Right: result count + sort dropdown
+
+ADD/EDIT DESIGN FORM (slide-down collapsible):
+  4-column grid (2 on tablet, 1 mobile):
+    ID (auto: DES-051, Fira Code)
+    বাংলা নাম *
+    English Name
+    ক্যাটাগরি * (select)
+  
+  2-column:
+    স্টাইল * (select: style options)
+    উপাদান
+  
+  ছবির URL * + preview
+  বিবরণ (textarea)
+  ট্যাগ (pill input)
+  জনপ্রিয় ডিজাইন: ToggleSwitch (honey)
+
+DESIGN GRID:
+  4 cols (desktop), 3 cols (laptop), 2 cols (tablet)
+  
+  Each design card:
+    bg: var(--parchment-2), border: var(--border), border-radius 14px
+    overflow hidden
+    
+    IMAGE ZONE (aspect-ratio 4/3):
+      ID badge top-left (Fira Code honey pill)
+      Style badge top-right (Bebas Neue, style-color pill)
+      জনপ্রিয় badge if isPopular (honey star ★)
+      
+      Hover overlay:
+        3 action buttons centered (icon circles, staggered scale-in):
+          👁 View detail
+          ✏️ Edit
+          🗑️ Delete
+    
+    CARD BODY (padding 14px):
+      Name: Noto Sans Bengali 14px bold walnut-deep 2-line clamp
+      Category pill + Style pill
+      Material: Fira Code 11px bark-soft
+
+═══════════════════════════════════════════════════════════════════════
+EXPORT PANEL — ExportPanel.js
+═══════════════════════════════════════════════════════════════════════
+
+PANEL HEADER: "ডেটা Export" Rozha One 32px
+Sub: "ডেটা কপি বা ডাউনলোড করে /data/ ফোল্ডারে পেস্ট করুন"
+
+4 EXPORT CARDS (2×2 grid):
+
+Each card — PREMIUM DESIGN:
+  bg: var(--parchment-2) + wood grain
+  border-radius: 16px
+  border: 1px solid var(--border)
+  border-top: 5px solid [card-specific color]
+  padding: 28px
+  box-shadow: var(--shadow-card)
+
+  TOP: Icon circle (64px, card-color bg tinted):
+    Card 1: FaBoxOpen   — walnut
+    Card 2: FaFolder    — honey
+    Card 3: FaPalette   — sienna
+    Card 4: FaImages    — moss
+  
+  TITLE: Rozha One 22px walnut-deep "[Data Type] ডেটা"
+  
+  INFO ROW:
+    Count: Fira Code 28px card-color "[N]টি আইটেম"
+    Last updated: Fira Code 11px bark-soft "আজকের তারিখ"
+  
+  PROGRESS INDICATOR:
+    "ডেটার আকার: ~[Nkb]" Noto Sans Bengali 13px bark-soft
+    Small file size bar (visual indicator, card color)
+  
+  ACTION BUTTONS (2 buttons, stacked):
+    Button 1 — "📋 JSON কপি করুন":
+      Full width, card-color border, card-color text
+      Icon: FaClipboard
+      ON CLICK:
+        JSON.stringify(dataArray, null, 2) → clipboard
+        Button changes: "✅ কপি হয়েছে!" moss bg 2s → revert
+        Toast: "ডেটা ক্লিপবোর্ডে কপি হয়েছে"
+    
+    Button 2 — "⬇ ফাইল ডাউনলোড":
+      Full width, card-color gradient, parchment text
+      Icon: FaDownload
+      ON CLICK:
+        Creates Blob: "export const [name] = " + JSON
+        Triggers download: [filename].js
+        Button loading state: spinner 0.5s → success
+
+INSTRUCTIONS CARD (below the 4 export cards):
+  Full width, walnut bg, parchment text
+  border-radius: 14px, padding: 24px
+  border-left: 6px solid var(--honey)
+  
+  Title: "📋 কিভাবে আপডেট করবেন?" Rozha One 20px parchment
+  
+  Steps (numbered list, Noto Sans Bengali 14px parchment-2):
+    1. উপরের বাটনে ক্লিক করে ডেটা কপি বা ডাউনলোড করুন
+    2. প্রজেক্ট ফোল্ডারে /data/ খুঁজুন
+    3. সংশ্লিষ্ট ফাইলটি খুলুন (যেমন: products.js)
+    4. "export const products = [" থেকে শেষ পর্যন্ত রিপ্লেস করুন
+    5. ফাইল সেভ করুন এবং সার্ভার রিস্টার্ট করুন: "npm run dev"
+  
+  Code example (Fira Code, honey bg, walnut-deep text, border-radius 8px):
+    export const products = [
+      { id: "PRD-001", ... }
+    ];
+
+═══════════════════════════════════════════════════════════════════════
+UI COMPONENTS
+═══════════════════════════════════════════════════════════════════════
+
+── TOAST STACK — ToastStack.js ──
+
+Context: useToast() hook
+  addToast(message, type, duration)
+  removeToast(id)
+
+Position: fixed bottom-right 24px, z-index: 9999
+Stacked, max 4 visible, newest on top
+
+Each toast:
+  Width: 320px (280px mobile)
+  bg: var(--parchment)
+  border-radius: 12px
+  border: 1px solid var(--border)
+  box-shadow: var(--shadow-lg)
+  padding: 14px 16px
+  
+  LEFT ACCENT LINE (5px, border-radius 0 on left side):
+    success: var(--moss)
+    error:   var(--sienna)
+    info:    var(--honey)
+    warning: var(--amber)
+  
+  ICON (left, 36px circle, type-colored bg tinted):
+    success: FaCircleCheck moss
+    error:   FaCircleXmark sienna
+    info:    FaCircleInfo honey
+    warning: FaTriangleExclamation amber
+  
+  TEXT BLOCK:
+    Title (if provided): Noto Sans Bengali 13px bold bark
+    Message: Noto Sans Bengali 13px bark-mid
+  
+  CLOSE BUTTON (right): FaXmark 14px bark-soft, hover bark
+  
+  PROGRESS BAR (bottom, full width):
+    Height: 3px, type-color
+    Animates from 100% to 0% over [duration]ms
+    @keyframes toastProgress: width 100%→0%, linear
+  
+  Animation: toastIn 0.35s cubic-bezier(0.34,1.56,0.64,1)
+  Removal: toastOut 0.3s ease → then remove from DOM
+
+── CONFIRM DIALOG — ConfirmDialog.js ──
+
+NOT window.confirm — custom modal
+
+Backdrop: rgba(59,31,12,0.5) blur(3px), fadeIn 0.2s
+Box: 400px centered, parchment bg, border: 2px solid sienna
+border-radius: 16px, box-shadow: var(--shadow-lg)
+animation: scaleIn 0.3s ease
+
+TOP STRIPE: 6px sienna gradient bar (like delete warning)
+
+ICON: FaTriangleExclamation 56px sienna, centered with circle bg (sienna-pale)
+
+TITLE: Rozha One 24px sienna "আপনি কি নিশ্চিত?"
+
+MESSAGE: Noto Sans Bengali 14px bark-mid, centered
+  "'{item name}' মুছে ফেলা হবে। এটি পুনরুদ্ধার করা যাবে না।"
+
+BUTTON ROW:
+  "না, বাতিল করুন" (60% width):
+    Border: 1.5px walnut, walnut text, pill, Noto Sans Bengali 15px
+    Hover: linen bg
+  
+  "হ্যাঁ, মুছে দিন" (60% width):
+    bg: sienna gradient, parchment text, pill, 48px
+    FaTrashCan icon
+    Hover: brightness(1.1) + shadow-md
+
+── FORM FIELD — FormField.js ──
+
+Reusable component for all form inputs:
+Props: label, name, type, required, error, hint, suffix, prefix
+
+Structure:
+  <label>: Noto Sans Bengali 13px bark-mid bold, margin-bottom 6px
+    Required asterisk: sienna "*"
+  
+  Input wrapper (position relative):
+    Prefix (if any): FaTag icon or "৳" in left padding area (bark-soft)
+    <input>:
+      bg: var(--parchment-2)
+      border: 1.5px solid var(--linen-dark)
+      border-radius: 8px, height: 48px
+      padding: 0 16px (0 52px if prefix/suffix)
+      Noto Sans Bengali 14px bark
+      
+      Focus: border var(--border-focus), box-shadow 0 0 0 3px rgba(212,136,42,0.1)
+      Error: border var(--sienna), box-shadow 0 0 0 3px rgba(181,84,30,0.1)
+      Disabled: bg linen, cursor not-allowed, opacity 0.6
+    
+    Suffix (if any): in right padding area (bark-soft Bebas Neue)
+  
+  Error message: FaCircleExclamation 12px + text, Noto Sans Bengali 12px sienna
+    animation: fadeUp 0.2s ease on appear
+  
+  Hint text: Noto Sans Bengali 11px bark-soft italic
+
+── PAGINATION — Pagination.js ──
+
+Props: totalItems, itemsPerPage, currentPage, onPageChange
+
+Style:
+  Centered flex row, gap: 8px
+  
+  Each page button: 36×36px, border-radius: 8px
+  Default: parchment bg, walnut border, bark-mid Fira Code
+  Active: walnut bg, parchment Rozha One, shadow-sm
+  Hover: parchment-2 bg, border-hover
+  Disabled: linen bg, bark-soft, cursor default
+  
+  Prev/Next: pill buttons (wider), FaChevronLeft/Right icons
+  Ellipsis: "..." bark-soft, not clickable
+  
+  Per-page selector (right side):
+    "প্রতি পৃষ্ঠায়:" Noto Sans Bengali 13px bark-soft
+    Select: 10 | 20 | 50 options, honey focus
+
+═══════════════════════════════════════════════════════════════════════
+ADMIN CONTEXT — AdminContext.js
+═══════════════════════════════════════════════════════════════════════
+
+'use client'
+
+import { createContext, useContext, useReducer, useEffect } from 'react'
+import { categories as initialCategories } from '@/data/categories'
+import { products as initialProducts } from '@/data/products'
+import { galleryImages as initialGallery } from '@/data/gallery'
+import { designs as initialDesigns } from '@/data/designs'
+
+Initial state:
+{
+  isAuthenticated: false,
+  activePanel: 'dashboard',
+  products: [...initialProducts],
+  categories: [...initialCategories],
+  gallery: [...initialGallery],
+  designs: [...initialDesigns],
+  editingProduct: null,
+  editingDesign: null,
+  editingGallery: null,
+  searchQuery: '',
+  filterCategory: 'all',
+  filterStatus: 'all',
+  sortBy: 'newest',
+  currentPage: 1,
+  itemsPerPage: 20,
+  sidebarOpen: false,
+}
+
+Reducer actions:
+  LOGIN / LOGOUT
+  SET_PANEL
+  ADD_PRODUCT / UPDATE_PRODUCT / DELETE_PRODUCT
+  ADD_CATEGORY / UPDATE_CATEGORY / DELETE_CATEGORY
+  ADD_GALLERY / DELETE_GALLERY
+  ADD_DESIGN / UPDATE_DESIGN / DELETE_DESIGN
+  SET_EDITING_PRODUCT / SET_EDITING_DESIGN
+  SET_SEARCH / SET_FILTER / SET_SORT
+  SET_PAGE / SET_ITEMS_PER_PAGE
+  TOGGLE_SIDEBAR
+
+All mutations maintain immutability (spread operators).
+No localStorage persistence needed.
+
+═══════════════════════════════════════════════════════════════════════
+TOAST CONTEXT — ToastContext.js
+═══════════════════════════════════════════════════════════════════════
+
+'use client'
+
+createContext with:
+  toasts: []
+  addToast(message, type='info', duration=3500)
+  removeToast(id)
+
+Each toast: { id: Date.now() + random, message, type, duration }
+
+useToast() hook: returns { addToast, removeToast }
+
+═══════════════════════════════════════════════════════════════════════
+RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════════════════════════════════════
+
+/* < 640px: Mobile */
+  Sidebar: hidden, opens as full-screen overlay
+  TopBar: compact, only hamburger + logo + clock
+  Panels: single column
+  Table: card view (one product per card, stacked info)
+  Form: single column
+  Stats: 1×4 column
+  Export: 1×4 column
+
+/* 640px–1023px: Tablet */
+  Sidebar: hidden, slides in as 280px overlay
+  Stats: 2×2 grid
+  Table: shows key columns only (hide some)
+  Form: 2 columns
+  Export: 2×2 grid
+
+/* 1024px–1279px: Small laptop */
+  Sidebar: fixed 220px (narrower)
+  Stats: 4×1 row
+  Table: all columns visible
+  Form: 2 columns
+  Export: 2×2
+
+/* 1280px+: Desktop */
+  Sidebar: fixed 260px
+  Stats: 4×1 row
+  Table: all columns, comfortable spacing
+  Form: 3 columns
+  Export: 2×2
+
+/* 1600px+: Wide desktop */
+  Stats: larger cards with more whitespace
+  Table: even more comfortable
+  Sidebar: 280px
+
+All spacing uses clamp():
+  --panel-px: clamp(20px, 3.5vw, 48px)
+  --panel-py: clamp(20px, 3vw, 36px)
+  --card-gap: clamp(12px, 2vw, 20px)
