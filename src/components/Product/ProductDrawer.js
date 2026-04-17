@@ -30,7 +30,8 @@ const ProductDrawer = ({ product, onClose }) => {
   };
 
   const handleCopyInfo = () => {
-    const text = `Product: ${product.name}\nID: ${product.id}\nPrice: ৳${product.price.toLocaleString()}`;
+    const priceStr = typeof product.price === 'number' ? `৳${product.price.toLocaleString()}` : product.price;
+    const text = `Product: ${product.name}\nID: ${product.id}\nPrice: ${priceStr}`;
     navigator.clipboard.writeText(text);
     addToast('পণ্যের তথ্য কপি করা হয়েছে!', 'success');
   };
@@ -41,11 +42,12 @@ const ProductDrawer = ({ product, onClose }) => {
   };
 
   const handleWhatsApp = () => {
+    const priceStr = typeof product.price === 'number' ? `৳${(product.price * quantity).toLocaleString()}` : product.price;
     const message = `হ্যালো মা ফার্নিচার, আমি এই পণ্যটি অর্ডার করতে চাই:
 ${product.name}
 ID: ${product.id}
 পরিমাণ: ${quantity} টি
-মূল্য: ৳${(product.price * quantity).toLocaleString()}`;
+মূল্য: ${priceStr}`;
     window.open(`https://wa.me/8801979728818?text=${encodeURIComponent(message)}`, '_blank');
   };
 
@@ -120,8 +122,10 @@ ID: ${product.id}
             </div>
 
             <div className={styles.priceBlock}>
-              <div className={styles.currentPrice}>৳{product.price.toLocaleString()}</div>
-              {product.oldPrice && (
+              <div className={styles.currentPrice}>
+                {typeof product.price === 'number' ? `৳${product.price.toLocaleString()}` : product.price}
+              </div>
+              {product.oldPrice && typeof product.oldPrice === 'number' && (
                 <div className={styles.oldPriceRow}>
                   <span className={styles.oldPrice}>৳{product.oldPrice.toLocaleString()}</span>
                   {product.discount && <span className={styles.discountBadge}>{product.discount} ছাড়</span>}

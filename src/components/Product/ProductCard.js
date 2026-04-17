@@ -29,7 +29,9 @@ const ProductCard = ({ product, variant = 'standard', onClick }) => {
         </div>
         <div className={styles.compactInfo}>
           <h3 className={styles.compactName}>{product.name}</h3>
-          <p className={styles.compactPrice}>৳{product.price.toLocaleString()}</p>
+          <p className={styles.compactPrice}>
+            {typeof product.price === 'number' ? `৳${product.price.toLocaleString()}` : product.price}
+          </p>
         </div>
       </div>
     );
@@ -44,7 +46,7 @@ const ProductCard = ({ product, variant = 'standard', onClick }) => {
         
         {/* BADGES */}
         <div className={styles.badges}>
-          {product.oldPrice && (
+          {product.oldPrice && typeof product.price === 'number' && (
             <span className={`${styles.badge} ${styles.saleBadge}`}>৳{(product.oldPrice - product.price).toLocaleString()} ছাড়</span>
           )}
           {product.isNew && <span className={`${styles.badge} ${styles.newBadge}`}>নতুন</span>}
@@ -74,16 +76,18 @@ const ProductCard = ({ product, variant = 'standard', onClick }) => {
         <div className={styles.ratingRow}>
           <div className={styles.stars}>
             {[...Array(5)].map((_, i) => (
-              <FaStar key={i} color={i < Math.floor(product.rating) ? 'var(--honey)' : 'var(--linen-dark)'} />
+              <FaStar key={i} color={i < Math.floor(product.rating || 5) ? 'var(--honey)' : 'var(--linen-dark)'} />
             ))}
           </div>
-          <span className={styles.reviewCount}>({product.reviews})</span>
+          <span className={styles.reviewCount}>({product.reviews || 0})</span>
         </div>
 
         <div className={styles.priceRow}>
           <div className={styles.prices}>
-            <span className={styles.currentPrice}>৳{product.price.toLocaleString()}</span>
-            {product.oldPrice && (
+            <span className={styles.currentPrice}>
+              {typeof product.price === 'number' ? `৳${product.price.toLocaleString()}` : product.price}
+            </span>
+            {product.oldPrice && typeof product.oldPrice === 'number' && (
               <span className={styles.oldPrice}>৳{product.oldPrice.toLocaleString()}</span>
             )}
           </div>

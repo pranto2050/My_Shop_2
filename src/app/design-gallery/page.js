@@ -1,13 +1,15 @@
 'use client'
 
 import React, { useState, useMemo } from 'react';
-import Image from 'next/image';
 import styles from './page.module.css';
 import { designs } from '../../../data/designs';
 import { categories } from '../../../data/categories';
+import ProductCard from '../../components/Product/ProductCard';
+import ProductDrawer from '../../components/Product/ProductDrawer';
 
 const DesignGalleryPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const itemsPerPage = 20;
 
   // Calculate pagination
@@ -23,6 +25,14 @@ const DesignGalleryPage = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const openProductDrawer = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const closeProductDrawer = () => {
+    setSelectedProduct(null);
+  };
+
   return (
     <main className={styles.section}>
       <div className={styles.container}>
@@ -36,34 +46,16 @@ const DesignGalleryPage = () => {
         <div className={styles.grid}>
           {currentDesigns.map((design) => {
             const categoryName = categories.find(c => c.id === design.category)?.name || design.category;
+            const productData = {
+              ...design,
+              category: categoryName
+            };
             return (
-              <div key={design.id} className={styles.designCard}>
-                <div className={styles.imageWrapper}>
-                  <Image
-                    src={design.image}
-                    alt={design.name}
-                    fill
-                    className={styles.image}
-                    unoptimized={true}
-                  />
-                </div>
-                <div className={styles.content}>
-                  <span className={styles.category}>{categoryName} • {design.id}</span>
-                  <h3 className={styles.designName}>{design.name}</h3>
-                  <p className={styles.description}>{design.description}</p>
-                  
-                  <div className={styles.footer}>
-                    <div className={styles.infoItem}>
-                      <span className={styles.infoLabel}>উপাদান</span>
-                      <span className={styles.infoValue}>{design.material}</span>
-                    </div>
-                    <div className={styles.infoItem}>
-                      <span className={styles.infoLabel}>মূল্য</span>
-                      <span className={`${styles.infoValue} ${styles.priceValue}`}>{design.price}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ProductCard 
+                key={design.id} 
+                product={productData} 
+                onClick={openProductDrawer}
+              />
             );
           })}
         </div>
@@ -104,6 +96,8 @@ const DesignGalleryPage = () => {
           </div>
         )}
       </div>
+
+      {selectedProduct && <ProductDrawer product={selectedProduct} onClose={closeProductDrawer} />}
     </main>
   );
 };
