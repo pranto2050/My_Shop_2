@@ -10,16 +10,29 @@ interface StatCardProps {
   colorClass?: string;
 }
 
-export default function StatCard({ title, value, subtitle, icon, colorClass = 'text-[#C49A6C]' }: StatCardProps) {
+export default function StatCard({ title, value, subtitle, icon, colorClass = 'text-[#8B5E3C]' }: StatCardProps) {
   return (
-    <div className="group relative overflow-hidden rounded-xl border border-[#343434] bg-[#1a1a1a]/95 p-5 shadow-[0_10px_26px_rgba(0,0,0,0.32)] transition hover:-translate-y-0.5 hover:border-[#5a4638]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-1 bg-linear-to-r from-[#8B5E3C] via-[#C49A6C] to-transparent opacity-80" />
-      <div className="mb-4 flex items-center justify-between">
-        <p className="text-sm text-[#b6b6b6]">{title}</p>
-        <span className={`rounded-lg border border-[#3a3a3a] bg-[#242424] p-2 shadow-[0_8px_14px_rgba(0,0,0,0.2)] ${colorClass}`}>{icon}</span>
+    <div className="group relative overflow-hidden rounded-[2.5rem] border border-slate-100 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1">
+      <div className="relative flex flex-col gap-6">
+        <div className="flex items-center justify-between">
+          <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-50 shadow-inner transition-transform duration-500 group-hover:rotate-12 ${colorClass}`}>
+            {icon}
+          </div>
+          {subtitle && (
+            <div className="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-emerald-600 border border-emerald-100">
+              {subtitle}
+            </div>
+          )}
+        </div>
+        
+        <div className="space-y-1">
+          <p className="text-xs font-black text-slate-400 uppercase tracking-widest">{title}</p>
+          <h3 className="text-3xl font-black text-slate-900 tracking-tight">{value}</h3>
+        </div>
       </div>
-      <h3 className="text-2xl font-semibold text-white md:text-[28px]">{value}</h3>
-      {subtitle ? <p className="mt-2 text-xs text-[#a5a5a5]">{subtitle}</p> : null}
+
+      {/* Decorative Bottom Line */}
+      <div className="absolute bottom-0 left-0 h-1.5 w-full bg-slate-50 group-hover:bg-[#8B5E3C]/10 transition-colors" />
     </div>
   );
 }

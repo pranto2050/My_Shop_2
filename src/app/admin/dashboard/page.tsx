@@ -71,85 +71,160 @@ export default function AdminDashboardPage() {
   const recentActivity = useMemo(() => getActivityHistory().slice(0, 5), [products]);
 
   return (
-    <div className="space-y-5">
-      <div className="rounded-xl border border-[#3a3a3a] bg-[#161616]/90 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
-        <p className="text-[11px] uppercase tracking-[0.2em] text-[#9f9f9f]">Overview</p>
-        <h2 className="mt-1 text-xl font-semibold text-white">স্বাগতম, অ্যাডমিন</h2>
-        <p className="mt-1 text-sm text-[#a9a9a9]">আজকের স্টক এবং ক্যাটাগরি পারফরম্যান্স দ্রুত দেখুন।</p>
-      </div>
-
-      {lowStockItems.length > 0 ? (
-        <div className="flex items-center gap-2 rounded-xl border border-[#6b2b2b] bg-linear-to-r from-[#3b1e1e] to-[#281616] px-4 py-3 text-[#ffd6d6] shadow-[0_10px_22px_rgba(0,0,0,0.25)]">
-          <AlertTriangle className="h-5 w-5" />
-          <p>{lowStockItems.length}টি পণ্য লো-স্টক অবস্থায় আছে</p>
+    <div className="space-y-10 animate-in fade-in duration-700">
+      {/* Welcome Banner */}
+      <div className="relative overflow-hidden rounded-[3rem] bg-white border border-slate-100 p-10 shadow-sm">
+        <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-slate-50/50 blur-3xl" />
+        <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+          <div className="max-w-2xl">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-[0.2em] border border-emerald-100">
+                System Active
+              </span>
+              <span className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">Real-time Sync Enabled</span>
+            </div>
+            <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tighter leading-tight mb-4">স্বাগতম, অ্যাডমিন 👋</h2>
+            <p className="text-slate-500 text-lg leading-relaxed">
+              আপনার ফার্নিচার শোরুমের ইনভেন্টরি এবং পারফরম্যান্স রিয়েল-টাইমে মনিটর করুন। আজকের ড্যাশবোর্ড আপডেট এখানে।
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-4">
+            <button className="px-8 py-4 rounded-2xl bg-white border border-slate-200 text-slate-600 font-black uppercase tracking-widest text-xs hover:bg-slate-50 transition-all shadow-sm">
+              View Reports
+            </button>
+            <button className="px-8 py-4 rounded-2xl bg-[#8B5E3C] text-white font-black uppercase tracking-widest text-xs shadow-xl shadow-[#8B5E3C]/20 hover:scale-105 active:scale-95 transition-all">
+              Add New Product
+            </button>
+          </div>
         </div>
-      ) : null}
-
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <StatCard title="মোট পণ্য" value={String(products.length)} icon={<PackageSearch className="h-5 w-5" />} />
-        <StatCard title="মোট ক্যাটাগরি" value={String(CATEGORIES.length)} icon={<Layers3 className="h-5 w-5" />} />
-        <StatCard title="লো স্টক আইটেম" value={String(lowStockItems.length)} icon={<Boxes className="h-5 w-5" />} colorClass="text-[#ef4444]" />
-        <StatCard title="মোট স্টক মূল্য" value={`৳${totalStockValue.toLocaleString('en-IN')}`} icon={<Wallet className="h-5 w-5" />} colorClass="text-[#22c55e]" />
       </div>
 
-      <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-        <div className="rounded-xl border border-[#343434] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
-          <h2 className="mb-4 text-lg font-semibold">ক্যাটাগরি অনুযায়ী পণ্য</h2>
-          <div className="h-80">
+      {lowStockItems.length > 0 && (
+        <div className="group relative overflow-hidden rounded-[2rem] border border-red-100 bg-red-50/50 p-6 text-red-600 shadow-sm backdrop-blur-sm transition-all hover:bg-red-50">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-red-500 shadow-sm border border-red-100">
+                <AlertTriangle className="h-6 w-6 animate-pulse" />
+              </div>
+              <div>
+                <p className="font-black tracking-tight text-lg leading-none">{lowStockItems.length}টি পণ্য লো-স্টক অবস্থায় আছে</p>
+                <p className="text-xs text-red-400 font-bold uppercase tracking-widest mt-1">Stock replenishment recommended</p>
+              </div>
+            </div>
+            <button className="text-[10px] font-black uppercase tracking-widest bg-white text-red-500 px-6 py-3 rounded-xl shadow-sm hover:bg-red-500 hover:text-white transition-all border border-red-100">
+              Fix Now
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <StatCard title="মোট পণ্য" value={String(products.length)} icon={<PackageSearch className="h-7 w-7" />} />
+        <StatCard title="মোট ক্যাটাগরি" value={String(CATEGORIES.length)} icon={<Layers3 className="h-7 w-7" />} />
+        <StatCard title="লো স্টক আইটেম" value={String(lowStockItems.length)} icon={<Boxes className="h-7 w-7" />} colorClass="text-red-500" subtitle={`${((lowStockItems.length / products.length) * 100).toFixed(0)}% Low Stock`} />
+        <StatCard title="মোট স্টক মূল্য" value={`৳${totalStockValue.toLocaleString('en-IN')}`} icon={<Wallet className="h-7 w-7" />} colorClass="text-emerald-500" subtitle="Estimated Value" />
+      </div>
+
+      <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
+        <div className="rounded-[3rem] bg-white border border-slate-100 p-10 shadow-sm">
+          <div className="flex items-center justify-between mb-10">
+            <h2 className="text-xl font-black text-slate-900 uppercase tracking-widest">ক্যাটাগরি অনুযায়ী পণ্য</h2>
+            <div className="h-2 w-2 rounded-full bg-[#8B5E3C] shadow-[0_0_10px_rgba(139,94,60,0.5)]" />
+          </div>
+          <div className="h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
-                <Pie data={productsByCategory} dataKey="count" nameKey="category" cx="50%" cy="50%" outerRadius={110}>
+                <Pie 
+                  data={productsByCategory} 
+                  dataKey="count" 
+                  nameKey="category" 
+                  cx="50%" 
+                  cy="50%" 
+                  outerRadius={140}
+                  innerRadius={100}
+                  paddingAngle={8}
+                >
                   {productsByCategory.map((entry, index) => (
-                    <Cell key={`pie-${entry.category}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                    <Cell key={`pie-${entry.category}`} fill={PIE_COLORS[index % PIE_COLORS.length]} stroke="#fff" strokeWidth={4} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value) => [`${value} টি`, 'পণ্য']} />
-                <Legend />
+                <Tooltip 
+                  contentStyle={{ backgroundColor: '#fff', borderRadius: '24px', border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.05)', color: '#1e293b' }}
+                  itemStyle={{ fontWeight: '800', fontSize: '12px' }}
+                  formatter={(value) => [`${value} টি`, 'পণ্য']} 
+                />
+                <Legend iconType="circle" />
               </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#343434] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
-          <h2 className="mb-4 text-lg font-semibold">ক্যাটাগরি অনুযায়ী স্টক</h2>
-          <div className="h-80">
+        <div className="rounded-[3rem] bg-white border border-slate-100 p-10 shadow-sm">
+          <div className="flex items-center justify-between mb-10">
+            <h2 className="text-xl font-black text-slate-900 uppercase tracking-widest">ক্যাটাগরি অনুযায়ী স্টক</h2>
+            <div className="flex gap-2">
+              <div className="h-2 w-2 rounded-full bg-slate-100" />
+              <div className="h-2 w-2 rounded-full bg-slate-200" />
+              <div className="h-2 w-2 rounded-full bg-[#8B5E3C]" />
+            </div>
+          </div>
+          <div className="h-[400px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={productsByCategory}>
-                <XAxis dataKey="category" tick={{ fill: '#a0a0a0', fontSize: 11 }} interval={0} angle={-15} textAnchor="end" height={70} />
-                <YAxis tick={{ fill: '#a0a0a0', fontSize: 12 }} />
-                <Tooltip formatter={(value) => [`${value} টি`, 'স্টক']} />
-                <Bar dataKey="stock" fill="#C49A6C" radius={[6, 6, 0, 0]} />
+                <XAxis dataKey="category" tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} interval={0} angle={-15} textAnchor="end" height={70} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} axisLine={false} tickLine={false} />
+                <Tooltip 
+                  cursor={{ fill: '#f8fafc', radius: 16 }}
+                  contentStyle={{ backgroundColor: '#fff', borderRadius: '24px', border: 'none', boxShadow: '0 10px 40px rgba(0,0,0,0.05)', color: '#1e293b' }}
+                  formatter={(value) => [`${value} টি`, 'স্টক']} 
+                />
+                <Bar dataKey="stock" fill="#8B5E3C" radius={[12, 12, 12, 12]} barSize={40} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-        <div className="rounded-xl border border-[#5f2f2f] bg-[#1b1b1b]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
-          <h3 className="mb-3 text-base font-semibold text-[#ffcece]">লো স্টক অ্যালার্ট তালিকা</h3>
-          <div className="space-y-2">
+      <div className="grid grid-cols-1 gap-8 xl:grid-cols-2">
+        <div className="rounded-[3rem] bg-white border border-slate-100 p-10 shadow-sm">
+          <h3 className="mb-8 text-xl font-black text-slate-900 uppercase tracking-widest flex items-center gap-3">
+            <div className="h-3 w-3 rounded-full bg-red-500" />
+            লো স্টক অ্যালার্ট
+          </h3>
+          <div className="space-y-4 max-h-[500px] overflow-y-auto pr-4 custom-scrollbar">
             {lowStockItems.length === 0 ? (
-              <p className="text-sm text-[#a0a0a0]">লো স্টক নেই।</p>
+              <div className="flex flex-col items-center justify-center py-20 text-slate-300">
+                <Boxes className="h-16 w-16 opacity-20 mb-4" />
+                <p className="text-sm font-black uppercase tracking-widest">সব পণ্য পর্যাপ্ত আছে</p>
+              </div>
             ) : (
               lowStockItems.map((product) => (
-                <div key={product.id} className="flex items-center justify-between rounded-lg border border-[#4a3030] bg-[#211414] px-3 py-2">
-                  <div>
-                    <p className="text-sm text-white">{product.name}</p>
-                    <p className="text-xs text-[#c9a5a5]">{product.category}</p>
+                <div key={product.id} className="group flex items-center justify-between rounded-[2rem] border border-slate-50 bg-slate-50/50 p-6 transition-all hover:bg-white hover:border-red-100 hover:shadow-lg hover:shadow-red-500/5">
+                  <div className="flex items-center gap-5">
+                    <div className="h-14 w-14 rounded-2xl bg-white flex items-center justify-center text-red-500 shadow-sm group-hover:scale-110 transition-transform border border-red-500/5">
+                      <AlertTriangle className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p className="text-base font-black text-slate-900 leading-none mb-1">{product.name}</p>
+                      <p className="text-[10px] uppercase font-black tracking-widest text-slate-400">{product.category}</p>
+                    </div>
                   </div>
-                  <span className="rounded bg-[#ef4444]/20 px-2 py-1 text-xs text-[#ffc9c9]">{product.stock} ইউনিট</span>
+                  <div className="text-right">
+                    <span className="inline-block rounded-full bg-red-50 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-red-500 border border-red-100 shadow-sm">
+                      {product.stock} ইউনিট
+                    </span>
+                  </div>
                 </div>
               ))
             )}
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#343434] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
-          <div className="mb-3 flex items-center justify-between gap-2">
-            <h3 className="text-base font-semibold">Recent Activity</h3>
-            <label className="flex items-center gap-2 text-xs text-[#a0a0a0]">
-              Threshold
+        <div className="rounded-[3rem] bg-white border border-slate-100 p-10 shadow-sm">
+          <div className="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <h3 className="text-xl font-black text-slate-900 uppercase tracking-widest">সাম্প্রতিক অ্যাক্টিভিটি</h3>
+            <div className="flex items-center gap-4 bg-slate-50 px-5 py-2.5 rounded-2xl border border-slate-100">
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">অ্যালার্ট লিমিট</span>
               <input
                 type="number"
                 min={1}
@@ -159,19 +234,29 @@ export default function AdminDashboardPage() {
                   setThreshold(next);
                   saveLowStockThreshold(next);
                 }}
-                className="w-16 rounded-md border border-[#4a4a4a] bg-[#101010] px-2 py-1 text-white"
+                className="w-14 bg-transparent text-xs font-black text-[#8B5E3C] focus:outline-none"
               />
-            </label>
+            </div>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-6 max-h-[500px] overflow-y-auto pr-4 custom-scrollbar">
             {recentActivity.length === 0 ? (
-              <p className="text-sm text-[#a0a0a0]">কোনো আপডেট নেই।</p>
+              <div className="flex flex-col items-center justify-center py-20 text-slate-300">
+                <PackageSearch className="h-16 w-16 opacity-20 mb-4" />
+                <p className="text-sm font-black uppercase tracking-widest">কোনো আপডেট নেই</p>
+              </div>
             ) : (
               recentActivity.map((entry) => (
-                <div key={entry.id} className="rounded-lg border border-[#3a3a3a] bg-[#111] px-3 py-2">
-                  <p className="text-sm text-white">{entry.action}</p>
-                  <p className="text-xs text-[#a0a0a0]">{entry.details}</p>
-                  <p className="mt-1 text-[11px] text-[#777]">{new Date(entry.timestamp).toLocaleString('bn-BD')}</p>
+                <div key={entry.id} className="relative pl-10 pb-8 border-l-2 border-slate-50 last:pb-0 last:border-0">
+                  <div className="absolute left-[-6px] top-0 h-3 w-3 rounded-full bg-[#8B5E3C] border-2 border-white shadow-sm" />
+                  <div className="rounded-[2rem] border border-slate-50 bg-slate-50/50 p-6 transition-all hover:bg-white hover:border-slate-200 hover:shadow-sm">
+                    <p className="text-sm font-black text-slate-900 leading-tight mb-2">{entry.action}</p>
+                    <p className="text-xs text-slate-500 font-bold leading-relaxed">{entry.details}</p>
+                    <div className="mt-4 flex items-center gap-3">
+                      <span className="text-[9px] font-black text-slate-300 uppercase tracking-[0.2em]">
+                        {new Date(entry.timestamp).toLocaleString('bn-BD')}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               ))
             )}

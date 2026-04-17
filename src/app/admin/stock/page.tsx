@@ -16,9 +16,9 @@ import {
 } from '../../../../lib/adminData';
 
 const stockStatus = (stock: number) => {
-  if (stock < 5) return { label: '🔴 লো স্টক', className: 'bg-[#ef4444]/25 text-[#ffcbcb] border-[#ef4444]/50' };
-  if (stock <= 20) return { label: '🟡 মধ্যম', className: 'bg-[#f59e0b]/20 text-[#ffe0a8] border-[#f59e0b]/50' };
-  return { label: '🟢 পর্যাপ্ত', className: 'bg-[#22c55e]/20 text-[#cfffdc] border-[#22c55e]/50' };
+  if (stock < 5) return { label: '🔴 লো স্টক', className: 'bg-red-500/10 text-red-400 border-red-500/20' };
+  if (stock <= 20) return { label: '🟡 মধ্যম', className: 'bg-orange-500/10 text-orange-400 border-orange-500/20' };
+  return { label: '🟢 পর্যাপ্ত', className: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' };
 };
 
 export default function StockManagementPage() {
@@ -76,18 +76,25 @@ export default function StockManagementPage() {
     setSelectedProduct(null);
   };
 
+
   return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
-        <label className="flex items-center gap-2 text-sm text-[#d6d6d6]">
-          <input
-            type="checkbox"
-            checked={showLowOnly}
-            onChange={(e) => setShowLowOnly(e.target.checked)}
-            className="h-4 w-4 accent-[#8B5E3C]"
-          />
-          <Filter className="h-4 w-4" />
-          Show Low Stock Only
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      {/* Action Bar */}
+      <div className="flex items-center justify-between rounded-[2rem] border border-white/5 bg-[#121212]/40 p-6 shadow-2xl backdrop-blur-md transition-all hover:bg-[#121212]/60">
+        <label className="group flex items-center gap-3 cursor-pointer">
+          <div className="relative flex items-center">
+            <input
+              type="checkbox"
+              checked={showLowOnly}
+              onChange={(e) => setShowLowOnly(e.target.checked)}
+              className="peer h-5 w-5 opacity-0 absolute cursor-pointer"
+            />
+            <div className={`h-5 w-5 rounded-lg border border-white/10 transition-all peer-checked:bg-[#C49A6C] peer-checked:border-[#C49A6C] flex items-center justify-center ${showLowOnly ? 'bg-[#C49A6C]' : 'bg-white/5'}`}>
+              {showLowOnly && <div className="h-2 w-2 rounded-full bg-[#1c1c1c]" />}
+            </div>
+          </div>
+          <span className="text-sm font-bold text-slate-400 group-hover:text-slate-200 transition-colors">Show Low Stock Only</span>
+          <Filter className={`h-4 w-4 transition-colors ${showLowOnly ? 'text-[#C49A6C]' : 'text-slate-500'}`} />
         </label>
 
         <button
@@ -95,43 +102,50 @@ export default function StockManagementPage() {
             setProducts(getProducts());
             setStockHistory(getStockHistory());
           }}
-          className="inline-flex items-center gap-2 rounded-lg border border-[#4a4a4a] px-3 py-2 text-sm text-[#cfcfcf] transition hover:bg-[#262626]"
+          className="inline-flex items-center gap-2.5 rounded-2xl border border-white/5 bg-white/5 px-5 py-2.5 text-sm font-bold text-slate-300 transition-all hover:bg-white/10 hover:text-white hover:border-white/10"
         >
           <RefreshCcw className="h-4 w-4" />
-          রিফ্রেশ
+          রিফ্রেশ করুন
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
-            <thead className="sticky top-0 bg-[#111111] text-[#bdbdbd]">
-              <tr>
-                <th className="px-4 py-3 text-left">পণ্যের নাম</th>
-                <th className="px-4 py-3 text-left">ক্যাটাগরি</th>
-                <th className="px-4 py-3 text-left">বর্তমান স্টক</th>
-                <th className="px-4 py-3 text-left">স্ট্যাটাস</th>
-                <th className="px-4 py-3 text-left">আপডেট</th>
+      {/* Table Section */}
+      <div className="overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#121212]/40 shadow-2xl backdrop-blur-md transition-all hover:bg-[#121212]/60">
+        <div className="overflow-x-auto custom-scrollbar">
+          <table className="min-w-full border-separate border-spacing-0">
+            <thead>
+              <tr className="bg-white/5">
+                <th className="px-6 py-5 text-left text-[10px] font-bold uppercase tracking-widest text-slate-500">পণ্যের নাম</th>
+                <th className="px-6 py-5 text-left text-[10px] font-bold uppercase tracking-widest text-slate-500">ক্যাটাগরি</th>
+                <th className="px-6 py-5 text-left text-[10px] font-bold uppercase tracking-widest text-slate-500">বর্তমান স্টক</th>
+                <th className="px-6 py-5 text-left text-[10px] font-bold uppercase tracking-widest text-slate-500">স্ট্যাটাস</th>
+                <th className="px-6 py-5 text-right text-[10px] font-bold uppercase tracking-widest text-slate-500">আপডেট</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-white/5">
               {filteredProducts.map((item) => {
                 const status = stockStatus(item.stock);
                 return (
-                  <tr key={item.id} className="border-t border-[#2e2e2e] text-[#f5f5f5] transition hover:bg-[#202020]">
-                    <td className="px-4 py-3">{item.name}</td>
-                    <td className="px-4 py-3 text-[#cecece]">{item.category}</td>
-                    <td className="px-4 py-3">{item.stock}</td>
-                    <td className="px-4 py-3">
-                      <span className={`rounded border px-2 py-0.5 text-xs ${status.className}`}>{status.label}</span>
+                  <tr key={item.id} className="group transition-colors hover:bg-white/5">
+                    <td className="px-6 py-5">
+                      <p className="text-sm font-bold text-white group-hover:text-[#C49A6C] transition-colors">{item.name}</p>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-6 py-5">
+                      <span className="text-xs font-semibold text-slate-400">{item.category}</span>
+                    </td>
+                    <td className="px-6 py-5">
+                      <span className={`text-sm font-bold ${item.stock < 5 ? 'text-red-400' : 'text-slate-200'}`}>{item.stock}</span>
+                    </td>
+                    <td className="px-6 py-5">
+                      <span className={`rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${status.className}`}>{status.label}</span>
+                    </td>
+                    <td className="px-6 py-5 text-right">
                       <button
                         onClick={() => {
                           setSelectedProduct(item);
                           setModalOpen(true);
                         }}
-                        className="rounded-lg bg-linear-to-r from-[#8B5E3C] to-[#7d5436] px-3 py-1.5 text-xs text-white shadow-[0_8px_14px_rgba(139,94,60,0.3)] transition hover:brightness-110"
+                        className="inline-flex items-center justify-center rounded-xl bg-[#C49A6C]/10 border border-[#C49A6C]/20 px-4 py-2 text-xs font-bold text-[#C49A6C] hover:bg-[#C49A6C] hover:text-[#1c1c1c] transition-all"
                       >
                         Update Stock
                       </button>
@@ -144,21 +158,40 @@ export default function StockManagementPage() {
         </div>
       </div>
 
-      <section className="rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
-        <h3 className="mb-3 text-lg font-semibold">Stock History (Last 10)</h3>
-        <div className="space-y-2">
+      {/* History Section */}
+      <section className="rounded-[2.5rem] border border-white/5 bg-[#121212]/40 p-8 shadow-2xl backdrop-blur-md">
+        <div className="flex items-center justify-between mb-8">
+          <h3 className="text-xl font-bold text-white tracking-tight">Stock History</h3>
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Last 10 Activities</span>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {stockHistory.slice(0, 10).map((entry) => (
-            <div key={entry.id} className="rounded-lg border border-[#3a3a3a] bg-[#111111] px-3 py-2">
-              <p className="text-sm text-white">
-                {entry.productName} <span className="text-[#c8c8c8]">({entry.category})</span>
-              </p>
-              <p className="text-xs text-[#d8d8d8]">
-                পরিবর্তন: <span className={entry.type === 'add' ? 'text-[#57db7f]' : 'text-[#ff9c9c]'}>{entry.type === 'add' ? '+' : '-'}{entry.quantity}</span>
-                {entry.note ? ` | ${entry.note}` : ''}
-              </p>
-              <p className="text-[11px] text-[#777]">{new Date(entry.timestamp).toLocaleString('bn-BD')}</p>
+            <div key={entry.id} className="group relative overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-5 transition-all hover:bg-white/10 hover:border-[#C49A6C]/20">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm font-bold text-white leading-tight mb-1">{entry.productName}</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-3">{entry.category}</p>
+                  <div className="flex items-center gap-2">
+                    <span className={`inline-flex items-center justify-center rounded-lg px-2 py-1 text-[10px] font-bold ${entry.type === 'add' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
+                      {entry.type === 'add' ? '+' : '-'}{entry.quantity}
+                    </span>
+                    {entry.note && <span className="text-xs text-slate-400 font-medium italic">"{entry.note}"</span>}
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-[10px] font-bold text-slate-600 uppercase tracking-tighter">
+                    {new Date(entry.timestamp).toLocaleString('bn-BD', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' })}
+                  </p>
+                </div>
+              </div>
             </div>
           ))}
+          {stockHistory.length === 0 && (
+            <div className="col-span-full py-12 flex flex-col items-center justify-center text-slate-500">
+              <RefreshCcw className="h-10 w-10 opacity-10 mb-4 animate-spin-slow" />
+              <p className="text-sm font-medium">No stock activity recorded yet</p>
+            </div>
+          )}
         </div>
       </section>
 

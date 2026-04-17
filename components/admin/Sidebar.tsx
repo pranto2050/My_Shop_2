@@ -22,54 +22,73 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   return (
     <>
       <button
-        className="fixed left-4 top-4 z-40 rounded-md border border-[#4a4a4a] bg-[#151515]/90 p-2 text-[#C49A6C] backdrop-blur lg:hidden"
+        className="fixed left-6 top-6 z-50 rounded-2xl bg-white p-3 text-slate-600 shadow-xl border border-slate-100 lg:hidden hover:scale-110 active:scale-95 transition-all"
         onClick={() => setMobileOpen(!mobileOpen)}
       >
-        {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+        {mobileOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
 
       <aside
-        className={`fixed inset-y-0 left-0 z-30 w-65 transform border-r border-[#3a3a3a] bg-linear-to-b from-[#262626] to-[#1c1c1c] px-4 py-5 shadow-[0_16px_40px_rgba(0,0,0,0.45)] transition-transform duration-300 lg:translate-x-0 ${
-          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+        className={`fixed inset-y-0 left-0 z-40 w-64 transform border-r border-slate-200 bg-white px-5 py-8 transition-all duration-300 ease-in-out lg:translate-x-0 ${
+          mobileOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
         }`}
       >
-        <div className="mb-8 rounded-xl border border-[#3a3a3a] bg-[#1b1b1b]/70 px-3 py-3 backdrop-blur">
-          <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-linear-to-br from-[#C49A6C] to-[#8B5E3C] p-2 text-lg shadow-[0_8px_18px_rgba(139,94,60,0.45)]">🪵</div>
+        {/* Brand Logo */}
+        <div className="mb-12 px-2">
+          <div className="flex items-center gap-3.5 group cursor-default">
+            <div className="relative h-12 w-12 rounded-2xl bg-[#8B5E3C] flex items-center justify-center text-2xl shadow-lg shadow-[#8B5E3C]/20">
+              🪵
+            </div>
             <div>
-              <p className="text-lg font-semibold text-white">মা ফার্নিচার</p>
-              <p className="text-xs text-[#b9b9b9]">Admin Panel</p>
+              <h2 className="text-xl font-black tracking-tight text-slate-900 leading-none">মা ফার্নিচার</h2>
+              <div className="flex items-center gap-1.5 mt-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Admin Panel</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <p className="mb-2 px-2 text-[11px] uppercase tracking-[0.18em] text-[#8f8f8f]">Navigation</p>
-        <nav className="space-y-2">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            const Icon = item.icon;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition ${
-                  isActive
-                    ? 'bg-linear-to-r from-[#8B5E3C] to-[#7a5133] text-white shadow-[0_10px_20px_rgba(139,94,60,0.35)]'
-                    : 'text-[#e1e1e1] hover:bg-[#2a2a2a]'
-                }`}
-              >
-                <Icon className={`h-4 w-4 ${isActive ? 'text-white' : 'text-[#b6b6b6] group-hover:text-[#e8d0b7]'}`} />
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+        {/* Navigation Section */}
+        <div className="space-y-2">
+          <p className="px-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-300 mb-4">Dashboard</p>
+          <nav className="space-y-1.5">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`group flex items-center gap-3.5 rounded-2xl px-4 py-3.5 text-sm font-bold transition-all duration-200 ${
+                    isActive
+                      ? 'bg-[#8B5E3C] text-white shadow-lg shadow-[#8B5E3C]/20'
+                      : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                  }`}
+                >
+                  <Icon className={`h-5 w-5 transition-transform duration-200 group-hover:scale-110 ${
+                    isActive ? 'text-white' : 'text-slate-400 group-hover:text-slate-600'
+                  }`} />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
 
-        <div className="absolute bottom-5 left-4 right-4">
+        {/* Footer Section */}
+        <div className="absolute bottom-8 left-5 right-5">
+          <div className="mb-6 rounded-[2rem] bg-slate-50 p-6 border border-slate-100">
+            <p className="text-xs font-bold text-slate-900 mb-1">সাপোর্ট প্রয়োজন?</p>
+            <p className="text-[10px] text-slate-500 leading-relaxed mb-4">আমাদের সাথে যোগাযোগ করুন যেকোনো সমস্যার জন্য।</p>
+            <button className="w-full py-2.5 rounded-xl bg-white border border-slate-200 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:bg-slate-50 transition-all">
+              Help Center
+            </button>
+          </div>
           <button
             onClick={() => router.push('/')}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#5a3b2c] bg-[#2e201a] px-3 py-2.5 text-sm text-[#ffdfcc] transition hover:bg-[#3a241d]"
+            className="flex w-full items-center justify-center gap-3 rounded-2xl bg-red-50 border border-red-100 px-4 py-4 text-sm font-black text-red-500 transition-all hover:bg-red-500 hover:text-white hover:shadow-lg hover:shadow-red-500/20"
           >
             <LogOut className="h-4 w-4" />
             লগআউট
@@ -77,12 +96,13 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         </div>
       </aside>
 
-      {mobileOpen ? (
-        <div
-          className="fixed inset-0 z-20 bg-black/55 backdrop-blur-[2px] lg:hidden"
+      {/* Mobile Overlay */}
+      {mobileOpen && (
+        <div 
+          className="fixed inset-0 z-30 bg-slate-900/40 backdrop-blur-sm lg:hidden transition-opacity duration-300"
           onClick={() => setMobileOpen(false)}
         />
-      ) : null}
+      )}
     </>
   );
 }

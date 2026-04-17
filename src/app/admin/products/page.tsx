@@ -16,9 +16,9 @@ import {
 const PAGE_SIZE = 10;
 
 const statusClass: Record<string, string> = {
-  জনপ্রিয়: 'bg-[#8B5E3C]/25 text-[#E9C7A6] border-[#8B5E3C]/50',
-  নতুন: 'bg-[#1d4ed8]/25 text-[#c7ddff] border-[#1d4ed8]/50',
-  স্বাভাবিক: 'bg-[#3d3d3d]/40 text-[#d0d0d0] border-[#5a5a5a]',
+  জনপ্রিয়: 'bg-orange-50 text-orange-600 border-orange-100',
+  নতুন: 'bg-emerald-50 text-emerald-600 border-emerald-100',
+  স্বাভাবিক: 'bg-slate-50 text-slate-600 border-slate-100',
 };
 
 export default function ProductManagementPage() {
@@ -83,7 +83,7 @@ export default function ProductManagementPage() {
             }
           : item,
       );
-      setProducts(next);
+      setProducts(next); 
       saveProducts(next);
       addActivity('পণ্য আপডেট', `${payload.name} (${payload.id}) আপডেট করা হয়েছে`);
     } else {
@@ -104,29 +104,35 @@ export default function ProductManagementPage() {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col gap-3 rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)] md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-1 flex-col gap-3 md:flex-row">
-          <div className="relative w-full md:max-w-sm">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8a8a8a]" />
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      {/* Action Bar */}
+      <div className="flex flex-col gap-6 rounded-[3rem] bg-white border border-slate-100 p-8 shadow-sm md:flex-row md:items-center md:justify-between transition-all hover:shadow-md">
+        <div className="flex flex-1 flex-col gap-4 md:flex-row">
+          <div className="relative w-full md:max-w-md group">
+            <Search className="absolute left-5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-300 transition-colors group-focus-within:text-[#8B5E3C]" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="নাম বা আইডি দিয়ে সার্চ করুন"
-              className="w-full rounded-lg border border-[#4b4b4b] bg-[#101010] py-2 pl-9 pr-3 text-sm text-white outline-none transition focus:border-[#8B5E3C]"
+              placeholder="নাম বা আইডি দিয়ে সার্চ করুন..."
+              className="w-full rounded-[2rem] border border-slate-100 bg-slate-50/50 py-4 pl-12 pr-6 text-sm text-slate-900 placeholder-slate-400 outline-none focus:ring-4 focus:ring-[#8B5E3C]/5 focus:border-[#8B5E3C]/20 transition-all"
             />
           </div>
 
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="rounded-lg border border-[#4b4b4b] bg-[#101010] px-3 py-2 text-sm text-white outline-none transition focus:border-[#8B5E3C]"
-          >
-            <option value="সব">সব ক্যাটাগরি</option>
-            {CATEGORIES.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
+          <div className="relative">
+            <select
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+              className="appearance-none w-full md:w-56 rounded-[2rem] border border-slate-100 bg-slate-50/50 px-6 py-4 text-sm font-bold text-slate-600 outline-none focus:ring-4 focus:ring-[#8B5E3C]/5 focus:border-[#8B5E3C]/20 transition-all cursor-pointer"
+            >
+              <option value="সব">সব ক্যাটাগরি</option>
+              {CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute right-6 top-1/2 -translate-y-1/2 text-slate-300">
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
+            </div>
+          </div>
         </div>
 
         <button
@@ -134,55 +140,68 @@ export default function ProductManagementPage() {
             setEditingProduct(null);
             setModalOpen(true);
           }}
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-linear-to-r from-[#8B5E3C] to-[#7d5436] px-4 py-2 text-sm font-medium text-white shadow-[0_10px_18px_rgba(139,94,60,0.32)] transition hover:brightness-110"
+          className="inline-flex items-center justify-center gap-3 rounded-[2rem] bg-[#8B5E3C] px-10 py-4 text-xs font-black uppercase tracking-widest text-white shadow-xl shadow-[#8B5E3C]/20 hover:scale-[1.02] active:scale-95 transition-all"
         >
-          <Plus className="h-4 w-4" />
-          নতুন পণ্য যোগ করুন
+          <Plus className="h-5 w-5" />
+          নতুন পণ্য যোগ
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
-        <div className="overflow-x-auto">
-          <table className="min-w-full text-sm">
-            <thead className="sticky top-0 bg-[#111111] text-[#bdbdbd]">
-              <tr>
-                <th className="px-4 py-3 text-left">ID</th>
-                <th className="px-4 py-3 text-left">পণ্যের নাম</th>
-                <th className="px-4 py-3 text-left">ক্যাটাগরি</th>
-                <th className="px-4 py-3 text-left">মূল্য</th>
-                <th className="px-4 py-3 text-left">ছাড় %</th>
-                <th className="px-4 py-3 text-left">স্টক</th>
-                <th className="px-4 py-3 text-left">কাঠ</th>
-                <th className="px-4 py-3 text-left">ব্যাজ</th>
-                <th className="px-4 py-3 text-left">Actions</th>
+      {/* Table Section */}
+      <div className="overflow-hidden rounded-[3rem] bg-white border border-slate-100 shadow-sm transition-all hover:shadow-md">
+        <div className="overflow-x-auto custom-scrollbar">
+          <table className="min-w-full border-separate border-spacing-0">
+            <thead>
+              <tr className="bg-slate-50/50">
+                <th className="px-8 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">ID</th>
+                <th className="px-8 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">পণ্যের বিবরণ</th>
+                <th className="px-8 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">ক্যাটাগরি</th>
+                <th className="px-8 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">মূল্য</th>
+                <th className="px-8 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">স্টক</th>
+                <th className="px-8 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">কাঠের ধরন</th>
+                <th className="px-8 py-6 text-left text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">ব্যাজ</th>
+                <th className="px-8 py-6 text-right text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">অ্যাকশন</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-slate-50">
               {paginated.map((item) => (
-                <tr key={item.id} className="border-t border-[#2e2e2e] text-[#f5f5f5] transition hover:bg-[#202020]">
-                  <td className="px-4 py-3 text-[#d8b28d]">{item.id}</td>
-                  <td className="px-4 py-3">{item.name}</td>
-                  <td className="px-4 py-3 text-[#cfcfcf]">{item.category}</td>
-                  <td className="px-4 py-3">৳{item.price.toLocaleString('en-IN')}</td>
-                  <td className="px-4 py-3">{item.discount}%</td>
-                  <td className="px-4 py-3">{item.stock}</td>
-                  <td className="px-4 py-3">{item.woodType}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex flex-wrap gap-1">
-                      <span className={`rounded border px-2 py-0.5 text-xs ${statusClass[item.status] || statusClass['স্বাভাবিক']}`}>
-                        {item.status}
-                      </span>
-                      {item.badge ? (
-                        <span className={`rounded border px-2 py-0.5 text-xs ${statusClass[item.badge] || statusClass['স্বাভাবিক']}`}>
-                          {item.badge}
-                        </span>
-                      ) : null}
+                <tr key={item.id} className="group transition-colors hover:bg-slate-50/30">
+                  <td className="whitespace-nowrap px-8 py-6">
+                    <span className="text-xs font-black text-slate-300 tracking-tighter">#{item.id}</span>
+                  </td>
+                  <td className="px-8 py-6">
+                    <p className="text-sm font-black text-slate-900 group-hover:text-[#8B5E3C] transition-colors leading-none mb-1.5">{item.name}</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Discount: {item.discount}%</p>
+                  </td>
+                  <td className="whitespace-nowrap px-8 py-6">
+                    <span className="text-xs font-bold text-slate-600">{item.category}</span>
+                  </td>
+                  <td className="whitespace-nowrap px-8 py-6">
+                    <span className="text-sm font-black text-slate-900 tracking-tight">৳{item.price.toLocaleString('en-IN')}</span>
+                  </td>
+                  <td className="whitespace-nowrap px-8 py-6">
+                    <div className="flex items-center gap-3">
+                      <div className={`h-2 w-2 rounded-full ${item.stock < 5 ? 'bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.5)]' : 'bg-emerald-500'}`} />
+                      <span className={`text-sm font-black ${item.stock < 5 ? 'text-red-600' : 'text-slate-900'}`}>{item.stock}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3">
-                    <div className="flex gap-2">
+                  <td className="whitespace-nowrap px-8 py-6 text-xs font-bold text-slate-500">{item.woodType}</td>
+                  <td className="px-8 py-6">
+                    <div className="flex flex-wrap gap-2">
+                      <span className={`rounded-full border px-3 py-1 text-[9px] font-black uppercase tracking-widest ${statusClass[item.status] || statusClass['স্বাভাবিক']}`}>
+                        {item.status}
+                      </span>
+                      {item.badge && (
+                        <span className={`rounded-full border px-3 py-1 text-[9px] font-black uppercase tracking-widest ${statusClass[item.badge] || statusClass['স্বাভাবিক']}`}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-8 py-6 text-right">
+                    <div className="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0">
                       <button
-                        className="rounded-md border border-[#3f3f3f] p-2 text-[#d9d9d9] hover:bg-[#2a2a2a]"
+                        className="h-11 w-11 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-slate-400 hover:text-[#8B5E3C] hover:border-[#8B5E3C]/20 hover:shadow-lg transition-all"
                         onClick={() => {
                           setEditingProduct(item);
                           setModalOpen(true);
@@ -191,7 +210,7 @@ export default function ProductManagementPage() {
                         <Pencil className="h-4 w-4" />
                       </button>
                       <button
-                        className="rounded-md border border-[#5a2b2b] p-2 text-[#ffc7c7] hover:bg-[#3a1f1f]"
+                        className="h-11 w-11 flex items-center justify-center rounded-2xl bg-red-50 border border-red-100 text-red-400 hover:text-red-600 hover:bg-red-100 transition-all"
                         onClick={() => handleDelete(item.id)}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -204,21 +223,26 @@ export default function ProductManagementPage() {
           </table>
         </div>
 
-        <div className="flex items-center justify-between border-t border-[#2e2e2e] bg-[#141414] p-3 text-sm text-[#bfbfbf]">
-          <p>মোট {filtered.length}টি পণ্য</p>
-          <div className="flex items-center gap-2">
+        {/* Pagination */}
+        <div className="flex flex-col gap-6 border-t border-slate-50 bg-slate-50/20 px-10 py-8 md:flex-row md:items-center md:justify-between">
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+            মোট <span className="text-[#8B5E3C] text-xs">{filtered.length}</span>টি পণ্য পাওয়া গেছে
+          </p>
+          <div className="flex items-center gap-4">
             <button
               disabled={page <= 1}
               onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-              className="rounded-md border border-[#4a4a4a] px-3 py-1 transition hover:bg-[#222] disabled:opacity-40"
+              className="flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3 text-[10px] font-black uppercase tracking-widest text-slate-600 transition-all hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed shadow-sm"
             >
               পূর্ববর্তী
             </button>
-            <span className="rounded-md bg-[#1f1f1f] px-2 py-1 text-xs">{page} / {totalPages}</span>
+            <div className="flex h-10 w-20 items-center justify-center rounded-2xl bg-[#8B5E3C] text-white text-xs font-black shadow-lg shadow-[#8B5E3C]/20">
+              {page} / {totalPages}
+            </div>
             <button
               disabled={page >= totalPages}
               onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-              className="rounded-md border border-[#4a4a4a] px-3 py-1 transition hover:bg-[#222] disabled:opacity-40"
+              className="flex items-center justify-center rounded-2xl border border-slate-200 bg-white px-6 py-3 text-[10px] font-black uppercase tracking-widest text-slate-600 transition-all hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed shadow-sm"
             >
               পরবর্তী
             </button>

@@ -45,18 +45,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, []);
 
   return (
-    <div className={`${hindSiliguri.className} relative min-h-screen bg-[#0f0f0f] text-white`}>
-      <div className="pointer-events-none absolute inset-0 opacity-60">
-        <div className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-[#8B5E3C]/20 blur-3xl" />
-        <div className="absolute right-0 top-40 h-64 w-64 rounded-full bg-[#C49A6C]/15 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-56 w-56 rounded-full bg-[#8B5E3C]/10 blur-3xl" />
-      </div>
-      <Sidebar mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
-      <div className="relative lg:pl-65">
-        <Header title={title} lowStockCount={lowStockCount} />
-        <main className="p-4 md:p-8">
-          <div className="mx-auto max-w-350">{children}</div>
-        </main>
+    <div className={`${hindSiliguri.className} relative min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-[#8B5E3C]/20 selection:text-[#8B5E3C]`}>
+      {/* Background Pattern */}
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03]" 
+           style={{ backgroundImage: 'radial-gradient(#8B5E3C 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+
+      <div className="flex relative z-10">
+        {/* Sidebar Spacer for Desktop */}
+        <div className="hidden lg:block w-64 flex-shrink-0" />
+
+        <Sidebar mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+        
+        {/* Main Content Area */}
+        <div className="flex-1 flex flex-col min-h-screen min-w-0">
+          <Header title={title} lowStockCount={lowStockCount} />
+          <main className="flex-1 p-4 md:p-8 lg:p-10">
+            <div className="max-w-7xl mx-auto lg:mx-0">
+              {children}
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );

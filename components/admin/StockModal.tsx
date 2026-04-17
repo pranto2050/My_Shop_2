@@ -25,31 +25,67 @@ export default function StockModal({ isOpen, product, onClose, onSubmit }: Stock
   if (!isOpen || !product) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4 backdrop-blur-[2px]">
-      <div className="w-full max-w-md rounded-xl border border-[#454545] bg-[#1a1a1a]/95 p-5 shadow-[0_24px_60px_rgba(0,0,0,0.5)]">
-        <p className="text-[11px] uppercase tracking-[0.18em] text-[#9f9f9f]">Stock Update</p>
-        <h3 className="mt-1 text-xl font-semibold text-white">স্টক আপডেট</h3>
-        <p className="mt-1 text-sm text-[#a0a0a0]">{product.name}</p>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 backdrop-blur-md animate-in fade-in duration-300">
+      <div className="w-full max-w-md overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#121212] shadow-2xl transition-all scale-in-center">
+        {/* Header */}
+        <div className="relative px-8 py-6 bg-linear-to-r from-white/5 to-transparent border-b border-white/5">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C49A6C]">Stock Control</span>
+          </div>
+          <h3 className="text-2xl font-bold text-white tracking-tight">স্টক আপডেট করুন</h3>
+          <p className="mt-1 text-sm font-medium text-slate-500">{product.name}</p>
+        </div>
 
-        <label className="mt-4 block text-sm text-[#d0d0d0]">টাইপ
-          <select className="mt-1 w-full rounded-md border border-[#4a4a4a] bg-[#101010] px-3 py-2 text-white outline-none transition focus:border-[#8B5E3C]" value={type} onChange={(e) => setType(e.target.value as 'add' | 'remove')}>
-            <option value="add">যোগ করুন (+)</option>
-            <option value="remove">বিয়োগ করুন (-)</option>
-          </select>
-        </label>
+        <div className="p-8 space-y-6">
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">টাইপ</label>
+            <div className="relative">
+              <select 
+                className="appearance-none w-full rounded-2xl border border-white/5 bg-white/5 px-5 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-[#C49A6C]/20 focus:border-[#C49A6C]/30 transition-all cursor-pointer" 
+                value={type} 
+                onChange={(e) => setType(e.target.value as 'add' | 'remove')}
+              >
+                <option value="add">যোগ করুন (+)</option>
+                <option value="remove">বিয়োগ করুন (-)</option>
+              </select>
+              <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+              </div>
+            </div>
+          </div>
 
-        <label className="mt-3 block text-sm text-[#d0d0d0]">পরিমাণ
-          <input type="number" min={1} className="mt-1 w-full rounded-md border border-[#4a4a4a] bg-[#101010] px-3 py-2 text-white outline-none transition focus:border-[#8B5E3C]" value={quantity} onChange={(e) => setQuantity(Math.max(1, Number(e.target.value || 1)))} />
-        </label>
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">পরিমাণ</label>
+            <input 
+              type="number" 
+              min={1} 
+              className="w-full rounded-2xl border border-white/5 bg-white/5 px-5 py-3 text-sm text-white outline-none focus:ring-2 focus:ring-[#C49A6C]/20 focus:border-[#C49A6C]/30 transition-all" 
+              value={quantity} 
+              onChange={(e) => setQuantity(Math.max(1, Number(e.target.value || 1)))} 
+            />
+          </div>
 
-        <label className="mt-3 block text-sm text-[#d0d0d0]">নোট (ঐচ্ছিক)
-          <input className="mt-1 w-full rounded-md border border-[#4a4a4a] bg-[#101010] px-3 py-2 text-white outline-none transition focus:border-[#8B5E3C]" value={note} onChange={(e) => setNote(e.target.value)} />
-        </label>
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-500 ml-1">নোট (ঐচ্ছিক)</label>
+            <input 
+              className="w-full rounded-2xl border border-white/5 bg-white/5 px-5 py-3 text-sm text-white placeholder-slate-600 outline-none focus:ring-2 focus:ring-[#C49A6C]/20 focus:border-[#C49A6C]/30 transition-all" 
+              placeholder="কি কারণে স্টক আপডেট করছেন?"
+              value={note} 
+              onChange={(e) => setNote(e.target.value)} 
+            />
+          </div>
+        </div>
 
-        <div className="mt-5 flex justify-end gap-2">
-          <button className="rounded-md border border-[#4a4a4a] px-4 py-2 text-sm text-[#d8d8d8] transition hover:bg-[#252525]" onClick={onClose}>বাতিল</button>
+        {/* Footer */}
+        <div className="px-8 py-6 bg-white/5 border-t border-white/5 flex justify-end gap-3">
+          <button 
+            className="px-6 py-2.5 rounded-xl border border-white/10 text-sm font-bold text-slate-400 hover:bg-white/5 hover:text-white transition-all" 
+            onClick={onClose}
+          >
+            বাতিল
+          </button>
           <button
-            className="rounded-md bg-linear-to-r from-[#8B5E3C] to-[#7d5436] px-4 py-2 text-sm font-medium text-white shadow-[0_10px_16px_rgba(139,94,60,0.3)] transition hover:brightness-110"
+            className="px-8 py-2.5 rounded-xl bg-[#C49A6C] text-[#1c1c1c] text-sm font-black shadow-lg shadow-[#C49A6C]/20 hover:scale-[1.02] active:scale-95 transition-all"
             onClick={() => onSubmit({ type, quantity, note: note.trim() })}
           >
             আপডেট করুন
