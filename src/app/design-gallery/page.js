@@ -1,12 +1,28 @@
 'use client'
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 import { designs } from '../../../data/designs';
 import { categories } from '../../../data/categories';
 
 const DesignGalleryPage = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
+
+  // Calculate pagination
+  const totalPages = Math.ceil(designs.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentDesigns = useMemo(() => {
+    return designs.slice(indexOfFirstItem, indexOfLastItem);
+  }, [indexOfFirstItem, indexOfLastItem]);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <main className={styles.section}>
       <div className={styles.container}>
@@ -18,7 +34,7 @@ const DesignGalleryPage = () => {
         </div>
 
         <div className={styles.grid}>
-          {designs.map((design) => {
+          {currentDesigns.map((design) => {
             const categoryName = categories.find(c => c.id === design.category)?.name || design.category;
             return (
               <div key={design.id} className={styles.designCard}>
@@ -51,6 +67,36 @@ const DesignGalleryPage = () => {
             );
           })}
         </div>
+
+        {totalPages > 1 && (
+          <div className={styles.pagination}>
+            <button
+              className={styles.pageBtn}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              &laquo;
+            </button>
+            
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                className={`${styles.pageBtn} ${currentPage === index + 1 ? styles.pageBtnActive : ''}`}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+
+            <button
+              className={styles.pageBtn}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              &raquo;
+            </button>
+          </div>
+        )}
 
         {designs.length === 0 && (
           <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--bark-soft)' }}>

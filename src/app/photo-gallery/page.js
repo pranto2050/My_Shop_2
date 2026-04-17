@@ -8,11 +8,29 @@ import { categories } from '../../../data/categories';
 
 const PhotoGalleryPage = () => {
   const [activeFilter, setActiveFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 20;
 
   const filteredGallery = useMemo(() => {
     if (activeFilter === 'all') return gallery;
     return gallery.filter(item => item.category === activeFilter);
   }, [activeFilter]);
+
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredGallery.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentPhotos = filteredGallery.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handleFilterChange = (id) => {
+    setActiveFilter(id);
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const filterOptions = [
     { id: 'all', name: 'সবগুলো' },
@@ -34,7 +52,7 @@ const PhotoGalleryPage = () => {
             <button
               key={option.id}
               className={`${styles.filterBtn} ${activeFilter === option.id ? styles.filterBtnActive : ''}`}
-              onClick={() => setActiveFilter(option.id)}
+              onClick={() => handleFilterChange(option.id)}
             >
               {option.name}
             </button>
@@ -42,7 +60,7 @@ const PhotoGalleryPage = () => {
         </div>
 
         <div className={styles.masonry}>
-          {filteredGallery.map((item) => {
+          {currentPhotos.map((item) => {
             const categoryName = categories.find(c => c.id === item.category)?.name || item.category;
             return (
               <div key={item.id} className={styles.masonryItem}>
@@ -64,6 +82,36 @@ const PhotoGalleryPage = () => {
             );
           })}
         </div>
+
+        {totalPages > 1 && (
+          <div className={styles.pagination}>
+            <button
+              className={styles.pageBtn}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              &laquo;
+            </button>
+            
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                className={`${styles.pageBtn} ${currentPage === index + 1 ? styles.pageBtnActive : ''}`}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+
+            <button
+              className={styles.pageBtn}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              &raquo;
+            </button>
+          </div>
+        )}
 
         {filteredGallery.length === 0 && (
           <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--bark-soft)' }}>

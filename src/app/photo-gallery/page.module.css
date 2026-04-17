@@ -132,6 +132,48 @@
   line-height: 1.4;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+  padding: 20px 0;
+}
+
+.pageBtn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--linen);
+  border: 1px solid var(--linen-dark);
+  color: var(--bark-mid);
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pageBtn:hover:not(:disabled) {
+  background: var(--parchment-3);
+  color: var(--walnut);
+  border-color: var(--walnut);
+}
+
+.pageBtnActive {
+  background: var(--walnut);
+  color: var(--parchment);
+  border-color: var(--walnut);
+}
+
+.pageBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (max-width: 1024px) {
   .masonry {
     column-count: 2;
