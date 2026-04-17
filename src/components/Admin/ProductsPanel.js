@@ -8,8 +8,7 @@ import ProductDetailsModal from './ProductDetailsModal'
 import styles from './ProductsPanel.module.css'
 
 export default function ProductsPanel() {
-  const { products, categories, setPanel, dispatch, currentPage, itemsPerPage } = useAdmin()
-  const [searchTerm, setSearchTerm] = useState('')
+  const { products, categories, setPanel, dispatch, currentPage, itemsPerPage, searchQuery } = useAdmin()
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [filterStatus, setFilterStatus] = useState('all') // all, in-stock, out-of-stock, featured, top-selling
   const [deleteId, setDeleteId] = useState(null)
@@ -17,8 +16,8 @@ export default function ProductsPanel() {
 
   // Filtering logic
   const filteredProducts = products.filter(product => {
-    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          product.id.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          product.id.toLowerCase().includes(searchQuery.toLowerCase())
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory
     
     let matchesStatus = true
@@ -66,6 +65,10 @@ export default function ProductsPanel() {
     }
   }
 
+  const handleSearchChange = (e) => {
+    dispatch({ type: 'SET_SEARCH', payload: e.target.value })
+  }
+
   return (
     <div className={styles.productsPanel}>
       <ConfirmDialog 
@@ -90,8 +93,8 @@ export default function ProductsPanel() {
             <input 
               type="text" 
               placeholder="পণ্য খুঁজুন..." 
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchQuery}
+              onChange={handleSearchChange}
             />
           </div>
           <button onClick={() => setPanel('add-product')} className={styles.addBtn}>

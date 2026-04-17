@@ -1,18 +1,62 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useAdmin } from './context/AdminContext'
-import { FaBell, FaMagnifyingGlass, FaChevronDown, FaRightFromBracket, FaBars } from 'react-icons/fa6'
+import { 
+  FaBell, 
+  FaMagnifyingGlass, 
+  FaChevronDown, 
+  FaRightFromBracket, 
+  FaBars,
+  FaUser,
+  FaGear,
+  FaCheckDouble,
+  FaClock
+} from 'react-icons/fa6'
 import styles from './TopBar.module.css'
 
 export default function TopBar() {
-  const { activePanel, logout, toggleSidebar } = useAdmin()
+  const { activePanel, logout, toggleSidebar, setPanel, dispatch, searchQuery } = useAdmin()
   const [time, setTime] = useState(new Date())
+  const [isSearchActive, setIsSearchActive] = useState(false)
+  const [showNotifications, setShowNotifications] = useState(false)
+  const [showProfile, setShowProfile] = useState(false)
+  const searchInputRef = useRef(null)
+  const notificationRef = useRef(null)
+  const profileRef = useRef(null)
+
+  // Mock notifications
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: 'নতুন অর্ডার', desc: 'অর্ডার #123456 প্রাপ্ত হয়েছে', time: '২ মিনিট আগে', unread: true },
+    { id: 2, title: 'পণ্য স্টক আউট', desc: 'সোফা সেট স্টক আউট হয়ে গেছে', time: '১ ঘণ্টা আগে', unread: true },
+    { id: 3, title: 'পেমেন্ট কনফার্ম', desc: 'বিকাশ পেমেন্ট সফল হয়েছে', time: '৩ ঘণ্টা আগে', unread: false },
+  ])
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000)
-    return () => clearInterval(timer)
+    
+    // Click outside listener
+    const handleClickOutside = (event) => {
+      if (notificationRef.current && !notificationRef.current.contains(event.target)) {
+        setShowNotifications(false)
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setShowProfile(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    
+    return () => {
+      clearInterval(timer)
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
   }, [])
+
+  useEffect(() => {
+    if (isSearchActive && searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+  }, [isSearchActive])
 
   const formatTime = (date) => {
     const options = { 
@@ -28,6 +72,24 @@ export default function TopBar() {
     return date.toLocaleDateString('bn-BD', options)
   }
 
+  const handleSearchToggle = () => {
+    setIsSearchActive(!isSearchActive)
+    if (isSearchActive) {
+      dispatch({ type: 'SET_SEARCH', payload: '' })
+    }
+  }
+
+  const handleSearchChange = (e) => {
+    dispatch({ type: 'SET_SEARCH', payload: e.target.value })
+    if (activePanel !== 'products' && e.target.value.length > 0) {
+      setPanel('products')
+    }
+  }
+
+  const markAllRead = () => {
+    setNotifications(prev => prev.map(n => ({ ...n, unread: false })))
+  }
+
   const panelNames = {
     dashboard: 'ড্যাশবোর্ড',
     products: 'পণ্য তালিকা',
@@ -38,7 +100,7 @@ export default function TopBar() {
     export: 'ডেটা Export'
   }
 
-  const formattedTime = formatTime(time).split('|')
+  const unreadCount = notifications.filter(n => n.unread).length
 
   return (
     <header className={styles.topBar}>
@@ -62,28 +124,87 @@ export default function TopBar() {
       </div>
 
       <div className={styles.rightZone}>
-        <button className={styles.iconBtn}>
-          <FaBell />
-          <span className={styles.badge}>3</span>
-        </button>
-        
-        <button className={styles.iconBtn}>
-          <FaMagnifyingGlass />
-        </button>
+        <div className={`${styles.searchWrapper} ${isSearchActive ? styles.searchWrapperActive : ''}`}>
+          <button className={styles.iconBtn} onClick={handleSearchToggle}>
+            <FaMagnifyingGlass />
+          </button>
+          <input 
+            ref={searchInputRef}
+            type="text" 
+            placeholder="নাম বা আইডি দিয়ে খুঁজুন..." 
+            className={styles.searchInput}
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+        </div>
+
+        <div className={styles.dropdownContainer} ref={notificationRef}>
+          <button 
+            className={styles.iconBtn} 
+            onClick={() => {
+              setShowNotifications(!showNotifications)
+              setShowProfile(false)
+            }}
+          >
+            <FaBell />
+            {unreadCount > 0 && <span className={styles.badge}>{unreadCount}</span>}
+          </button>
+
+          {showNotifications && (
+            <div className={styles.notificationDropdown}>
+              <div className={styles.dropdownHeader}>
+                <h3>নোটিফিকেশন</h3>
+                <button className={styles.clearAll} onClick={markAllRead}>
+                  <FaCheckDouble /> সব পড়া হয়েছে
+                </button>
+              </div>
+              <div className={styles.notificationList}>
+                {notifications.map(notif => (
+                  <div key={notif.id} className={`${styles.notificationItem} ${notif.unread ? styles.unread : ''}`}>
+                    <span className={styles.notifTitle}>{notif.title}</span>
+                    <span className={styles.notifDesc}>{notif.desc}</span>
+                    <span className={styles.notifTime}><FaClock size={10} /> {notif.time}</span>
+                  </div>
+                ))}
+              </div>
+              <div className={styles.dropdownFooter}>
+                <button className={styles.viewAll}>সব নোটিফিকেশন দেখুন</button>
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className={styles.divider} />
 
-        <div className={styles.profilePill}>
-          <div className={styles.avatar}>A</div>
-          <span className={styles.adminName}>Admin</span>
-          <FaChevronDown size={12} />
-        </div>
+        <div className={styles.profileWrapper} ref={profileRef}>
+          <button 
+            className={styles.profilePill} 
+            onClick={() => {
+              setShowProfile(!showProfile)
+              setShowNotifications(false)
+            }}
+          >
+            <div className={styles.avatar}>A</div>
+            <span className={styles.adminName}>অ্যাডমিন</span>
+            <FaChevronDown size={12} className={showProfile ? styles.rotate : ''} />
+          </button>
 
-        <button className={styles.logoutBtn} onClick={logout}>
-          <FaRightFromBracket />
-          <span>লগআউট</span>
-        </button>
+          {showProfile && (
+            <div className={styles.profileDropdown}>
+              <button className={styles.profileItem}>
+                <FaUser /> আমার প্রোফাইল
+              </button>
+              <button className={styles.profileItem}>
+                <FaGear /> সেটিংস
+              </button>
+              <button className={`${styles.profileItem} ${styles.logout}`} onClick={logout}>
+                <FaRightFromBracket /> লগআউট
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   )
 }
+
