@@ -3,11 +3,13 @@
 import { useState } from 'react'
 import { useAdmin } from './context/AdminContext'
 import { FaPlus, FaTrash, FaImage, FaChevronDown, FaChevronUp, FaStar } from 'react-icons/fa6'
+import ConfirmDialog from '../UI/ConfirmDialog'
 import styles from './DesignGalleryPanel.module.css'
 
 export default function DesignGalleryPanel() {
   const { designs, dispatch } = useAdmin()
   const [isFormOpen, setIsFormOpen] = useState(false)
+  const [deleteId, setDeleteId] = useState(null)
   const [formData, setFormData] = useState({
     name: '',
     image: '',
@@ -47,13 +49,22 @@ export default function DesignGalleryPanel() {
   }
 
   const handleDelete = (id) => {
-    if (window.confirm('আপনি কি এই ডিজাইনটি মুছে ফেলতে চান?')) {
-      dispatch({ type: 'DELETE_DESIGN', payload: id })
-    }
+    setDeleteId(id)
+  }
+
+  const confirmDelete = () => {
+    dispatch({ type: 'DELETE_DESIGN', payload: deleteId })
+    setDeleteId(null)
   }
 
   return (
     <div className={styles.designPanel}>
+      <ConfirmDialog 
+        isOpen={!!deleteId}
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleteId(null)}
+        message="আপনি কি নিশ্চিত যে আপনি এই ডিজাইনটি মুছে ফেলতে চান?"
+      />
       <header className={styles.header}>
         <h1 className={styles.title}>ডিজাইন গ্যালারি</h1>
         <button 
