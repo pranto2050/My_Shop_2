@@ -118,145 +118,396 @@ CSS ANIMATIONS (@keyframes in globals):
 PROJECT STRUCTURE
 ═══════════════════════════════════════════════════════════════════════
 
-ma-furniture-admin/
-├── package.json
-├── next.config.js
+
+
+
+# Project Structure
+
+/
+├── components/
+│   └── admin/
+│       ├── Header.tsx
+│       ├── ProductModal.tsx
+│       ├── Sidebar.tsx
+│       ├── StatCard.tsx
+│       └── StockModal.tsx
 ├── data/
 │   ├── categories.js
-│   ├── products.js
+│   ├── designs.js
 │   ├── gallery.js
-│   └── designs.js
-└── src/
-    ├── app/
-    │   ├── globals.css
-    │   ├── layout.js
-    │   └── admin/
-    │       ├── page.js              ← password gate
-    │       ├── page.module.css
-    │       └── dashboard/
-    │           └── page.js          ← main admin shell
-    ├── components/
-    │   └── admin/
-    │       ├── shell/
-    │       │   ├── AdminShell.js
-    │       │   ├── AdminShell.module.css
-    │       │   ├── TopBar.js
-    │       │   ├── TopBar.module.css
-    │       │   ├── Sidebar.js
-    │       │   └── Sidebar.module.css
-    │       ├── panels/
-    │       │   ├── DashboardPanel.js
-    │       │   ├── DashboardPanel.module.css
-    │       │   ├── ProductsPanel.js
-    │       │   ├── ProductsPanel.module.css
-    │       │   ├── ProductForm.js
-    │       │   ├── ProductForm.module.css
-    │       │   ├── CategoriesPanel.js
-    │       │   ├── CategoriesPanel.module.css
-    │       │   ├── PhotoGalleryPanel.js
-    │       │   ├── PhotoGalleryPanel.module.css
-    │       │   ├── DesignGalleryPanel.js
-    │       │   ├── DesignGalleryPanel.module.css
-    │       │   └── ExportPanel.js
-    │       └── ui/
-    │           ├── StatCard.js
-    │           ├── StatCard.module.css
-    │           ├── DataTable.js
-    │           ├── DataTable.module.css
-    │           ├── FormField.js
-    │           ├── FormField.module.css
-    │           ├── ToggleSwitch.js
-    │           ├── ToggleSwitch.module.css
-    │           ├── ToastStack.js
-    │           ├── ToastStack.module.css
-    │           ├── ConfirmDialog.js
-    │           ├── ConfirmDialog.module.css
-    │           ├── Pagination.js
-    │           ├── Pagination.module.css
-    │           ├── SearchBar.js
-    │           └── Badge.js
-    ├── context/
-    │   ├── AdminContext.js
-    │   └── ToastContext.js
-    └── hooks/
-        ├── useAdmin.js
-        └── useToast.js
+│   └── products.js
+├── lib/
+│   └── adminData.ts
+├── src/
+│   ├── app/
+│   │   ├── admin/
+│   │   │   ├── dashboard/
+│   │   │   │   └── page.tsx
+│   │   │   ├── products/
+│   │   │   │   └── page.tsx
+│   │   │   ├── stock/
+│   │   │   │   └── page.tsx
+│   │   │   ├── layout.tsx
+│   │   │   └── page.tsx
+│   │   ├── category/
+│   │   │   └── [id]/
+│   │   │       ├── page.js
+│   │   │       └── page.module.css
+│   │   ├── search/
+│   │   │   ├── page.js
+│   │   │   └── page.module.css
+│   │   ├── RootClientLayout.js
+│   │   ├── globals.css
+│   │   ├── layout.js
+│   │   └── page.js
+│   ├── components/
+│   │   ├── Home/
+│   │   │   ├── BestsellerTrack.js
+│   │   │   ├── BestsellerTrack.module.css
+│   │   │   ├── CategoryBento.js
+│   │   │   ├── CategoryBento.module.css
+│   │   │   ├── CategorySection.js
+│   │   │   ├── CategorySection.module.css
+│   │   │   ├── CinematicHero.js
+│   │   │   ├── CinematicHero.module.css
+│   │   │   ├── ContactBlock.js
+│   │   │   ├── ContactBlock.module.css
+│   │   │   ├── DesignTeaser.js
+│   │   │   ├── DesignTeaser.module.css
+│   │   │   ├── GalleryTeaser.js
+│   │   │   ├── GalleryTeaser.module.css
+│   │   │   ├── OrderSteps.js
+│   │   │   ├── OrderSteps.module.css
+│   │   │   ├── SmartSearchBlock.js
+│   │   │   ├── SmartSearchBlock.module.css
+│   │   │   ├── WoodTypesGrid.js
+│   │   │   └── WoodTypesGrid.module.css
+│   │   ├── Layout/
+│   │   │   ├── SiteFooter.js
+│   │   │   ├── SiteFooter.module.css
+│   │   │   ├── SiteHeader.js
+│   │   │   ├── SiteHeader.module.css
+│   │   │   ├── TickerBanner.js
+│   │   │   └── TickerBanner.module.css
+│   │   ├── Loader/
+│   │   │   ├── Loader 1/
+│   │   │   │   ├── WorkshopLoader.js
+│   │   │   │   └── WorkshopLoader.module.css
+│   │   │   ├── loader 2/
+│   │   │   │   ├── WorkshopLoader.js
+│   │   │   │   └── WorkshopLoader.module.css
+│   │   │   ├── WorkshopLoader.js
+│   │   │   └── WorkshopLoader.module.css
+│   │   ├── Product/
+│   │   │   ├── ProductCard.js
+│   │   │   ├── ProductCard.module.css
+│   │   │   ├── ProductDrawer.js
+│   │   │   └── ProductDrawer.module.css
+│   │   └── UI/
+│   │       ├── FloatingWA.js
+│   │       ├── FloatingWA.module.css
+│   │       ├── ScrollTop.js
+│   │       ├── ScrollTop.module.css
+│   │       ├── ToastStack.js
+│   │       └── ToastStack.module.css
+│   ├── context/
+│   │   ├── AdminContext.js
+│   │   └── ToastContext.js
+│   └── hooks/
+│       └── useScrollReveal.js
+├── .gitignore
+├── Admin Text Prompt.txt
+├── Full AI Prompt.md
+├── README.md
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── short.md
+└── tsconfig.json
+
 
 ═══════════════════════════════════════════════════════════════════════
 DATA FILES
 ═══════════════════════════════════════════════════════════════════════
 
-── /data/categories.js ──
-export const categories = [
-  { id:"cat_001", name:"চেয়ার",       nameEn:"Chair",
-    icon:"FaChair",          color:"#7C4B2A" },
-  { id:"cat_002", name:"টেবিল",       nameEn:"Table",
-    icon:"FaTable",          color:"#A0714F" },
-  { id:"cat_003", name:"দরজা",        nameEn:"Door",
-    icon:"FaDoorOpen",       color:"#7B3F2C" },
-  { id:"cat_004", name:"জানালা",      nameEn:"Window",
-    icon:"FaWindowMaximize", color:"#6B4226" },
-  { id:"cat_005", name:"সোফা",        nameEn:"Sofa",
-    icon:"FaCouch",          color:"#C8974E" },
-  { id:"cat_006", name:"বেড",         nameEn:"Bed",
-    icon:"FaBed",            color:"#8B5E3C" },
-  { id:"cat_007", name:"ওয়ার্ডরোব",  nameEn:"Wardrobe",
-    icon:"FaBoxArchive",     color:"#A0714F" },
-  { id:"cat_008", name:"শেলফ",        nameEn:"Shelf",
-    icon:"FaLayerGroup",     color:"#7B3F2C" },
-  { id:"cat_009", name:"ড্রেসিং",     nameEn:"Dressing Table",
-    icon:"FaMirror",         color:"#C8974E" },
-  { id:"cat_010", name:"ডাইনিং সেট", nameEn:"Dining Set",
-    icon:"FaUtensils",       color:"#6B4226" }
+data/categories.js ──export const categories = [
+  {
+    id: 'sofa',
+    name: 'সোফা সেট',
+    slug: 'sofa-set',
+    icon: 'FaSofa',
+    count: 12,
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'bed',
+    name: 'বিছানা',
+    slug: 'bed',
+    icon: 'FaBed',
+    count: 8,
+    image: 'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'dining',
+    name: 'ডাইনিং টেবিল',
+    slug: 'dining-table',
+    icon: 'FaUtensils',
+    count: 15,
+    image: 'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'almirah',
+    name: 'আলমারি',
+    slug: 'almirah',
+    icon: 'FaVault',
+    count: 6,
+    image: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'wardrobe',
+    name: 'ওয়ার্ডরোব',
+    slug: 'wardrobe',
+    icon: 'FaBoxOpen',
+    count: 10,
+    image: 'https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'dressing-table',
+    name: 'ড্রেসিং টেবিল',
+    slug: 'dressing-table',
+    icon: 'FaMirror',
+    count: 9,
+    image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'chair',
+    name: 'চেয়ার',
+    slug: 'chair',
+    icon: 'FaChair',
+    count: 24,
+    image: 'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'office',
+    name: 'অফিস ফার্নিচার',
+    slug: 'office-furniture',
+    icon: 'FaBriefcase',
+    count: 14,
+    image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'door',
+    name: 'দরজা',
+    slug: 'door',
+    icon: 'FaDoorOpen',
+    count: 20,
+    image: 'https://images.unsplash.com/photo-1517646288273-96c9dfcab2f3?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 'others',
+    name: 'অন্যান্য',
+    slug: 'others',
+    icon: 'FaEllipsisH',
+    count: 5,
+    image: 'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=800'
+  }
 ];
 
-── /data/products.js ──
-Each product object:
-{
-  id: "PRD-001",
-  name: "রয়্যাল ডাইনিং চেয়ার",
-  nameEn: "Royal Dining Chair",
-  categoryId: "cat_001",
-  price: 4500,
-  originalPrice: 5500,
-  image: "https://placehold.co/400x320/7C4B2A/FDF6E8?text=PRD-001",
-  images: [
-    "https://placehold.co/600x480/7C4B2A/FDF6E8?text=Front",
-    "https://placehold.co/600x480/9E6644/FDF6E8?text=Side",
-    "https://placehold.co/600x480/D4882A/FDF6E8?text=Back"
-  ],
-  description: "উচ্চমানের সেগুন কাঠে তৈরি, দীর্ঘস্থায়ী ও আরামদায়ক।",
-  material: "সেগুন কাঠ",
-  finish: "পলিশড ওয়ালনাট",
-  dimensions: "50×50×90 সেমি",
-  color: "বাদামী",
-  weight: "8 কেজি",
-  warranty: "১ বছর",
-  inStock: true,
-  isFeatured: true,
-  isTopSelling: true,
-  isNew: false,
-  rating: 4.6,
-  reviewCount: 28,
-  tags: ["dining","chair","সেগুন"],
-  addedDate: "2024-01-15"
-}
-Generate 7 products per category = 70 total products.
+── data/products.js ──export const products = [
+  {
+    id: 'PRD-001',
+    name: 'বিলাসবহুল সেগুন কাঠের সোফা সেট',
+    category: 'sofa',
+    price: 45000,
+    oldPrice: 52000,
+    discount: '১৩%',
+    rating: 4.8,
+    reviews: 24,
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=800'
+    ],
+    description: 'উন্নত মানের সেগুন কাঠ দিয়ে তৈরি এই সোফা সেটটি আপনার বসার ঘরের সৌন্দর্য বাড়িয়ে দেবে বহুগুণ। এটি অত্যন্ত টেকসই এবং আরামদায়ক।',
+    specs: {
+      'উপাদান': 'বার্মিজ সেগুন কাঠ',
+      'ফিনিশ': 'ল্যাকার পলিশ',
+      'মাপ': '৩+২+১ সিটার',
+      'রঙ': 'ন্যাচারাল উড',
+      'ওয়ারেন্টি': '৫ বছর',
+      'শিপিং': '৭-১০ দিন'
+    },
+    isBestseller: true,
+    isNew: true
+  },
+  {
+    id: 'PRD-002',
+    name: 'আধুনিক কিং সাইজ বেড',
+    category: 'bed',
+    price: 35000,
+    oldPrice: 40000,
+    discount: '১২%',
+    rating: 4.9,
+    reviews: 18,
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800'
+    ],
+    description: 'একটি ভালো ঘুম আপনার দিনকে আনন্দময় করে তোলে। আমাদের এই আধুনিক ডিজাইনের বেডটি আপনার বেডরুমকে দিবে এক রাজকীয় লুক।',
+    specs: {
+      'উপাদান': 'মেহগনি কাঠ',
+      'ফিনিশ': 'গ্লসি বার্নিশ',
+      'মাপ': '৬ ফুট x ৭ ফুট',
+      'রঙ': 'ডার্ক চকলেট',
+      'ওয়ারেন্টি': '১০ বছর'
+    },
+    isBestseller: true,
+    isNew: false
+  },
+  {
+    id: 'PRD-003',
+    name: '৬ চেয়ারের ডাইনিং টেবিল সেট',
+    category: 'dining',
+    price: 28000,
+    oldPrice: 32000,
+    discount: '১২%',
+    rating: 4.7,
+    reviews: 32,
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800'
+    ],
+    description: 'পরিবারের সাথে সুন্দর মুহূর্তগুলো ভাগ করে নিতে বেছে নিন আমাদের এই চমৎকার ডাইনিং টেবিল সেটটি।',
+    specs: {
+      'উপাদান': 'গামারি কাঠ',
+      'ফিনিশ': 'ম্যাট পলিশ',
+      'মাপ': '৫ ফুট x ৩.৫ ফুট',
+      'রঙ': 'ওয়ালনাট'
+    },
+    isBestseller: false,
+    isNew: true
+  },
+  {
+    id: 'PRD-004',
+    name: 'তিন পাল্লার আলমারি',
+    category: 'almirah',
+    price: 22000,
+    oldPrice: 25000,
+    discount: '১২%',
+    rating: 4.6,
+    reviews: 15,
+    inStock: true,
+    image: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=800',
+    images: [
+      'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=800'
+    ],
+    description: 'আপনার শখের পোশাকগুলো গুছিয়ে রাখতে ব্যবহার করুন আমাদের এই মজবুত আলমারিটি।',
+    specs: {
+      'উপাদান': 'কানাডিয়ান পাইন উড',
+      'ফিনিশ': 'ল্যাকার',
+      'মাপ': '৬ ফুট x ৫ ফুট',
+      'রঙ': 'লাইট ওক'
+    },
+    isBestseller: true,
+    isNew: false
+  },
+   { 
+    id:'PRD-005', 
+    name:'ওয়ার্ডরোব ১', 
+    category:'wardrobe', 
+    price:30000, 
+    oldPrice:34000, 
+    discount:'11%', 
+    rating:4.6, 
+    reviews:15, 
+    inStock:true, 
+    image:'https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&q=80&w=800', 
+    images:['https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&q=80&w=800'], 
+    description:'স্টাইলিশ ওয়ার্ডরোব', specs:{'উপাদান':'মেহগনি','ওয়ারেন্টি':'৫ বছর'}, isBestseller:false, isNew:true 
+  },
 
-── /data/gallery.js ──
-export const galleryImages = [ 30+ items ]
-Each: { id:"GAL-001", title:"শোরুম ভিউ", category:"showroom",
-        image:"https://placehold.co/600x450/7C4B2A/FDF6E8?text=GAL-001",
-        date:"2024-01-10", description:"..." }
-Categories: showroom | workshop | delivery | events | team
+  { id:'PRD-006', name:'ড্রেসিং টেবিল ১', category:'dressing-table', price:18000, oldPrice:21000, discount:'14%', rating:4.4, reviews:10, inStock:true, image:'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800'], description:'আধুনিক ড্রেসিং টেবিল', specs:{'উপাদান':'বোর্ড','ওয়ারেন্টি':'২ বছর'}, isBestseller:false, isNew:true },
 
-── /data/designs.js ──
-export const designs = [ 50+ items ]
-Each: { id:"DES-001", name:"রয়্যাল ক্লাসিক বেড", nameEn:"Royal Classic Bed",
-        categoryId:"cat_006", categoryName:"বেড",
-        image:"https://placehold.co/600x480/9E6644/FDF6E8?text=DES-001",
-        material:"সেগুন কাঠ", style:"ক্লাসিক", description:"...",
-        tags:["classic","bed"], isPopular:true, addedDate:"2024-01-10" }
+  { id:'PRD-007', name:'চেয়ার সেট ১', category:'chair', price:8000, oldPrice:9500, discount:'16%', rating:4.3, reviews:22, inStock:true, image:'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&q=80&w=800'], description:'কমফোর্ট চেয়ার', specs:{'উপাদান':'গামারি','ওয়ারেন্টি':'২ বছর'}, isBestseller:true, isNew:false },
+
+  { id:'PRD-008', name:'অফিস ডেস্ক ১', category:'office', price:20000, oldPrice:23000, discount:'13%', rating:4.5, reviews:9, inStock:true, image:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800'], description:'অফিস টেবিল', specs:{'উপাদান':'ইঞ্জিনিয়ার্ড','ওয়ারেন্টি':'৩ বছর'}, isBestseller:false, isNew:true },
+
+  { id:'PRD-009', name:'কাঠের দরজা ১', category:'door', price:15000, oldPrice:18000, discount:'15%', rating:4.2, reviews:8, inStock:true, image:'https://images.unsplash.com/photo-1517646288273-96c9dfcab2f3?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1517646288273-96c9dfcab2f3?auto=format&fit=crop&q=80&w=800'], description:'মজবুত দরজা', specs:{'উপাদান':'সেগুন','ওয়ারেন্টি':'৫ বছর'}, isBestseller:false, isNew:false },
+
+  { id:'PRD-010', name:'অন্যান্য ফার্নিচার ১', category:'others', price:12000, oldPrice:15000, discount:'20%', rating:4.1, reviews:6, inStock:true, image:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=800'], description:'অন্যান্য আইটেম', specs:{'উপাদান':'মিক্স','ওয়ারেন্টি':'১ বছর'}, isBestseller:false, isNew:true },
+    { id:'PRD-011', name:'রয়েল সোফা সেট ২', category:'sofa', price:55000, oldPrice:62000, discount:'11%', rating:4.9, reviews:45, inStock:true, image:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800'], description:'আরামদায়ক রয়েল সোফা', specs:{'উপাদান':'মেহগনি','ওয়ারেন্টি':'৫ বছর'}, isBestseller:true, isNew:false },
+
+  { id:'PRD-012', name:'কুইন সাইজ বেড ২', category:'bed', price:38000, oldPrice:42000, discount:'9%', rating:4.5, reviews:32, inStock:true, image:'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800'], description:'সুন্দর কুইন সাইজ বেড', specs:{'উপাদান':'সেগুন','ওয়ারেন্টি':'৮ বছর'}, isBestseller:false, isNew:true },
+
+  { id:'PRD-013', name:'গ্লাস টপ ডাইনিং ২', category:'dining', price:32000, oldPrice:38000, discount:'15%', rating:4.7, reviews:18, inStock:true, image:'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800'], description:'৪ চেয়ার সহ সেট', specs:{'উপাদান':'মেটাল ও গ্লাস','ওয়ারেন্টি':'৩ বছর'}, isBestseller:true, isNew:false },
+
+  { id:'PRD-014', name:'৩ দরজার আলমারি ২', category:'almirah', price:25000, oldPrice:29000, discount:'13%', rating:4.6, reviews:14, inStock:true, image:'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=800'], description:'বড় আলমারি', specs:{'উপাদান':'গামারি','ওয়ারেন্টি':'৪ বছর'}, isBestseller:false, isNew:false },
+
+  { id:'PRD-015', name:'স্লাইডিং ওয়ার্ডরোব ২', category:'wardrobe', price:35000, oldPrice:40000, discount:'12%', rating:4.8, reviews:22, inStock:true, image:'https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&q=80&w=800'], description:'আধুনিক স্লাইডিং ডোর', specs:{'উপাদান':'ইঞ্জিনিয়ার্ড','ওয়ারেন্টি':'৫ বছর'}, isBestseller:true, isNew:true },
+
+  { id:'PRD-016', name:'স্মল ড্রেসিং টেবিল ২', category:'dressing-table', price:15000, oldPrice:18000, discount:'16%', rating:4.3, reviews:8, inStock:true, image:'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800'], description:'ছোট স্পেসের জন্য', specs:{'উপাদান':'পাইন','ওয়ারেন্টি':'২ বছর'}, isBestseller:false, isNew:false },
+
+  { id:'PRD-017', name:'প্লাস্টিক চেয়ার সেট ২', category:'chair', price:5000, oldPrice:6000, discount:'17%', rating:4.1, reviews:30, inStock:true, image:'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&q=80&w=800'], description:'টেকসই প্লাস্টিক চেয়ার', specs:{'উপাদান':'হাই কোয়ালিটি প্লাস্টিক','ওয়ারেন্টি':'১ বছর'}, isBestseller:false, isNew:true },
+
+  { id:'PRD-018', name:'ম্যানেজার ডেস্ক ২', category:'office', price:25000, oldPrice:28000, discount:'10%', rating:4.7, reviews:12, inStock:true, image:'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800'], description:'বড় টেবিল', specs:{'উপাদান':'সেগুন','ওয়ারেন্টি':'৫ বছর'}, isBestseller:true, isNew:false },
+
+  { id:'PRD-019', name:'রুমের দরজা ২', category:'door', price:12000, oldPrice:14000, discount:'14%', rating:4.4, reviews:15, inStock:true, image:'https://images.unsplash.com/photo-1517646288273-96c9dfcab2f3?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1517646288273-96c9dfcab2f3?auto=format&fit=crop&q=80&w=800'], description:'সাধারণ দরজা', specs:{'উপাদান':'ম্যাঙ্গো','ওয়ারেন্টি':'৩ বছর'}, isBestseller:false, isNew:false },
+
+  { id:'PRD-020', name:'শো-পিস ২', category:'others', price:8000, oldPrice:10000, discount:'20%', rating:4.2, reviews:5, inStock:true, image:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=800'], description:'সুন্দর শো-পিস', specs:{'উপাদান':'মেটাল','ওয়ারেন্টি':'১ বছর'}, isBestseller:false, isNew:true },
+
+  { id:'PRD-021', name:'এল-শেপ সোফা ৩', category:'sofa', price:65000, oldPrice:75000, discount:'13%', rating:4.9, reviews:50, inStock:true, image:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800'], description:'কোণার জন্য এল-শেপ', specs:{'উপাদান':'ফেব্রিক ও কাঠ','ওয়ারেন্টি':'৬ বছর'}, isBestseller:true, isNew:false },
+
+  { id:'PRD-022', name:'সিঙ্গেল বেড ৩', category:'bed', price:18000, oldPrice:21000, discount:'14%', rating:4.4, reviews:10, inStock:true, image:'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800'], description:'একজনের জন্য', specs:{'উপাদান':'মেহগনি','ওয়ারেন্টি':'৫ বছর'}, isBestseller:false, isNew:false },
+
+  { id:'PRD-023', name:'৮ চেয়ার ডাইনিং ৩', category:'dining', price:45000, oldPrice:50000, discount:'10%', rating:4.8, reviews:21, inStock:true, image:'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800'], description:'৮ জনের জন্য ডাইনিং সেট', specs:{'উপাদান':'মেহগনি','ওয়ারেন্টি':'৫ বছর'}, isBestseller:false, isNew:false },
+
+];
+
+── data/gallery.js ──
+export const gallery = [
+  {
+    id: 1,
+    image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800',
+    caption: 'সেগুন কাঠের সোফা সেট - ডেলিভারি সম্পন্ন',
+    category: 'sofa'
+  },
+  {
+    id: 2,
+    image: 'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800',
+    caption: 'বিলাসবহুল বেড - গ্রাহকের বাসায় স্থাপন',
+    category: 'bed'
+  },
+  {
+    id: 3,
+    image: 'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800',
+    caption: 'ডাইনিং টেবিল - নতুন শোরুম কালেকশন',
+    category: 'dining'
+  },
+  {
+    id: 4,
+    image: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&q=80&w=800',
+    caption: 'অফিস ফার্নিচার কাস্টম ডিজাইন',
+    category: 'office'
+  },
+  {
+    id: 5,
+    image: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=800',
+    caption: 'আলমারি এবং ওয়ার্ডরোব সেট',
+    category: 'almirah'
+  },
+  {
+    id: 6,
+    image: 'https://images.unsplash.com/photo-1517646288273-96c9dfcab2f3?auto=format&fit=crop&q=80&w=800',
+    caption: 'সেগুন কাঠের খোদাই করা দরজা',
+    category: 'door'
+  }
+];
 Styles: ক্লাসিক | মডার্ন | মিনিমাল | রয়্যাল | কান্ট্রি | কনটেম্পোরারি
 
 ═══════════════════════════════════════════════════════════════════════

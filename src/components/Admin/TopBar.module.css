@@ -1,0 +1,182 @@
+.topBar {
+  height: 64px;
+  background: var(--parchment);
+  border-bottom: 2px solid var(--linen-dark);
+  box-shadow: var(--shadow-sm);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.leftZone {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hamburger {
+  display: none;
+  font-size: 24px;
+  color: var(--walnut);
+  cursor: pointer;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.shopName {
+  font-family: var(--font-bebas);
+  font-size: 14px;
+  color: var(--walnut);
+  letter-spacing: 0.1em;
+}
+
+.separator {
+  color: var(--honey);
+}
+
+.adminText {
+  font-family: var(--font-noto);
+  font-size: 14px;
+  color: var(--walnut-mid);
+}
+
+.currentPanel {
+  font-family: var(--font-noto);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--walnut-deep);
+}
+
+.centerZone {
+  display: flex;
+  align-items: center;
+}
+
+.liveClock {
+  font-family: var(--font-fira);
+  font-size: 15px;
+  color: var(--walnut);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clockSep {
+  color: var(--honey);
+}
+
+.rightZone {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconBtn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--walnut);
+  font-size: 20px;
+  transition: 0.2s;
+  position: relative;
+}
+
+.iconBtn:hover {
+  background: var(--parchment-2);
+  color: var(--walnut-deep);
+}
+
+.badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  background: var(--honey);
+  color: var(--parchment);
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background: var(--linen-dark);
+}
+
+.profilePill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.profilePill:hover {
+  background: var(--parchment-2);
+}
+
+.avatar {
+  width: 34px;
+  height: 34px;
+  background: var(--walnut);
+  color: var(--parchment);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-rozha);
+  font-size: 18px;
+}
+
+.adminName {
+  font-family: var(--font-noto);
+  font-size: 13px;
+  color: var(--bark-mid);
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 100px;
+  border: 1.5px solid var(--sienna);
+  color: var(--sienna);
+  font-family: var(--font-noto);
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+.logoutBtn:hover {
+  background: var(--sienna-pale);
+}
+
+@media (max-width: 1024px) {
+  .hamburger {
+    display: block;
+  }
+  .centerZone {
+    display: none;
+  }
+}

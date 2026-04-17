@@ -1,0 +1,185 @@
+.sidebar {
+  width: var(--admin-sidebar-w);
+  background: var(--walnut-deep);
+  border-right: 1px solid rgba(212,136,42,0.2);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - var(--admin-topbar-h));
+  position: sticky;
+  top: var(--admin-topbar-h);
+  overflow-y: auto;
+  z-index: 700;
+  transition: 0.35s ease;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.shopInfo {
+  margin: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(212,136,42,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--walnut);
+  color: var(--parchment);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-rozha);
+  font-size: 18px;
+}
+
+.shopText {
+  display: flex;
+  flex-direction: column;
+}
+
+.shopTitle {
+  font-family: var(--font-noto);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--parchment);
+}
+
+.shopLocation {
+  font-family: var(--font-noto);
+  font-size: 11px;
+  color: var(--bark-soft);
+}
+
+.onlineStatus {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--moss);
+  border-radius: 50%;
+}
+
+.statusText {
+  font-family: var(--font-fira);
+  font-size: 10px;
+  color: var(--moss);
+}
+
+.navSection {
+  margin-top: 8px;
+}
+
+.sectionLabel {
+  font-family: var(--font-bebas);
+  font-size: 11px;
+  color: var(--bark-soft);
+  letter-spacing: 0.3em;
+  padding: 16px 20px 8px;
+  text-transform: uppercase;
+}
+
+.navItem {
+  height: 48px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 2px 10px;
+  border-radius: 10px;
+  color: var(--parchment);
+  opacity: 0.8;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 1;
+}
+
+.active {
+  background: rgba(212, 136, 42, 0.2) !important;
+  color: var(--honey) !important;
+  opacity: 1 !important;
+  border-left: 4px solid var(--honey);
+  font-weight: bold;
+}
+
+.navIcon {
+  font-size: 20px;
+}
+
+.navLabel {
+  font-family: var(--font-noto);
+  font-size: 14px;
+  flex: 1;
+}
+
+.badge {
+  font-family: var(--font-fira);
+  font-size: 10px;
+  background: var(--honey);
+  color: var(--walnut-deep);
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-fira);
+  font-size: 11px;
+  color: var(--parchment);
+}
+
+.version {
+  font-family: var(--font-fira);
+  font-size: 10px;
+  color: var(--bark-soft);
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: var(--admin-topbar-h);
+    bottom: 0;
+    transform: translateX(-100%);
+  }
+  .sidebarOpen {
+    transform: translateX(0);
+  }
+}

@@ -36,6 +36,12 @@
   --gap:          clamp(14px, 2.2vw, 26px);
   --container-px: clamp(18px, 5vw, 90px);
   --max-w:        1480px;
+
+  /* ADMIN PANEL VARIABLES */
+  --admin-sidebar-w: 260px;
+  --admin-topbar-h: 64px;
+  --panel-px: 32px;
+  --panel-py: 28px;
 }
 
 * {

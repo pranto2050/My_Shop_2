@@ -1,0 +1,44 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--parchment);
+  color: var(--bark);
+  overflow: hidden;
+}
+
+.mainWrapper {
+  display: flex;
+  flex: 1;
+  margin-top: var(--admin-topbar-h);
+  overflow: hidden;
+  position: relative;
+}
+
+.content {
+  flex: 1;
+  padding: var(--panel-py) var(--panel-px);
+  overflow-y: auto;
+  position: relative;
+  background-color: var(--parchment);
+  transition: all 0.3s ease;
+}
+
+.content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: var(--parchment-2);
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: var(--walnut-soft);
+  border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+  .content {
+    padding: 20px 16px;
+  }
+}

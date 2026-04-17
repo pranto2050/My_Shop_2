@@ -1,0 +1,118 @@
+.card {
+  background: var(--parchment-2);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.woodTexture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(92deg,
+      transparent 0px, transparent 4px,
+      rgba(124,75,42,0.015) 4px, rgba(124,75,42,0.015) 8px),
+    repeating-linear-gradient(180deg,
+      transparent 0px, transparent 22px,
+      rgba(124,75,42,0.01) 22px, rgba(124,75,42,0.01) 24px);
+}
+
+.watermark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: var(--font-rozha);
+  font-size: 100px;
+  color: var(--walnut);
+  opacity: 0.04;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.topRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.iconBox {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.trendBadge {
+  font-family: var(--font-fira);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-weight: bold;
+}
+
+.trendUp { background: var(--moss-pale); color: var(--moss); }
+.trendDown { background: var(--sienna-pale); color: var(--sienna); }
+
+.mainNumber {
+  font-family: var(--font-rozha);
+  font-size: 48px;
+  color: var(--walnut-deep);
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.label {
+  font-family: var(--font-noto);
+  font-size: 14px;
+  color: var(--bark-soft);
+  position: relative;
+  z-index: 1;
+}
+
+.progressContainer {
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+}
+
+.progressPercent {
+  font-family: var(--font-fira);
+  font-size: 11px;
+  color: var(--bark-soft);
+}
+
+.progressBar {
+  height: 5px;
+  background: var(--linen-dark);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1.2s ease-out;
+}

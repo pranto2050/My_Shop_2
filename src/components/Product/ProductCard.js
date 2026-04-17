@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { FaWhatsapp, FaCopy, FaStar, FaArrowRight } from 'react-icons/fa';
-import { useToast } from '../../context/ToastContext';
+import { useToast } from '../Admin/context/ToastContext';
 import styles from './ProductCard.module.css';
 
 const ProductCard = ({ product, variant = 'standard', onClick }) => {

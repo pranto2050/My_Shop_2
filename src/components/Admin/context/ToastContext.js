@@ -9,12 +9,11 @@ export const useToast = () => useContext(ToastContext);
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const addToast = useCallback((message, type = 'info') => {
-    const id = Date.now();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      removeToast(id);
-    }, 5000);
+  const addToast = useCallback((message, type = 'info', duration = 3500) => {
+    const id = Date.now() + Math.random();
+    setToasts((prev) => [...prev, { id, message, type, duration }]);
+    
+    // Auto remove is handled in the component itself for better control over animations
   }, []);
 
   const removeToast = useCallback((id) => {

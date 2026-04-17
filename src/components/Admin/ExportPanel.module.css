@@ -1,0 +1,178 @@
+.exportPanel {
+  animation: fadeIn 0.5s ease;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-family: var(--font-rozha);
+  font-size: 28px;
+  color: var(--walnut-deep);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: var(--parchment-2);
+  border-radius: 12px;
+  border-top: 4px solid var(--honey);
+  padding: 24px;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.iconBox {
+  width: 60px;
+  height: 60px;
+  background: var(--parchment);
+  color: var(--walnut);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.cardInfo h3 {
+  font-family: var(--font-rozha);
+  font-size: 20px;
+  color: var(--walnut);
+  margin: 0;
+}
+
+.cardInfo span {
+  font-family: var(--font-noto);
+  font-size: 14px;
+  color: var(--bark-soft);
+}
+
+.cardBtns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.copyBtn, .downloadBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: var(--font-noto);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copyBtn {
+  background: var(--parchment);
+  border: 1px solid var(--honey);
+  color: var(--walnut);
+}
+
+.copyBtn:hover {
+  background: var(--honey);
+  color: var(--parchment);
+}
+
+.copyBtn.copied {
+  background: var(--moss);
+  color: white;
+  border-color: var(--moss);
+}
+
+.downloadBtn {
+  background: var(--walnut);
+  border: 1px solid var(--walnut);
+  color: var(--parchment);
+}
+
+.downloadBtn:hover {
+  background: var(--walnut-deep);
+}
+
+.instructions {
+  background: var(--walnut);
+  color: var(--parchment);
+  padding: 32px;
+  border-radius: 16px;
+  border: 4px double var(--walnut-deep);
+}
+
+.instrHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  color: var(--honey);
+}
+
+.instrHeader h2 {
+  font-family: var(--font-rozha);
+  font-size: 22px;
+  margin: 0;
+}
+
+.instrList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-left: 20px;
+  font-family: var(--font-noto);
+  line-height: 1.6;
+}
+
+.instrList li strong {
+  color: var(--honey);
+}
+
+.instrList code {
+  background: rgba(255,255,255,0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-fira);
+  font-size: 0.9em;
+}
+
+.warning {
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--parchment-dim);
+  font-style: italic;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .cardBtns {
+    grid-template-columns: 1fr;
+  }
+}

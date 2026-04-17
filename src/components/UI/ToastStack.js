@@ -1,8 +1,8 @@
 'use client'
 
 import React from 'react';
-import { useToast } from '../../context/ToastContext';
-import { FaInfoCircle, FaCheckCircle, FaExclamationCircle, FaTimes } from 'react-icons/fa';
+import { useToast } from '../Admin/context/ToastContext';
+import { FaCircleInfo as FaInfoCircle, FaCircleCheck as FaCheckCircle, FaCircleExclamation as FaExclamationCircle, FaXmark as FaTimes } from 'react-icons/fa6';
 import styles from './ToastStack.module.css';
 
 const ToastStack = () => {
