@@ -10,6 +10,14 @@
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
+@media (max-width: 1024px) {
+  .searchSection {
+    margin-top: 0; /* Remove negative margin on mobile/tablet */
+    clip-path: none; /* Simplify clip-path on small screens */
+    padding: 60px 0;
+  }
+}
+
 .searchSection.revealed {
   opacity: 1;
   transform: translateY(0);

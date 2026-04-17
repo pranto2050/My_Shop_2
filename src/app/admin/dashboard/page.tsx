@@ -72,8 +72,14 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-5">
+      <div className="rounded-xl border border-[#3a3a3a] bg-[#161616]/90 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-[#9f9f9f]">Overview</p>
+        <h2 className="mt-1 text-xl font-semibold text-white">স্বাগতম, অ্যাডমিন</h2>
+        <p className="mt-1 text-sm text-[#a9a9a9]">আজকের স্টক এবং ক্যাটাগরি পারফরম্যান্স দ্রুত দেখুন।</p>
+      </div>
+
       {lowStockItems.length > 0 ? (
-        <div className="flex items-center gap-2 rounded-xl border border-[#5f2222] bg-[#351818] px-4 py-3 text-[#ffd6d6]">
+        <div className="flex items-center gap-2 rounded-xl border border-[#6b2b2b] bg-linear-to-r from-[#3b1e1e] to-[#281616] px-4 py-3 text-[#ffd6d6] shadow-[0_10px_22px_rgba(0,0,0,0.25)]">
           <AlertTriangle className="h-5 w-5" />
           <p>{lowStockItems.length}টি পণ্য লো-স্টক অবস্থায় আছে</p>
         </div>
@@ -87,7 +93,7 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-        <div className="rounded-xl border border-[#2e2e2e] bg-[#1a1a1a] p-4">
+        <div className="rounded-xl border border-[#343434] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
           <h2 className="mb-4 text-lg font-semibold">ক্যাটাগরি অনুযায়ী পণ্য</h2>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -104,7 +110,7 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#2e2e2e] bg-[#1a1a1a] p-4">
+        <div className="rounded-xl border border-[#343434] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
           <h2 className="mb-4 text-lg font-semibold">ক্যাটাগরি অনুযায়ী স্টক</h2>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
@@ -120,14 +126,14 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
-        <div className="rounded-xl border border-[#5f2222] bg-[#1b1b1b] p-4">
+        <div className="rounded-xl border border-[#5f2f2f] bg-[#1b1b1b]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
           <h3 className="mb-3 text-base font-semibold text-[#ffcece]">লো স্টক অ্যালার্ট তালিকা</h3>
           <div className="space-y-2">
             {lowStockItems.length === 0 ? (
               <p className="text-sm text-[#a0a0a0]">লো স্টক নেই।</p>
             ) : (
               lowStockItems.map((product) => (
-                <div key={product.id} className="flex items-center justify-between rounded-lg border border-[#3a2b2b] bg-[#211414] px-3 py-2">
+                <div key={product.id} className="flex items-center justify-between rounded-lg border border-[#4a3030] bg-[#211414] px-3 py-2">
                   <div>
                     <p className="text-sm text-white">{product.name}</p>
                     <p className="text-xs text-[#c9a5a5]">{product.category}</p>
@@ -139,7 +145,7 @@ export default function AdminDashboardPage() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-[#2e2e2e] bg-[#1a1a1a] p-4">
+        <div className="rounded-xl border border-[#343434] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
           <div className="mb-3 flex items-center justify-between gap-2">
             <h3 className="text-base font-semibold">Recent Activity</h3>
             <label className="flex items-center gap-2 text-xs text-[#a0a0a0]">
@@ -153,7 +159,7 @@ export default function AdminDashboardPage() {
                   setThreshold(next);
                   saveLowStockThreshold(next);
                 }}
-                className="w-16 rounded-md border border-[#3a3a3a] bg-[#101010] px-2 py-1 text-white"
+                className="w-16 rounded-md border border-[#4a4a4a] bg-[#101010] px-2 py-1 text-white"
               />
             </label>
           </div>
@@ -162,7 +168,7 @@ export default function AdminDashboardPage() {
               <p className="text-sm text-[#a0a0a0]">কোনো আপডেট নেই।</p>
             ) : (
               recentActivity.map((entry) => (
-                <div key={entry.id} className="rounded-lg border border-[#2f2f2f] bg-[#111] px-3 py-2">
+                <div key={entry.id} className="rounded-lg border border-[#3a3a3a] bg-[#111] px-3 py-2">
                   <p className="text-sm text-white">{entry.action}</p>
                   <p className="text-xs text-[#a0a0a0]">{entry.details}</p>
                   <p className="mt-1 text-[11px] text-[#777]">{new Date(entry.timestamp).toLocaleString('bn-BD')}</p>

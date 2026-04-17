@@ -78,7 +78,7 @@ export default function StockManagementPage() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between rounded-xl border border-[#2e2e2e] bg-[#1a1a1a] p-4">
+      <div className="flex items-center justify-between rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
         <label className="flex items-center gap-2 text-sm text-[#d6d6d6]">
           <input
             type="checkbox"
@@ -95,17 +95,17 @@ export default function StockManagementPage() {
             setProducts(getProducts());
             setStockHistory(getStockHistory());
           }}
-          className="inline-flex items-center gap-2 rounded-lg border border-[#3a3a3a] px-3 py-2 text-sm text-[#cfcfcf] hover:bg-[#262626]"
+          className="inline-flex items-center gap-2 rounded-lg border border-[#4a4a4a] px-3 py-2 text-sm text-[#cfcfcf] transition hover:bg-[#262626]"
         >
           <RefreshCcw className="h-4 w-4" />
           রিফ্রেশ
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-[#2e2e2e] bg-[#1a1a1a]">
+      <div className="overflow-hidden rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
-            <thead className="bg-[#111111] text-[#bdbdbd]">
+            <thead className="sticky top-0 bg-[#111111] text-[#bdbdbd]">
               <tr>
                 <th className="px-4 py-3 text-left">পণ্যের নাম</th>
                 <th className="px-4 py-3 text-left">ক্যাটাগরি</th>
@@ -118,7 +118,7 @@ export default function StockManagementPage() {
               {filteredProducts.map((item) => {
                 const status = stockStatus(item.stock);
                 return (
-                  <tr key={item.id} className="border-t border-[#2b2b2b] text-[#f5f5f5]">
+                  <tr key={item.id} className="border-t border-[#2e2e2e] text-[#f5f5f5] transition hover:bg-[#202020]">
                     <td className="px-4 py-3">{item.name}</td>
                     <td className="px-4 py-3 text-[#cecece]">{item.category}</td>
                     <td className="px-4 py-3">{item.stock}</td>
@@ -131,7 +131,7 @@ export default function StockManagementPage() {
                           setSelectedProduct(item);
                           setModalOpen(true);
                         }}
-                        className="rounded-lg bg-[#8B5E3C] px-3 py-1.5 text-xs text-white hover:bg-[#9d6d48]"
+                        className="rounded-lg bg-linear-to-r from-[#8B5E3C] to-[#7d5436] px-3 py-1.5 text-xs text-white shadow-[0_8px_14px_rgba(139,94,60,0.3)] transition hover:brightness-110"
                       >
                         Update Stock
                       </button>
@@ -144,11 +144,11 @@ export default function StockManagementPage() {
         </div>
       </div>
 
-      <section className="rounded-xl border border-[#2e2e2e] bg-[#1a1a1a] p-4">
+      <section className="rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
         <h3 className="mb-3 text-lg font-semibold">Stock History (Last 10)</h3>
         <div className="space-y-2">
           {stockHistory.slice(0, 10).map((entry) => (
-            <div key={entry.id} className="rounded-lg border border-[#2f2f2f] bg-[#111111] px-3 py-2">
+            <div key={entry.id} className="rounded-lg border border-[#3a3a3a] bg-[#111111] px-3 py-2">
               <p className="text-sm text-white">
                 {entry.productName} <span className="text-[#c8c8c8]">({entry.category})</span>
               </p>

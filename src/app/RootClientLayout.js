@@ -15,10 +15,13 @@ import ToastStack from '../components/UI/ToastStack';
 export default function RootClientLayout({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const pathname = usePathname();
   const isAdminRoute = pathname?.startsWith('/admin');
 
   useEffect(() => {
+    setIsHydrated(true);
+    
     if (isAdminRoute) {
       setIsLoading(false);
       return undefined;
@@ -30,6 +33,9 @@ export default function RootClientLayout({ children }) {
     }, 4200);
     return () => clearTimeout(timer);
   }, [isAdminRoute]);
+
+  // Prevent SSR flicker
+  if (!isHydrated) return null;
 
   return (
     <ToastProvider>

@@ -105,7 +105,7 @@ export default function ProductManagementPage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col gap-3 rounded-xl border border-[#2e2e2e] bg-[#1a1a1a] p-4 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-3 rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 p-4 shadow-[0_10px_26px_rgba(0,0,0,0.28)] md:flex-row md:items-center md:justify-between">
         <div className="flex flex-1 flex-col gap-3 md:flex-row">
           <div className="relative w-full md:max-w-sm">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#8a8a8a]" />
@@ -113,14 +113,14 @@ export default function ProductManagementPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="নাম বা আইডি দিয়ে সার্চ করুন"
-              className="w-full rounded-lg border border-[#3a3a3a] bg-[#101010] py-2 pl-9 pr-3 text-sm text-white"
+              className="w-full rounded-lg border border-[#4b4b4b] bg-[#101010] py-2 pl-9 pr-3 text-sm text-white outline-none transition focus:border-[#8B5E3C]"
             />
           </div>
 
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="rounded-lg border border-[#3a3a3a] bg-[#101010] px-3 py-2 text-sm text-white"
+            className="rounded-lg border border-[#4b4b4b] bg-[#101010] px-3 py-2 text-sm text-white outline-none transition focus:border-[#8B5E3C]"
           >
             <option value="সব">সব ক্যাটাগরি</option>
             {CATEGORIES.map((cat) => (
@@ -134,17 +134,17 @@ export default function ProductManagementPage() {
             setEditingProduct(null);
             setModalOpen(true);
           }}
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#8B5E3C] px-4 py-2 text-sm font-medium text-white hover:bg-[#9d6d48]"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-linear-to-r from-[#8B5E3C] to-[#7d5436] px-4 py-2 text-sm font-medium text-white shadow-[0_10px_18px_rgba(139,94,60,0.32)] transition hover:brightness-110"
         >
           <Plus className="h-4 w-4" />
           নতুন পণ্য যোগ করুন
         </button>
       </div>
 
-      <div className="overflow-hidden rounded-xl border border-[#2e2e2e] bg-[#1a1a1a]">
+      <div className="overflow-hidden rounded-xl border border-[#3a3a3a] bg-[#1a1a1a]/95 shadow-[0_10px_26px_rgba(0,0,0,0.28)]">
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
-            <thead className="bg-[#111111] text-[#bdbdbd]">
+            <thead className="sticky top-0 bg-[#111111] text-[#bdbdbd]">
               <tr>
                 <th className="px-4 py-3 text-left">ID</th>
                 <th className="px-4 py-3 text-left">পণ্যের নাম</th>
@@ -159,7 +159,7 @@ export default function ProductManagementPage() {
             </thead>
             <tbody>
               {paginated.map((item) => (
-                <tr key={item.id} className="border-t border-[#2b2b2b] text-[#f5f5f5]">
+                <tr key={item.id} className="border-t border-[#2e2e2e] text-[#f5f5f5] transition hover:bg-[#202020]">
                   <td className="px-4 py-3 text-[#d8b28d]">{item.id}</td>
                   <td className="px-4 py-3">{item.name}</td>
                   <td className="px-4 py-3 text-[#cfcfcf]">{item.category}</td>
@@ -204,21 +204,21 @@ export default function ProductManagementPage() {
           </table>
         </div>
 
-        <div className="flex items-center justify-between border-t border-[#2e2e2e] p-3 text-sm text-[#bfbfbf]">
+        <div className="flex items-center justify-between border-t border-[#2e2e2e] bg-[#141414] p-3 text-sm text-[#bfbfbf]">
           <p>মোট {filtered.length}টি পণ্য</p>
           <div className="flex items-center gap-2">
             <button
               disabled={page <= 1}
               onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-              className="rounded-md border border-[#3a3a3a] px-3 py-1 disabled:opacity-40"
+              className="rounded-md border border-[#4a4a4a] px-3 py-1 transition hover:bg-[#222] disabled:opacity-40"
             >
               পূর্ববর্তী
             </button>
-            <span>{page} / {totalPages}</span>
+            <span className="rounded-md bg-[#1f1f1f] px-2 py-1 text-xs">{page} / {totalPages}</span>
             <button
               disabled={page >= totalPages}
               onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-              className="rounded-md border border-[#3a3a3a] px-3 py-1 disabled:opacity-40"
+              className="rounded-md border border-[#4a4a4a] px-3 py-1 transition hover:bg-[#222] disabled:opacity-40"
             >
               পরবর্তী
             </button>

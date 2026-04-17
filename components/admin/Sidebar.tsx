@@ -22,25 +22,28 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
   return (
     <>
       <button
-        className="fixed left-4 top-4 z-40 rounded-md border border-[#3b3b3b] bg-[#1a1a1a] p-2 text-[#C49A6C] lg:hidden"
+        className="fixed left-4 top-4 z-40 rounded-md border border-[#4a4a4a] bg-[#151515]/90 p-2 text-[#C49A6C] backdrop-blur lg:hidden"
         onClick={() => setMobileOpen(!mobileOpen)}
       >
         {mobileOpen ? <X size={18} /> : <Menu size={18} />}
       </button>
 
       <aside
-        className={`fixed inset-y-0 left-0 z-30 w-65 transform border-r border-[#333] bg-[#242424] px-4 py-5 transition-transform duration-300 lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-30 w-65 transform border-r border-[#3a3a3a] bg-linear-to-b from-[#262626] to-[#1c1c1c] px-4 py-5 shadow-[0_16px_40px_rgba(0,0,0,0.45)] transition-transform duration-300 lg:translate-x-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        <div className="mb-8 flex items-center gap-3 px-2">
-          <div className="h-10 w-10 rounded-lg bg-linear-to-br from-[#C49A6C] to-[#8B5E3C] p-2 text-lg">🪵</div>
-          <div>
-            <p className="text-lg font-semibold text-white">মা ফার্নিচার</p>
-            <p className="text-xs text-[#a0a0a0]">Admin Panel</p>
+        <div className="mb-8 rounded-xl border border-[#3a3a3a] bg-[#1b1b1b]/70 px-3 py-3 backdrop-blur">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-lg bg-linear-to-br from-[#C49A6C] to-[#8B5E3C] p-2 text-lg shadow-[0_8px_18px_rgba(139,94,60,0.45)]">🪵</div>
+            <div>
+              <p className="text-lg font-semibold text-white">মা ফার্নিচার</p>
+              <p className="text-xs text-[#b9b9b9]">Admin Panel</p>
+            </div>
           </div>
         </div>
 
+        <p className="mb-2 px-2 text-[11px] uppercase tracking-[0.18em] text-[#8f8f8f]">Navigation</p>
         <nav className="space-y-2">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
@@ -50,13 +53,13 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition ${
+                className={`group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition ${
                   isActive
-                    ? 'bg-[#8B5E3C] text-white shadow-[0_8px_16px_rgba(139,94,60,0.35)]'
-                    : 'text-[#d7d7d7] hover:bg-[#2d2d2d]'
+                    ? 'bg-linear-to-r from-[#8B5E3C] to-[#7a5133] text-white shadow-[0_10px_20px_rgba(139,94,60,0.35)]'
+                    : 'text-[#e1e1e1] hover:bg-[#2a2a2a]'
                 }`}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className={`h-4 w-4 ${isActive ? 'text-white' : 'text-[#b6b6b6] group-hover:text-[#e8d0b7]'}`} />
                 {item.label}
               </Link>
             );
@@ -66,7 +69,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         <div className="absolute bottom-5 left-4 right-4">
           <button
             onClick={() => router.push('/')}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#4a2f24] bg-[#2b1d18] px-3 py-2 text-sm text-[#ffdfcc] hover:bg-[#3a241d]"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#5a3b2c] bg-[#2e201a] px-3 py-2.5 text-sm text-[#ffdfcc] transition hover:bg-[#3a241d]"
           >
             <LogOut className="h-4 w-4" />
             লগআউট
@@ -76,7 +79,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
 
       {mobileOpen ? (
         <div
-          className="fixed inset-0 z-20 bg-black/50 lg:hidden"
+          className="fixed inset-0 z-20 bg-black/55 backdrop-blur-[2px] lg:hidden"
           onClick={() => setMobileOpen(false)}
         />
       ) : null}
