@@ -1,35 +1,39 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAdmin } from './context/AdminContext'
 import TopBar from './TopBar'
 import Sidebar from './Sidebar'
+import WorkshopLoader from '../Loader/WorkshopLoader'
 import styles from './AdminShell.module.css'
 
 export default function AdminShell({ children }) {
-  const { isAuthenticated, isLoading } = useAdmin()
+  const { isAuthenticated, isLoading: authLoading } = useAdmin()
+  const [isPanelLoading, setIsPanelLoading] = useState(true)
+  const [isExiting, setIsExiting] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    if (!authLoading && !isAuthenticated) {
       router.push('/admin')
     }
-  }, [isAuthenticated, isLoading, router])
+  }, [isAuthenticated, authLoading, router])
 
-  if (isLoading || !isAuthenticated) {
-    return (
-      <div style={{ 
-        height: '100vh', 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        background: 'var(--parchment)',
-        color: 'var(--walnut)'
-      }}>
-        Loading Admin...
-      </div>
-    )
+  useEffect(() => {
+    // Show loader for at least 1.5 seconds for admin panel feel
+    const timer = setTimeout(() => {
+      setIsExiting(true)
+      setTimeout(() => {
+        setIsPanelLoading(false)
+      }, 800)
+    }, 1500)
+
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (authLoading || !isAuthenticated || isPanelLoading) {
+    return <WorkshopLoader isExiting={isExiting} />
   }
 
   return (
