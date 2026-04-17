@@ -2,11 +2,16 @@
 
 import React from 'react';
 import { FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp, FaEnvelope, FaClock } from 'react-icons/fa';
+import { storeInfo } from '../../../data/stor info';
+import { getWhatsAppUrl } from '../../utils/storeUtils';
 import styles from './ContactBlock.module.css';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 
 const ContactBlock = () => {
   const [ref, isVisible] = useScrollReveal();
+
+  const mainPhone = storeInfo.callNumbers.numbers[0];
+  const waNumber = storeInfo.whatsapp.number;
 
   return (
     <section ref={ref} id="contact" className={`${styles.section} wood-grain ${isVisible ? styles.revealed : ''}`}>
@@ -26,7 +31,7 @@ const ContactBlock = () => {
                 </div>
                 <div className={styles.infoText}>
                   <h4>ঠিকানা</h4>
-                  <p>সাতারপাড়া বাজার, দৌলতপুর, কুষ্টিয়া</p>
+                  <p>{storeInfo.showroomAddress.address}</p>
                 </div>
               </div>
               
@@ -36,7 +41,7 @@ const ContactBlock = () => {
                 </div>
                 <div className={styles.infoText}>
                   <h4>ফোন</h4>
-                  <p>+880 1729 728818</p>
+                  <p>{mainPhone}</p>
                 </div>
               </div>
               
@@ -45,15 +50,15 @@ const ContactBlock = () => {
                   <FaClock className={styles.icon} />
                 </div>
                 <div className={styles.infoText}>
-                  <h4>খোলার সময়</h4>
-                  <p>প্রতিদিন সকাল ৯:০০ টা - রাত ৯:০০ টা</p>
+                  <h4>{storeInfo.openingHours.label}</h4>
+                  <p>{storeInfo.openingHours.schedule[0]}</p>
                 </div>
               </div>
             </div>
             
-            <a href="https://wa.me/8801979728818" target="_blank" rel="noopener noreferrer" className={styles.waButton}>
+            <a href={getWhatsAppUrl(waNumber)} target="_blank" rel="noopener noreferrer" className={styles.waButton}>
               <FaWhatsapp className={styles.waIcon} />
-              WhatsApp এ মেসেজ দিন
+              {storeInfo.whatsapp.label} এ মেসেজ দিন
             </a>
           </div>
 
@@ -63,9 +68,9 @@ const ContactBlock = () => {
               <div className={styles.mapContent}>
                 <FaMapMarkerAlt className={styles.mapIconBig} />
                 <h3>মা ফার্নিচার</h3>
-                <p>সাতারপাড়া বাজার, দৌলতপুর</p>
+                <p>{storeInfo.showroomAddress.address.split(',')[0] + ', ' + storeInfo.showroomAddress.address.split(',')[1]}</p>
                 <a 
-                  href="https://maps.google.com/?q=Daulatpur,Kushtia" 
+                  href={`https://maps.google.com/?q=${encodeURIComponent(storeInfo.showroomAddress.address)}`} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className={styles.mapLink}

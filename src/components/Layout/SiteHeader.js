@@ -5,12 +5,17 @@ import Link from 'next/link';
 import { FaSearch, FaBars, FaTimes, FaWhatsapp, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
 import * as Icons from 'react-icons/fa6';
 import { categories } from '../../../data/categories';
+import { storeInfo } from '../../../data/stor info';
+import { getTelUrl, getWhatsAppUrl } from '../../utils/storeUtils';
 import styles from './SiteHeader.module.css';
 
 const SiteHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+
+  const mainPhone = storeInfo.callNumbers.numbers[0];
+  const waNumber = storeInfo.whatsapp.number;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,7 +43,7 @@ const SiteHeader = () => {
           </div>
           <div className={styles.brandText}>
             <h1 className={styles.shopName}>মা ফার্নিচার</h1>
-            <span className={styles.tagline}>সাতারপাড়া বাজার, দৌলতপুর</span>
+            <span className={styles.tagline}>{storeInfo.showroomAddress.address}</span>
           </div>
         </Link>
 
@@ -77,12 +82,12 @@ const SiteHeader = () => {
         <div className={styles.actions}>
           <button className={styles.iconBtn}><FaSearch /></button>
           <div className={styles.divider} />
-          <a href="tel:+8801729728818" className={styles.phoneLink}>
-            <FaPhoneAlt size={14} /> +8801729728818
+          <a href={getTelUrl(mainPhone)} className={styles.phoneLink}>
+            <FaPhoneAlt size={14} /> {mainPhone}
           </a>
           <div className={styles.divider} />
-          <a href="https://wa.me/8801979728818" target="_blank" rel="noopener noreferrer" className={styles.waBtn}>
-            <FaWhatsapp /> অর্ডার করুন
+          <a href={getWhatsAppUrl(waNumber)} target="_blank" rel="noopener noreferrer" className={styles.waBtn}>
+            <FaWhatsapp /> {storeInfo.whatsapp.label}
           </a>
           <button className={styles.hamburger} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -110,8 +115,8 @@ const SiteHeader = () => {
           <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>যোগাযোগ</Link>
         </nav>
         <div className={styles.mobileContact}>
-          <a href="tel:+8801729728818" className={styles.phoneLink}>+8801729728818</a>
-          <a href="https://wa.me/8801979728818" className={styles.waBtn}>WhatsApp এ মেসেজ দিন</a>
+          <a href={getTelUrl(mainPhone)} className={styles.phoneLink}>{mainPhone}</a>
+          <a href={getWhatsAppUrl(waNumber)} className={styles.waBtn}>{storeInfo.whatsapp.label} এ মেসেজ দিন</a>
         </div>
       </div>
     </header>

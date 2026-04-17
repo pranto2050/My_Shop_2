@@ -2,10 +2,14 @@
 
 import React from 'react';
 import ContactBlock from '../../components/Home/ContactBlock';
+import { storeInfo } from '../../../data/stor info';
+import { getWhatsAppUrl } from '../../utils/storeUtils';
 import styles from './page.module.css';
 import { FaMapMarkerAlt, FaPhoneAlt, FaWhatsapp, FaClock } from 'react-icons/fa';
 
 const ContactPage = () => {
+  const waNumber = storeInfo.whatsapp.number;
+
   return (
     <main className={styles.main}>
       <div className={styles.hero}>
@@ -22,29 +26,31 @@ const ContactPage = () => {
           <div className={styles.infoGrid}>
             <div className={styles.infoCard}>
               <div className={styles.iconBox}><FaMapMarkerAlt /></div>
-              <h3>শোরুমের ঠিকানা</h3>
-              <p>সাতারপাড়া বাজার, দৌলতপুর, কুষ্টিয়া</p>
+              <h3>{storeInfo.showroomAddress.label}</h3>
+              <p>{storeInfo.showroomAddress.address}</p>
             </div>
             
             <div className={styles.infoCard}>
               <div className={styles.iconBox}><FaPhoneAlt /></div>
-              <h3>সরাসরি কল করুন</h3>
-              <p>+৮৮০ ১৭২৯৭২৮৮১৮</p>
-              <p>+৮৮০ ১৯২৯৭২৮৮১৮</p>
+              <h3>{storeInfo.callNumbers.label}</h3>
+              {storeInfo.callNumbers.numbers.map((num, idx) => (
+                <p key={idx}>{num}</p>
+              ))}
             </div>
 
             <div className={styles.infoCard}>
               <div className={styles.iconBox}><FaWhatsapp /></div>
-              <h3>WhatsApp মেসেজ</h3>
-              <p>+৮৮০ ১৯২৯৭২৮৮১৮</p>
-              <a href="https://wa.me/8801929728818" target="_blank" rel="noopener noreferrer" className={styles.waLink}>সরাসরি মেসেজ দিন</a>
+              <h3>{storeInfo.whatsapp.label}</h3>
+              <p>{waNumber}</p>
+              <a href={getWhatsAppUrl(waNumber)} target="_blank" rel="noopener noreferrer" className={styles.waLink}>{storeInfo.directMessageLabel}</a>
             </div>
 
             <div className={styles.infoCard}>
               <div className={styles.iconBox}><FaClock /></div>
-              <h3>খোলা থাকার সময়</h3>
-              <p>প্রতিদিন: সকাল ৯:০০ - রাত ৯:০০</p>
-              <p>শুক্রবার: সকাল ১০:০০ - রাত ৯:০০</p>
+              <h3>{storeInfo.openingHours.label}</h3>
+              {storeInfo.openingHours.schedule.map((time, idx) => (
+                <p key={idx}>{time}</p>
+              ))}
             </div>
           </div>
         </div>
@@ -60,7 +66,7 @@ const ContactPage = () => {
               <FaMapMarkerAlt size={40} color="var(--walnut)" />
               <p>Google Maps এ আমাদের অবস্থান দেখতে শোরুমে আসুন</p>
               <a 
-                href="https://www.google.com/maps/search/?api=1&query=সাতারপাড়া+বাজার+দৌলতপুর+কুষ্টিয়া" 
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(storeInfo.showroomAddress.address)}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={styles.mapBtn}

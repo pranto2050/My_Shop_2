@@ -4,6 +4,8 @@ import React from 'react';
 import Image from 'next/image';
 import { FaWhatsapp, FaCopy, FaStar, FaArrowRight } from 'react-icons/fa';
 import { useToast } from '../Admin/context/ToastContext';
+import { storeInfo } from '../../../data/stor info';
+import { getWhatsAppUrl } from '../../utils/storeUtils';
 import styles from './ProductCard.module.css';
 
 const ProductCard = ({ product, variant = 'standard', onClick }) => {
@@ -18,7 +20,7 @@ const ProductCard = ({ product, variant = 'standard', onClick }) => {
   const handleWhatsApp = (e) => {
     e.stopPropagation();
     const message = `হ্যালো মা ফার্নিচার, আমি এই পণ্যটি সম্পর্কে জানতে চাই: ${product.name} (ID: ${product.id})`;
-    window.open(`https://wa.me/8801979728818?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(getWhatsAppUrl(storeInfo.whatsapp.number, message), '_blank');
   };
 
   if (variant === 'compact') {

@@ -1,9 +1,23 @@
 import React from 'react';
 import Link from 'next/link';
 import { FaFacebook, FaYoutube, FaWhatsapp, FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
+import { storeInfo } from '../../../data/stor info';
+import { getTelUrl, getWhatsAppUrl } from '../../utils/storeUtils';
 import styles from './SiteFooter.module.css';
 
 const SiteFooter = () => {
+  // Helper function to get numbers for links
+  const getCleanNumber = (num) => {
+    const bengaliDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    return num.split('').map(char => {
+      const index = bengaliDigits.indexOf(char);
+      return index !== -1 ? index : char;
+    }).join('').replace(/\s+/g, '');
+  };
+
+  const mainPhone = storeInfo.callNumbers.numbers[0];
+  const waNumber = storeInfo.whatsapp.number;
+
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
@@ -17,7 +31,7 @@ const SiteFooter = () => {
             <div className={styles.socialLinks}>
               <a href="#" className={styles.socialIcon}><FaFacebook /></a>
               <a href="#" className={styles.socialIcon}><FaYoutube /></a>
-              <a href="https://wa.me/8801979728818" className={styles.socialIcon}><FaWhatsapp /></a>
+              <a href={`https://wa.me/${getCleanNumber(waNumber).replace('+', '')}`} className={styles.socialIcon}><FaWhatsapp /></a>
             </div>
           </div>
 
@@ -51,15 +65,15 @@ const SiteFooter = () => {
             <ul className={styles.contactInfo}>
               <li>
                 <FaMapMarkerAlt className={styles.icon} />
-                <span>সাতারপাড়া বাজার, দৌলতপুর, কুষ্টিয়া</span>
+                <span>{storeInfo.showroomAddress.address}</span>
               </li>
               <li>
                 <FaPhoneAlt className={styles.icon} />
-                <span>+8801729728818</span>
+                <span>{mainPhone}</span>
               </li>
               <li>
                 <FaWhatsapp className={styles.icon} />
-                <span>+8801979728818</span>
+                <span>{waNumber}</span>
               </li>
               <li>
                 <FaEnvelope className={styles.icon} />

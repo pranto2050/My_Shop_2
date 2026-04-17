@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FaTimes, FaCopy, FaStar, FaWhatsapp, FaMinus, FaPlus, FaCheckCircle } from 'react-icons/fa';
 import { useToast } from '../Admin/context/ToastContext';
+import { storeInfo } from '../../../data/stor info';
+import { getWhatsAppUrl } from '../../utils/storeUtils';
 import styles from './ProductDrawer.module.css';
 
 const ProductDrawer = ({ product, onClose }) => {
@@ -48,7 +50,7 @@ ${product.name}
 ID: ${product.id}
 পরিমাণ: ${quantity} টি
 মূল্য: ${priceStr}`;
-    window.open(`https://wa.me/8801979728818?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(getWhatsAppUrl(storeInfo.whatsapp.number, message), '_blank');
   };
 
   const handleQuantityChange = (change) => {

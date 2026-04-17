@@ -1,11 +1,13 @@
 import React from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
+import { storeInfo } from '../../../data/stor info';
+import { getWhatsAppUrl } from '../../utils/storeUtils';
 import styles from './FloatingWA.module.css';
 
 const FloatingWA = () => {
   return (
     <a 
-      href="https://wa.me/8801979728818" 
+      href={getWhatsAppUrl(storeInfo.whatsapp.number)} 
       target="_blank" 
       rel="noopener noreferrer" 
       className={styles.waButton}

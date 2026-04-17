@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { FaWhatsapp, FaChair, FaTools, FaTruck, FaComments } from 'react-icons/fa';
+import { storeInfo } from '../../../data/stor info';
+import { getWhatsAppUrl } from '../../utils/storeUtils';
 import styles from './OrderSteps.module.css';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 
@@ -59,8 +61,8 @@ const OrderSteps = () => {
 
         <div className={styles.ctaBanner}>
           <div className={styles.ctaContent}>
-            <h3 className={styles.ctaText}>এখনই WhatsApp এ অর্ডার করুন — +8801979728818</h3>
-            <a href="https://wa.me/8801979728818" target="_blank" rel="noopener noreferrer" className={styles.waButton}>
+            <h3 className={styles.ctaText}>এখনই WhatsApp এ অর্ডার করুন — {storeInfo.whatsapp.number}</h3>
+            <a href={getWhatsAppUrl(storeInfo.whatsapp.number)} target="_blank" rel="noopener noreferrer" className={styles.waButton}>
               <FaWhatsapp className={styles.waIcon} />
               অর্ডার করুন
             </a>

@@ -13,6 +13,7 @@ import {
   FaWhatsapp
 } from 'react-icons/fa6'
 import { MdDashboard } from 'react-icons/md'
+import { storeInfo } from '../../../data/stor info'
 import styles from './Sidebar.module.css'
 
 export default function Sidebar() {
@@ -36,7 +37,7 @@ export default function Sidebar() {
         <div className={styles.avatar}>মা</div>
         <div className={styles.shopText}>
           <span className={styles.shopTitle}>মা ফার্নিচার</span>
-          <span className={styles.shopLocation}>সাতারপাড়া, দৌলতপুর</span>
+          <span className={styles.shopLocation}>{storeInfo.showroomAddress.address.split(',')[0] + ', ' + storeInfo.showroomAddress.address.split(',')[1]}</span>
           <div className={styles.onlineStatus}>
             <div className={styles.dot} />
             <span className={styles.statusText}>সক্রিয়</span>
@@ -77,11 +78,11 @@ export default function Sidebar() {
         <div className={styles.contactInfo}>
           <div className={styles.contactItem}>
             <FaPhone size={12} color="var(--honey)" />
-            <span>+8801729728818</span>
+            <span>{storeInfo.callNumbers.numbers[0]}</span>
           </div>
           <div className={styles.contactItem}>
             <FaWhatsapp size={12} color="var(--moss)" />
-            <span>+8801979728818</span>
+            <span>{storeInfo.whatsapp.number}</span>
           </div>
         </div>
         <div className={styles.version}>v1.0.0 | মা ফার্নিচার</div>
