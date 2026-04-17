@@ -97,7 +97,9 @@ export default function TopBar() {
     categories: 'ক্যাটাগরি ব্যবস্থাপনা',
     gallery: 'ফটো গ্যালারি',
     designs: 'ডিজাইন গ্যালারি',
-    export: 'ডেটা Export'
+    export: 'ডেটা Export',
+    profile: 'প্রোফাইল',
+    settings: 'সেটিংস'
   }
 
   const unreadCount = notifications.filter(n => n.unread).length
@@ -191,10 +193,22 @@ export default function TopBar() {
 
           {showProfile && (
             <div className={styles.profileDropdown}>
-              <button className={styles.profileItem}>
+              <button 
+                className={styles.profileItem}
+                onClick={() => {
+                  setPanel('profile')
+                  setShowProfile(false)
+                }}
+              >
                 <FaUser /> আমার প্রোফাইল
               </button>
-              <button className={styles.profileItem}>
+              <button 
+                className={styles.profileItem}
+                onClick={() => {
+                  setPanel('settings')
+                  setShowProfile(false)
+                }}
+              >
                 <FaGear /> সেটিংস
               </button>
               <button className={`${styles.profileItem} ${styles.logout}`} onClick={logout}>

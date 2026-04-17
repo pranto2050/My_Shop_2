@@ -9,6 +9,7 @@ import CategoriesPanel from '../CategoriesPanel'
 import PhotoGalleryPanel from '../PhotoGalleryPanel'
 import DesignGalleryPanel from '../DesignGalleryPanel'
 import ExportPanel from '../ExportPanel'
+import ProfileSettingsPanel from '../ProfileSettingsPanel'
 
 export default function DashboardPage() {
   const { activePanel } = useAdmin()
@@ -29,6 +30,9 @@ export default function DashboardPage() {
         return <DesignGalleryPanel />
       case 'export':
         return <ExportPanel />
+      case 'profile':
+      case 'settings':
+        return <ProfileSettingsPanel />
       default:
         return <DashboardPanel />
     }
