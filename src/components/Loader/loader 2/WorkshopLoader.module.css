@@ -1,0 +1,380 @@
+.loaderOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: var(--parchment);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.exiting {
+  animation: loaderExit 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes loaderExit {
+  0%   { opacity: 1; transform: scale(1); filter: blur(0); }
+  100% { opacity: 0; transform: scale(1.05); filter: blur(8px); visibility: hidden; }
+}
+
+.loaderContent {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 600px;
+  padding: 0 20px;
+}
+
+/* BRANDING */
+.branding {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.shopName {
+  font-family: var(--font-rozha);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  color: var(--walnut-deep);
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.brandSubtitle {
+  font-family: var(--font-noto);
+  font-size: 0.9rem;
+  color: var(--walnut-soft);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  opacity: 0.8;
+}
+
+/* WORKSHOP SCENE */
+.workshopScene {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  background: var(--parchment-2);
+  border-radius: 24px;
+  border: 1px solid rgba(124, 75, 42, 0.1);
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(91, 49, 24, 0.05);
+}
+
+.workshopFloor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: var(--linen);
+  background-image: 
+    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(91,49,24,0.06) 60px, rgba(91,49,24,0.06) 62px),
+    repeating-linear-gradient(180deg, transparent, transparent 18px, rgba(91,49,24,0.04) 18px, rgba(91,49,24,0.04) 20px);
+  border-top: 2px solid rgba(91, 49, 24, 0.08);
+}
+
+.workbench {
+  position: absolute;
+  bottom: 35%;
+  right: 15%;
+  width: 180px;
+  z-index: 2;
+}
+
+.workbenchTop {
+  height: 14px;
+  background: var(--walnut-deep);
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.workbenchLegs {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.workbenchLegs span {
+  width: 8px;
+  height: 45px;
+  background: var(--walnut);
+}
+
+/* WORKERS */
+.worker {
+  position: absolute;
+  bottom: 35%;
+  width: 50px;
+  height: 90px;
+  z-index: 5;
+}
+
+.workerCarrier {
+  left: -60px;
+  animation: workerWalk 6s linear infinite;
+}
+
+.workerBuilder {
+  right: 10%;
+  animation: workerWork 2s ease-in-out infinite;
+}
+
+.workerHead {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  background: #D4A876;
+  border-radius: 50%;
+}
+
+.hair {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  height: 12px;
+  background: #3B1F0C;
+  border-radius: 12px 12px 0 0;
+}
+
+.workerBody {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 32px;
+  background: var(--moss);
+  border-radius: 4px;
+}
+
+.apron {
+  position: absolute;
+  top: 4px;
+  left: 3px;
+  right: 3px;
+  bottom: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 2px;
+}
+
+.workerLegs {
+  position: absolute;
+  top: 56px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.legLeft, .legRight {
+  width: 7px;
+  height: 25px;
+  background: #2C3E50;
+  border-radius: 0 0 2px 2px;
+}
+
+.workerCarrier .legLeft { animation: legMove 0.8s infinite; }
+.workerCarrier .legRight { animation: legMove 0.8s infinite reverse; }
+
+@keyframes legMove {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-4px) rotate(15deg); }
+}
+
+@keyframes workerWalk {
+  0% { left: -60px; opacity: 0; }
+  10% { opacity: 1; }
+  40% { left: 35%; }
+  60% { left: 35%; }
+  90% { left: -60px; opacity: 1; }
+  100% { left: -60px; opacity: 0; }
+}
+
+@keyframes workerWork {
+  0%, 100% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+}
+
+.carriedLog {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 10px;
+  background: var(--honey);
+  border-radius: 2px;
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+}
+
+.workerCarrier .carriedLog {
+  animation: logDeliver 6s linear infinite;
+}
+
+@keyframes logDeliver {
+  0%, 40% { opacity: 1; }
+  41%, 100% { opacity: 0; }
+}
+
+/* FURNITURE BUILD */
+.furnitureBuild {
+  position: absolute;
+  bottom: 40%;
+  right: 18.5%;
+  width: 60px;
+  height: 60px;
+  z-index: 3;
+}
+
+.chairPart1, .chairPart2, .chairPart3, .chairPart4, .chairPart5 {
+  position: absolute;
+  background: var(--walnut);
+  border-radius: 2px;
+  opacity: 0;
+}
+
+.chairPart1 { width: 4px; height: 30px; bottom: 0; left: 10px; } /* Back leg */
+.chairPart2 { width: 4px; height: 20px; bottom: 0; right: 10px; } /* Front leg */
+.chairPart3 { width: 25px; height: 4px; bottom: 20px; left: 10px; } /* Seat */
+.chairPart4 { width: 4px; height: 30px; bottom: 0; left: 14px; } /* Back leg 2 */
+.chairPart5 { width: 25px; height: 4px; bottom: 35px; left: 10px; } /* Back rest */
+
+.stage0 .chairPart1, .stage0 .chairPart2, .stage0 .chairPart3, .stage0 .chairPart4, .stage0 .chairPart5 {
+  animation: none; opacity: 0;
+}
+
+.stage1 .chairPart1 { animation: partPop 0.4s forwards; }
+.stage1 .chairPart2 { animation: partPop 0.4s 0.2s forwards; }
+.stage1 .chairPart3 { animation: partPop 0.4s 0.4s forwards; }
+
+.stage2 .chairPart1, .stage2 .chairPart2, .stage2 .chairPart3 { opacity: 1; }
+.stage2 .chairPart4 { animation: partPop 0.4s forwards; }
+.stage2 .chairPart5 { animation: partPop 0.4s 0.2s forwards; }
+
+@keyframes partPop {
+  0% { transform: translateY(-20px) scale(0); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* EFFECTS */
+.workshopEffects {
+  position: absolute;
+  bottom: 40%;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  bottom: 0;
+  left: var(--left);
+  width: 3px;
+  height: 3px;
+  background: var(--honey-light);
+  border-radius: 50%;
+  opacity: 0;
+  animation: sparkFloat 1.2s ease-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes sparkFloat {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-40px) translateX(15px) rotate(360deg) scale(0); opacity: 0; }
+}
+
+/* LOADING INFO */
+.loadingInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.statusText {
+  font-family: var(--font-noto);
+  font-size: 1rem;
+  color: var(--walnut-deep);
+  font-weight: 500;
+  height: 1.5em;
+  text-align: center;
+}
+
+.progressContainer {
+  width: 100%;
+  max-width: 300px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background: var(--linen-dark);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--walnut), var(--honey), var(--walnut-soft));
+  background-size: 200% 100%;
+  border-radius: 10px;
+  animation: 
+    progressFill 4.2s ease-in-out infinite,
+    shimmer 2s linear infinite;
+}
+
+@keyframes progressFill {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* BACKGROUND */
+.bgGrain {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    repeating-linear-gradient(92deg, transparent 0, transparent 4px, 
+      rgba(124, 75, 42, 0.02) 4px, rgba(124, 75, 42, 0.02) 8px);
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 40%, rgba(91, 49, 24, 0.05) 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 480px) {
+  .workshopScene {
+    height: 220px;
+  }
+  .worker {
+    transform: scale(0.8);
+  }
+}
+
