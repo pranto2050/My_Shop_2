@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { FaArrowLeftLong } from 'react-icons/fa6';
@@ -18,7 +18,7 @@ const toNumberOrNull = (value) => {
   return Number.isFinite(parsed) ? parsed : null;
 };
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -108,5 +108,13 @@ export default function SearchPage() {
 
       {selectedProduct && <ProductDrawer product={selectedProduct} onClose={closeProductDrawer} />}
     </section>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>লোডিং...</div>}>
+      <SearchContent />
+    </Suspense>
   );
 }
