@@ -1,8 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useAdmin } from './context/AdminContext'
 import { FaBox, FaLayerGroup, FaPalette, FaCamera, FaPlus, FaImage, FaFileExport, FaPencil, FaTrash } from 'react-icons/fa6'
+import { 
+  PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid
+} from 'recharts'
 import StatCard from './StatCard'
 import ConfirmDialog from '../UI/ConfirmDialog'
 import styles from './DashboardPanel.module.css'
@@ -10,6 +14,30 @@ import styles from './DashboardPanel.module.css'
 export default function DashboardPanel() {
   const { products, categories, designs, gallery, setPanel, dispatch } = useAdmin()
   const [deleteId, setDeleteId] = useState(null)
+
+  // Prepare data for Pie Chart (Products per Category)
+  const categoryData = useMemo(() => {
+    const counts = {}
+    products.forEach(p => {
+      const cat = categories.find(c => c.id === p.category || c.name === p.category)
+      const name = cat ? cat.name : p.category
+      counts[name] = (counts[name] || 0) + 1
+    })
+    return Object.keys(counts).map(cat => ({
+      name: cat,
+      value: counts[cat]
+    }))
+  }, [products, categories])
+
+  // Prepare data for Bar Chart (Stock status or Price distribution)
+  const barData = useMemo(() => {
+    return categories.map(cat => ({
+      name: cat.name || cat,
+      count: products.filter(p => p.category === (cat.id || cat.name || cat)).length
+    }))
+  }, [products, categories])
+
+  const COLORS = ['#3B1F0C', '#D4882A', '#A0522D', '#6B8E23', '#8B4513', '#BC8F8F']
 
   const stats = [
     {
@@ -104,6 +132,69 @@ export default function DashboardPanel() {
         <button onClick={() => setPanel('export')} className={styles.actionBtn}>
           <FaFileExport /> Export
         </button>
+      </div>
+
+      <div className={styles.chartsGrid}>
+        <div className={styles.chartCard}>
+          <h3 className={styles.chartTitle}>ক্যাটাগরি ভিত্তিক পণ্য বিন্যাস</h3>
+          <div className={styles.chartWrapper}>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={categoryData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={100}
+                  paddingAngle={5}
+                  dataKey="value"
+                >
+                  {categoryData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        <div className={styles.chartCard}>
+          <h3 className={styles.chartTitle}>ক্যাটাগরি ভিত্তিক পণ্যের সংখ্যা</h3>
+          <div className={styles.chartWrapper}>
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={barData}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border)" />
+                <XAxis 
+                  dataKey="name" 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{fill: 'var(--bark-soft)', fontSize: 12}}
+                />
+                <YAxis 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{fill: 'var(--bark-soft)', fontSize: 12}}
+                />
+                <Tooltip 
+                  cursor={{fill: 'var(--bg-tint)', opacity: 0.1}}
+                  contentStyle={{
+                    borderRadius: '12px',
+                    border: '1px solid var(--border)',
+                    boxShadow: 'var(--shadow-sm)'
+                  }}
+                />
+                <Bar 
+                  dataKey="count" 
+                  fill="var(--honey)" 
+                  radius={[4, 4, 0, 0]} 
+                  barSize={30}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
       </div>
 
       <section className={styles.recentSection}>
