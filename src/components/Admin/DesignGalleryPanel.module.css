@@ -203,6 +203,14 @@ input:checked + .slider:before {
   position: relative;
   background: var(--parchment-2);
   border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--honey);
 }
 
 .imageBox {

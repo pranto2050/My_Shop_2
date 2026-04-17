@@ -21,7 +21,7 @@ export const designs = [
     id: 'DSG-003',
     name: 'মিনিমালিস্ট ডাইনিং আর্কিটেক্ট',
     category: 'dining',
-    image: 'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&q=80&w=800',
     description: 'ছোট পরিবারের জন্য আধুনিক ডাইনিং টেবিল ডিজাইন।',
     material: 'গামারি কাঠ',
     price: '৳২০,০০০ থেকে শুরু'

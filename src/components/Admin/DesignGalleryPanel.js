@@ -4,12 +4,14 @@ import { useState } from 'react'
 import { useAdmin } from './context/AdminContext'
 import { FaPlus, FaTrash, FaImage, FaChevronDown, FaChevronUp, FaStar } from 'react-icons/fa6'
 import ConfirmDialog from '../UI/ConfirmDialog'
+import DesignDetailsModal from './DesignDetailsModal'
 import styles from './DesignGalleryPanel.module.css'
 
 export default function DesignGalleryPanel() {
   const { designs, dispatch } = useAdmin()
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [deleteId, setDeleteId] = useState(null)
+  const [viewingDesign, setViewingDesign] = useState(null)
   const [formData, setFormData] = useState({
     name: '',
     image: '',
@@ -64,6 +66,11 @@ export default function DesignGalleryPanel() {
         onConfirm={confirmDelete}
         onCancel={() => setDeleteId(null)}
         message="আপনি কি নিশ্চিত যে আপনি এই ডিজাইনটি মুছে ফেলতে চান?"
+      />
+      <DesignDetailsModal 
+        design={viewingDesign}
+        onClose={() => setViewingDesign(null)}
+        onDelete={handleDelete}
       />
       <header className={styles.header}>
         <h1 className={styles.title}>ডিজাইন গ্যালারি</h1>
@@ -170,7 +177,11 @@ export default function DesignGalleryPanel() {
 
       <div className={styles.grid}>
         {designs.map(item => (
-          <div key={item.id} className={styles.card}>
+          <div 
+            key={item.id} 
+            className={styles.card}
+            onClick={() => setViewingDesign(item)}
+          >
             <div className={styles.imageBox}>
               <img src={item.image} alt={item.name} loading="lazy" />
               {item.popular && (
@@ -183,7 +194,10 @@ export default function DesignGalleryPanel() {
                 <h3 className={styles.cardTitle}>{item.name}</h3>
                 <span className={styles.cardCat}>{item.category} • {item.style}</span>
                 <button 
-                  onClick={() => handleDelete(item.id)} 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(item.id);
+                  }} 
                   className={styles.deleteBtn}
                 >
                   <FaTrash />

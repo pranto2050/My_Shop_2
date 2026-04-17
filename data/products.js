@@ -37,9 +37,9 @@ export const products = [
     rating: 4.9,
     reviews: 18,
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1616594197247-b6956623327d?auto=format&fit=crop&q=80&w=800',
     images: [
-      'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800',
+      'https://images.unsplash.com/photo-1616594197247-b6956623327d?auto=format&fit=crop&q=80&w=800',
       'https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800'
     ],
     description: 'একটি ভালো ঘুম আপনার দিনকে আনন্দময় করে তোলে। আমাদের এই আধুনিক ডিজাইনের বেডটি আপনার বেডরুমকে দিবে এক রাজকীয় লুক।',
@@ -63,9 +63,9 @@ export const products = [
     rating: 4.7,
     reviews: 32,
     inStock: true,
-    image: 'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800',
+    image: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&q=80&w=800',
     images: [
-      'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800'
+      'https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&q=80&w=800'
     ],
     description: 'পরিবারের সাথে সুন্দর মুহূর্তগুলো ভাগ করে নিতে বেছে নিন আমাদের এই চমৎকার ডাইনিং টেবিল সেটটি।',
     specs: {
@@ -127,9 +127,9 @@ export const products = [
   { id:'PRD-010', name:'অন্যান্য ফার্নিচার ১', category:'others', price:12000, oldPrice:15000, discount:'20%', rating:4.1, reviews:6, inStock:true, image:'https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&q=80&w=800'], description:'অন্যান্য আইটেম', specs:{'উপাদান':'মিক্স','ওয়ারেন্টি':'১ বছর'}, isBestseller:false, isNew:true },
     { id:'PRD-011', name:'রয়েল সোফা সেট ২', category:'sofa', price:55000, oldPrice:62000, discount:'11%', rating:4.9, reviews:45, inStock:true, image:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800'], description:'আরামদায়ক রয়েল সোফা', specs:{'উপাদান':'মেহগনি','ওয়ারেন্টি':'৫ বছর'}, isBestseller:true, isNew:false },
 
-  { id:'PRD-012', name:'কুইন সাইজ বেড ২', category:'bed', price:38000, oldPrice:42000, discount:'9%', rating:4.5, reviews:32, inStock:true, image:'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800'], description:'সুন্দর কুইন সাইজ বেড', specs:{'উপাদান':'সেগুন','ওয়ারেন্টি':'৮ বছর'}, isBestseller:false, isNew:true },
+  { id:'PRD-012', name:'কুইন সাইজ বেড ২', category:'bed', price:38000, oldPrice:42000, discount:'9%', rating:4.5, reviews:32, inStock:true, image:'https://images.unsplash.com/photo-1616594197247-b6956623327d?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1616594197247-b6956623327d?auto=format&fit=crop&q=80&w=800'], description:'সুন্দর কুইন সাইজ বেড', specs:{'উপাদান':'সেগুন','ওয়ারেন্টি':'৮ বছর'}, isBestseller:false, isNew:true },
 
-  { id:'PRD-013', name:'গ্লাস টপ ডাইনিং ২', category:'dining', price:32000, oldPrice:38000, discount:'15%', rating:4.7, reviews:18, inStock:true, image:'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800'], description:'৪ চেয়ার সহ সেট', specs:{'উপাদান':'মেটাল ও গ্লাস','ওয়ারেন্টি':'৩ বছর'}, isBestseller:true, isNew:false },
+  { id:'PRD-013', name:'গ্লাস টপ ডাইনিং ২', category:'dining', price:32000, oldPrice:38000, discount:'15%', rating:4.7, reviews:18, inStock:true, image:'https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&q=80&w=800'], description:'৪ চেয়ার সহ সেট', specs:{'উপাদান':'মেটাল ও গ্লাস','ওয়ারেন্টি':'৩ বছর'}, isBestseller:true, isNew:false },
 
   { id:'PRD-014', name:'৩ দরজার আলমারি ২', category:'almirah', price:25000, oldPrice:29000, discount:'13%', rating:4.6, reviews:14, inStock:true, image:'https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1595428774223-ef52624120d2?auto=format&fit=crop&q=80&w=800'], description:'বড় আলমারি', specs:{'উপাদান':'গামারি','ওয়ারেন্টি':'৪ বছর'}, isBestseller:false, isNew:false },
 
@@ -147,8 +147,8 @@ export const products = [
 
   { id:'PRD-021', name:'এল-শেপ সোফা ৩', category:'sofa', price:65000, oldPrice:75000, discount:'13%', rating:4.9, reviews:50, inStock:true, image:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=800'], description:'কোণার জন্য এল-শেপ', specs:{'উপাদান':'ফেব্রিক ও কাঠ','ওয়ারেন্টি':'৬ বছর'}, isBestseller:true, isNew:false },
 
-  { id:'PRD-022', name:'সিঙ্গেল বেড ৩', category:'bed', price:18000, oldPrice:21000, discount:'14%', rating:4.4, reviews:10, inStock:true, image:'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800'], description:'একজনের জন্য', specs:{'উপাদান':'মেহগনি','ওয়ারেন্টি':'৫ বছর'}, isBestseller:false, isNew:false },
+  { id:'PRD-022', name:'সিঙ্গেল বেড ৩', category:'bed', price:18000, oldPrice:21000, discount:'14%', rating:4.4, reviews:10, inStock:true, image:'https://images.unsplash.com/photo-1616594197247-b6956623327d?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1616594197247-b6956623327d?auto=format&fit=crop&q=80&w=800'], description:'একজনের জন্য', specs:{'উপাদান':'মেহগনি','ওয়ারেন্টি':'৫ বছর'}, isBestseller:false, isNew:false },
 
-  { id:'PRD-023', name:'৮ চেয়ার ডাইনিং ৩', category:'dining', price:45000, oldPrice:50000, discount:'10%', rating:4.8, reviews:21, inStock:true, image:'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800'], description:'৮ জনের জন্য ডাইনিং সেট', specs:{'উপাদান':'মেহগনি','ওয়ারেন্টি':'৫ বছর'}, isBestseller:false, isNew:false },
+  { id:'PRD-023', name:'৮ চেয়ার ডাইনিং ৩', category:'dining', price:45000, oldPrice:50000, discount:'10%', rating:4.8, reviews:21, inStock:true, image:'https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&q=80&w=800', images:['https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&q=80&w=800'], description:'৮ জনের জন্য ডাইনিং সেট', specs:{'উপাদান':'মেহগনি','ওয়ারেন্টি':'৫ বছর'}, isBestseller:false, isNew:false },
 
 ];

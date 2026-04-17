@@ -13,7 +13,7 @@ export const categories = [
     slug: 'bed',
     icon: 'FaBed',
     count: 8,
-    image: 'https://images.unsplash.com/photo-1505693419148-403bb0873861?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1616594197247-b6956623327d?auto=format&fit=crop&q=80&w=800'
   },
   {
     id: 'dining',
@@ -21,7 +21,7 @@ export const categories = [
     slug: 'dining-table',
     icon: 'FaUtensils',
     count: 15,
-    image: 'https://images.unsplash.com/photo-1617806118233-18e1db208fa0?auto=format&fit=crop&q=80&w=800'
+    image: 'https://images.unsplash.com/photo-1577140917170-285929fb55b7?auto=format&fit=crop&q=80&w=800'
   },
   {
     id: 'almirah',
