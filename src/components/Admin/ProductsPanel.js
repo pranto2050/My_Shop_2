@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useAdmin } from './context/AdminContext'
 import { FaPlus, FaMagnifyingGlass, FaFilter, FaPencil, FaTrash, FaChevronLeft, FaChevronRight } from 'react-icons/fa6'
 import ConfirmDialog from '../UI/ConfirmDialog'
+import ProductDetailsModal from './ProductDetailsModal'
 import styles from './ProductsPanel.module.css'
 
 export default function ProductsPanel() {
@@ -12,6 +13,7 @@ export default function ProductsPanel() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [filterStatus, setFilterStatus] = useState('all') // all, in-stock, out-of-stock, featured, top-selling
   const [deleteId, setDeleteId] = useState(null)
+  const [viewingProduct, setViewingProduct] = useState(null)
 
   // Filtering logic
   const filteredProducts = products.filter(product => {
@@ -71,6 +73,11 @@ export default function ProductsPanel() {
         onConfirm={confirmDelete}
         onCancel={() => setDeleteId(null)}
         message="আপনি কি নিশ্চিত যে আপনি এই পণ্যটি মুছে ফেলতে চান?"
+      />
+      <ProductDetailsModal 
+        product={viewingProduct}
+        onClose={() => setViewingProduct(null)}
+        onEdit={handleEdit}
       />
       <header className={styles.header}>
         <div className={styles.titleArea}>
@@ -144,7 +151,11 @@ export default function ProductsPanel() {
         </div>
         <div className={styles.rows}>
           {currentItems.map(product => (
-            <div key={product.id} className={styles.row}>
+            <div 
+              key={product.id} 
+              className={styles.row}
+              onClick={() => setViewingProduct(product)}
+            >
               <div className={styles.thumbCell}>
                 <img src={product.image} alt={product.name} className={styles.thumb} />
               </div>
@@ -158,7 +169,7 @@ export default function ProductsPanel() {
               <div className={styles.priceCell}>
                 ৳{product.price.toLocaleString('bn-BD')}
               </div>
-              <div className={styles.statusCell}>
+              <div className={styles.statusCell} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.toggles}>
                   <div className={styles.toggleGroup}>
                     <label className={styles.switch}>
@@ -184,7 +195,7 @@ export default function ProductsPanel() {
                   </div>
                 </div>
               </div>
-              <div className={styles.actionCell}>
+              <div className={styles.actionCell} onClick={(e) => e.stopPropagation()}>
                 <button onClick={() => handleEdit(product)} className={styles.editBtn}>
                   <FaPencil /> সম্পাদনা
                 </button>
