@@ -1,0 +1,155 @@
+.section {
+  padding: 120px 0 80px;
+  min-height: 100vh;
+  background: var(--parchment);
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.heading {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--walnut-deep);
+  margin-bottom: 16px;
+}
+
+.subtext {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 18px;
+  color: var(--bark-mid);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.filterBar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.filterBtn {
+  padding: 10px 24px;
+  border-radius: var(--radius-pill);
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 15px;
+  background: var(--linen);
+  color: var(--bark-mid);
+  transition: all 0.3s ease;
+  border: 1px solid var(--linen-dark);
+}
+
+.filterBtn:hover {
+  background: var(--parchment-3);
+  color: var(--walnut);
+}
+
+.filterBtnActive {
+  background: var(--walnut);
+  color: var(--parchment);
+  border-color: var(--walnut);
+}
+
+.masonry {
+  column-count: 3;
+  column-gap: 24px;
+}
+
+.masonryItem {
+  break-inside: avoid;
+  margin-bottom: 24px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
+  background: var(--linen);
+}
+
+.masonryItem:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.masonryItem:hover .image {
+  transform: scale(1.08);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(59, 31, 12, 0.9) 0%, rgba(59, 31, 12, 0) 70%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 30px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.masonryItem:hover .overlay {
+  opacity: 1;
+}
+
+.categoryTag {
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--honey-light);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.caption {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  color: var(--parchment);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+  .masonry {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .masonry {
+    column-count: 1;
+  }
+  .section {
+    padding-top: 100px;
+  }
+  .filterBar {
+    gap: 8px;
+  }
+  .filterBtn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,76 @@
+.main {
+  padding-top: 80px;
+  background: var(--parchment);
+}
+
+.hero {
+  padding: 80px 0 40px;
+  background: var(--parchment-2);
+  text-align: center;
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+.heading {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--walnut-deep);
+  margin-bottom: 16px;
+}
+
+.subtext {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 18px;
+  color: var(--bark-mid);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.faqSection {
+  padding: 100px 0;
+  background: var(--parchment);
+}
+
+.faqHeading {
+  font-family: 'Rozha One', serif;
+  font-size: 32px;
+  color: var(--walnut-deep);
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.faqGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 40px;
+}
+
+.faqItem h3 {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 20px;
+  color: var(--walnut);
+  margin-bottom: 12px;
+  border-left: 4px solid var(--honey);
+  padding-left: 15px;
+}
+
+.faqItem p {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 15px;
+  color: var(--bark-mid);
+  line-height: 1.8;
+  padding-left: 19px;
+}
+
+@media (max-width: 768px) {
+  .faqGrid {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    padding-top: 60px;
+  }
+}

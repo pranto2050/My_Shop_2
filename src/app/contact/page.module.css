@@ -1,0 +1,145 @@
+.main {
+  padding-top: 80px;
+  background: var(--parchment);
+}
+
+.hero {
+  padding: 80px 0 60px;
+  background: var(--parchment-2);
+  text-align: center;
+}
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+.heading {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--walnut-deep);
+  margin-bottom: 16px;
+}
+
+.subtext {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 18px;
+  color: var(--bark-mid);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.infoSection {
+  padding: 80px 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.infoCard {
+  background: var(--parchment);
+  padding: 40px 30px;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  border: 1px solid var(--linen-dark);
+  transition: all 0.3s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--honey-light);
+}
+
+.iconBox {
+  width: 60px;
+  height: 60px;
+  background: var(--parchment-2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 24px;
+  color: var(--walnut);
+  border: 1px solid var(--linen-dark);
+}
+
+.infoCard h3 {
+  font-family: 'Rozha One', serif;
+  font-size: 20px;
+  color: var(--walnut-deep);
+  margin-bottom: 16px;
+}
+
+.infoCard p {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-size: 15px;
+  color: var(--bark-mid);
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+
+.waLink {
+  display: inline-block;
+  margin-top: 12px;
+  color: var(--whatsapp);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
+.mapSection {
+  padding: 0 0 100px;
+}
+
+.mapWrapper {
+  width: 100%;
+  height: 400px;
+  background: var(--parchment-2);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--linen-dark);
+  overflow: hidden;
+}
+
+.mapPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background-image: radial-gradient(var(--linen-dark) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.mapPlaceholder p {
+  font-family: 'Noto Sans Bengali', sans-serif;
+  color: var(--bark-mid);
+}
+
+.mapBtn {
+  padding: 12px 24px;
+  background: var(--walnut);
+  color: var(--parchment);
+  border-radius: var(--radius-pill);
+  font-family: 'Noto Sans Bengali', sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.mapBtn:hover {
+  background: var(--walnut-deep);
+  transform: scale(1.05);
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 60px;
+  }
+}
