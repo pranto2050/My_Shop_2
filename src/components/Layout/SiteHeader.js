@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FaSearch, FaBars, FaTimes, FaWhatsapp, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
 import * as Icons from 'react-icons/fa6';
 import { categories } from '../../../data/categories';
@@ -10,12 +11,31 @@ import { getTelUrl, getWhatsAppUrl } from '../../utils/storeUtils';
 import styles from './SiteHeader.module.css';
 
 const SiteHeader = () => {
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef(null);
 
   const mainPhone = storeInfo.callNumbers.numbers[0];
   const waNumber = storeInfo.whatsapp.number;
+
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+      setIsSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +44,18 @@ const SiteHeader = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const CategoryIcon = ({ iconName, ...props }) => {
     const IconComponent = Icons[iconName] || Icons.FaQuestion;
@@ -80,7 +112,13 @@ const SiteHeader = () => {
 
         {/* ZONE RIGHT — Actions */}
         <div className={styles.actions}>
-          <button className={styles.iconBtn}><FaSearch /></button>
+          <button 
+            className={`${styles.iconBtn} ${isSearchOpen ? styles.searchActive : ''}`} 
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            aria-label="Search"
+          >
+            {isSearchOpen ? <FaTimes /> : <FaSearch />}
+          </button>
           <div className={styles.divider} />
           <a href={getTelUrl(mainPhone)} className={styles.phoneLink}>
             <FaPhoneAlt size={14} /> {mainPhone}
@@ -92,6 +130,25 @@ const SiteHeader = () => {
           <button className={styles.hamburger} onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
+        </div>
+      </div>
+
+      {/* SEARCH OVERLAY */}
+      <div className={`${styles.searchOverlay} ${isSearchOpen ? styles.searchOverlayOpen : ''}`}>
+        <div className={styles.searchContainer}>
+          <form onSubmit={handleSearch} className={styles.searchForm}>
+            <FaSearch className={styles.searchIcon} />
+            <input 
+              ref={searchInputRef}
+              type="text" 
+              placeholder="পণ্য বা আইডি দিয়ে সার্চ করুন..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={styles.searchInput}
+            />
+            <button type="submit" className={styles.searchSubmitBtn}>খুঁজুন</button>
+          </form>
+          <p className={styles.searchHint}>উদাহরণ: "খাট", "MF-101", "সোফা"</p>
         </div>
       </div>
 
