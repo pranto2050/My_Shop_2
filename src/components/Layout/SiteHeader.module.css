@@ -30,23 +30,36 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.logoMark {
+  flex-shrink: 0;
 }
 
 .brandText {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .shopName {
   font-family: var(--font-rozha);
   font-size: 24px;
   color: var(--walnut-deep);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tagline {
   font-family: var(--font-noto);
   font-size: 10px;
   color: var(--bark-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ZONE CENTER — Navigation (desktop) */
@@ -334,6 +347,22 @@
   .hamburger { display: flex; }
   .phoneLink, .waBtn, .divider { display: none; }
   .actions { gap: 12px; }
+  .shopName { font-size: 20px; }
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .shopName { font-size: 18px; }
+  .logoMark svg { width: 32px; height: 26px; }
+  .brand { gap: 8px; }
+}
+
+@media (max-width: 480px) {
+  .tagline { display: none; }
+  .shopName { font-size: 17px; }
+  .actions { gap: 8px; }
+  .iconBtn { font-size: 18px; }
+  .hamburger { width: 36px; height: 36px; font-size: 22px; }
 }
 
 /* MOBILE MENU */

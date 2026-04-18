@@ -31,6 +31,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 }
 
 .shopName {
@@ -38,16 +39,19 @@
   font-size: 14px;
   color: var(--walnut);
   letter-spacing: 0.1em;
+  white-space: nowrap;
 }
 
 .separator {
   color: var(--honey);
+  flex-shrink: 0;
 }
 
 .adminText {
   font-family: var(--font-noto);
   font-size: 14px;
   color: var(--walnut-mid);
+  white-space: nowrap;
 }
 
 .currentPanel {
@@ -55,6 +59,9 @@
   font-size: 14px;
   font-weight: bold;
   color: var(--walnut-deep);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .centerZone {
@@ -380,5 +387,39 @@
   }
   .centerZone {
     display: none;
+  }
+  .topBar {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .shopName, .adminText, .separator:nth-of-type(1), .separator:nth-of-type(2) {
+    display: none;
+  }
+  .currentPanel {
+    font-size: 16px;
+  }
+  .rightZone {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .adminName {
+    display: none;
+  }
+  .profilePill {
+    padding: 4px;
+  }
+  .searchWrapperActive {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    max-width: none;
+    z-index: 10;
+  }
+  .searchWrapperActive .searchInput {
+    width: 100%;
   }
 }

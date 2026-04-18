@@ -249,6 +249,12 @@
   }
 }
 
+@media (max-width: 992px) {
+  .chartsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .tableHeader {
     display: none;
@@ -267,6 +273,10 @@
   .actions {
     justify-content: flex-end;
   }
+
+  .title {
+    font-size: 24px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -281,5 +291,19 @@
   .actionBtn {
     width: 100%;
     justify-content: center;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
   }
 }
